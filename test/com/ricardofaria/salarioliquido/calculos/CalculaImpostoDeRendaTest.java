@@ -12,126 +12,126 @@ public class CalculaImpostoDeRendaTest {
 	
 	@Test
 	public void testSalarioMinimo() {
-		Float resultadoEsperado = 0.0f;
-		Float resultado = calcular(VALOR_SALARIO_MINIMO, 0);
-		assertEquals(resultadoEsperado, resultado);
+		float resultadoEsperado = 0.0f;
+		float resultado = calcular(VALOR_SALARIO_MINIMO, 0);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testSalarioMinimoComDependentes() {
-		Float resultadoEsperado = 0.0f;
-		Float resultado = calcular(VALOR_SALARIO_MINIMO, 2);
-		assertEquals(resultadoEsperado, resultado);
+		float resultadoEsperado = 0.0f;
+		float resultado = calcular(VALOR_SALARIO_MINIMO, 2);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioSegundaFaixa() {
-		Float salario = 2250.0f;
-		Float resultadoEsperado = 28.630005f;
+		float salario = 2250.0f;
+		float resultadoEsperado = 28.63f;
 		int quantidadeDependentes = 0;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioSegundaFaixaComDependentes() {
-		Float salario = 2300.0f;
-		Float resultadoEsperado = 18.294998f;
+		float salario = 2300.0f;
+		float resultadoEsperado = 18.29f;
 		int quantidadeDependentes = 1;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioTerceiraFaixa() {
-		Float salario = 3200.0f;
-		Float resultadoEsperado = 129.89001f;
+		float salario = 3200.0f;
+		float resultadoEsperado = 129.89f;
 		int quantidadeDependentes = 0;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioTerceiraFaixaComDependentes() {
-		Float salario = 3200.0f;
-		Float resultadoEsperado = 101.72f;
+		float salario = 3200.0f;
+		float resultadoEsperado = 101.72f;
 		int quantidadeDependentes = 1;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioTerceiraFaixaCom2Dependentes() {
-		Float salario = 3200.0f;
-		Float resultadoEsperado = 73.54999f;
+		float salario = 3200.0f;
+		float resultadoEsperado = 73.54f;
 		int quantidadeDependentes = 2;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioQuartaFaixa() {
-		Float salario = 4500.0f;
-		Float resultadoEsperado = 382.40002f;
+		float salario = 4500.0f;
+		float resultadoEsperado = 382.40f;
 		int quantidadeDependentes = 0;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioQuartaFaixaComDependente() {
-		Float salario = 4500.0f;
-		Float resultadoEsperado = 340.14508f;
+		float salario = 4500.0f;
+		float resultadoEsperado = 340.14f;
 		int quantidadeDependentes = 1;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioQuartaFaixaCom2Dependentes() {
-		Float salario = 4500.0f;
-		Float resultadoEsperado = 297.89f;
+		float salario = 4500.0f;
+		float resultadoEsperado = 297.89f;
 		int quantidadeDependentes = 2;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioFaixaMaxima() {
-		Float salario = 10000.0f;
-		Float resultadoEsperado = 1886.6699f;
+		float salario = 10000.0f;
+		float resultadoEsperado = 1886.66f;
 		int quantidadeDependentes = 0;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioFaixaMaximaComDependente() {
-		Float salario = 10000.0f;
-		Float resultadoEsperado = 1835.0249f;
+		float salario = 10000.0f;
+		float resultadoEsperado = 1835.02f;
 		int quantidadeDependentes = 1;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 	@Test
 	public void testCalcularSalarioFaixaMaximaCom10Dependentes() {
-		Float salario = 10000.0f;
-		Float resultadoEsperado = 1370.22f;
+		float salario = 10000.0f;
+		float resultadoEsperado = 1370.22f;
 		int quantidadeDependentes = 10;
 		
-		Float resultado = calcular(salario, quantidadeDependentes);
-		assertEquals(resultadoEsperado, resultado);
+		float resultado = calcular(salario, quantidadeDependentes);
+		assertEquals(resultadoEsperado, resultado, 0.01);
 	}
 	
 

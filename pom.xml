@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.ricardofaria</groupId>
-  <artifactId>descontostrabalhistas</artifactId>
+  <artifactId>calculostrabalhistas</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Descontos Trabalhistas</name>
-  <description>Api que efetua os cálculos de descontos trabalhistas existentes nas folhas de pagamento.</description>
+  <name>Cálculos Trabalhistas</name>
+  <description>Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários.</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

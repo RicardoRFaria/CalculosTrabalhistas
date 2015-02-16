@@ -1,7 +1,11 @@
 package com.ricardofaria.salarioliquido.util;
 
 /**
- * Created by Ricardo on 14/12/2014.
+ * 
+ * Classe com métodos auxiliares para os cálculos
+ * 
+ * @author Ricardo Faria
+ *
  */
 public class ReduzSalarioPorData {
 

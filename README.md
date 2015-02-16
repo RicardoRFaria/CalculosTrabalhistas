@@ -1,2 +1,5 @@
-# DescontosTrabalhistas
-Api que calcula os principais descontos em folha dos trabalhadores brasileiros.
+# Cálculos Trabalhistas
+Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários
+
+Atualmente implementados:
+- Cálculo de salário líquido

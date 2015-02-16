@@ -1,9 +1,12 @@
 package com.ricardofaria.salarioliquido.calculos;
 
 /**
- * Classe responsável por efetuar os cálculos de INSS do funcionário
+ * Classe responsável por efetuar os cálculos de INSS do funcionário </br>
+ * Referência para os dados @see <a href=
+ * "http://www.tabelainss2015.com/nova-tabela-inss-2015-atualizada.html" >Faixas
+ * de desconto INSS - Tabela 2015</a>
  * 
- * @author Ricardo
+ * @author Ricardo Faria
  *
  */
 public class CalculaINSS {
@@ -12,13 +15,13 @@ public class CalculaINSS {
 	public static final double VALOR_LIMITE_FAIXA2 = 2331.88;
 	public static final double VALOR_LIMITE_FAIXA3 = 4663.75;
 
-	public static float calcular(Float salario) {
-		if (salario <= VALOR_LIMITE_FAIXA1) {
-			return (float) (salario * 0.08);
-		} else if (salario <= VALOR_LIMITE_FAIXA2) {
-			return (float) (salario * 0.09);
-		} else if (salario <= VALOR_LIMITE_FAIXA3) {
-			return (float) (salario * 0.11);
+	public static float calcular(Float salarioBruto) {
+		if (salarioBruto <= VALOR_LIMITE_FAIXA1) {
+			return (float) (salarioBruto * 0.08);
+		} else if (salarioBruto <= VALOR_LIMITE_FAIXA2) {
+			return (float) (salarioBruto * 0.09);
+		} else if (salarioBruto <= VALOR_LIMITE_FAIXA3) {
+			return (float) (salarioBruto * 0.11);
 		} else {
 			return 513.0125f;
 		}
