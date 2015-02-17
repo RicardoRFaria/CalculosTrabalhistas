@@ -35,53 +35,87 @@ public class Calcular {
 	public Salario calcularSalario(float salarioBruto) {
 		return calcularSalario(salarioBruto, 0);
 	}
-	
-	public Ferias calcularFerias(float salarioBruto, int numeroDependentes, TIPO_FERIAS tipo) {
-		Ferias feriasObject = new Ferias();
-		float salarioBrutoOriginal = salarioBruto;
-		BigDecimal salarioBrutoObj = new BigDecimal(Float.toString(salarioBruto));
 
-		if (tipo == TIPO_FERIAS.DIAS_20) {
-			salarioBrutoObj = salarioBrutoObj.divide(new BigDecimal(30), 2, RoundingMode.HALF_EVEN);
-			salarioBrutoObj = salarioBrutoObj.multiply(new BigDecimal(20));
-		}
-		BigDecimal ferias = new BigDecimal(salarioBrutoObj.toString()).multiply(new BigDecimal(0.333333));
+	public Ferias calcularFerias(float salarioBruto, int numeroDependentes,
+			TIPO_FERIAS tipo) {
+		Ferias feriasObject = new Ferias();
+		BigDecimal salarioBrutoObj = new BigDecimal(
+				Float.toString(salarioBruto));
+
+		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, tipo);
+
+		BigDecimal ferias = new BigDecimal(salarioBrutoObj.toString())
+				.multiply(new BigDecimal(0.333333));
 		feriasObject.setValorFerias(ferias.floatValue());
 
-		Float salarioCalculo = ferias.floatValue() + salarioBrutoObj.floatValue();
+		Float salarioCalculo = ferias.floatValue()
+				+ salarioBrutoObj.floatValue();
 
 		float descontoInss = CalculaINSS.calcular(salarioCalculo);
 		float salarioDescontado = salarioCalculo - descontoInss;
-		float descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, numeroDependentes);
+		float descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(
+				salarioDescontado, numeroDependentes);
 		salarioDescontado -= descontoImpostoDeRenda;
 
-
 		if (tipo == TIPO_FERIAS.DIAS_20) {
-			Double abonoPecuniario = Double.valueOf(salarioBrutoOriginal / 30) * 10;
-			abonoPecuniario *= 1.333;
-			feriasObject.setAbonoPecuniario(abonoPecuniario.floatValue());
-
-			salarioDescontado += abonoPecuniario;
+			salarioDescontado += calcularAbonoPecuniario(salarioBruto);
 		}
+
 		feriasObject.setFeriasLiquidas(salarioDescontado);
 		feriasObject.setDescontoInss(descontoInss);
 		feriasObject.setDescontoIrpf(descontoImpostoDeRenda);
 
 		return feriasObject;
 	}
-	
-	public Ferias calcularFerias(float salarioBruto, int numeroDependentes) {
-		return calcularFerias(salarioBruto, numeroDependentes, TIPO_FERIAS.COMPLETA);
+
+	/**
+	 * Modifica o salário bruto informado com base na modalidade de férias do
+	 * funcionário
+	 * 
+	 * @param salarioBruto
+	 *            definido para o funcionário
+	 * @param tipo
+	 *            de férias a ser aplicado
+	 * @return
+	 */
+	public BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto,
+			TIPO_FERIAS tipo) {
+		if (tipo == TIPO_FERIAS.DIAS_20) {
+			salarioBruto = salarioBruto.divide(new BigDecimal(30), 2,
+					RoundingMode.HALF_EVEN);
+			salarioBruto = salarioBruto.multiply(new BigDecimal(20));
+		}
+
+		return salarioBruto;
 	}
-	
+
+	/**
+	 * Efetua o cálculo do abono pecuniário em relação ao salário do funcionário
+	 * (Abono pecuniário só existe na modalidade de Férias 20 dias)
+	 * 
+	 * @param salarioBruto
+	 * @return
+	 */
+	public double calcularAbonoPecuniario(float salarioBruto) {
+		Double abonoPecuniario = Double.valueOf(salarioBruto / 30) * 10;
+		abonoPecuniario *= 1.333;
+
+		return abonoPecuniario;
+	}
+
+	public Ferias calcularFerias(float salarioBruto, int numeroDependentes) {
+		return calcularFerias(salarioBruto, numeroDependentes,
+				TIPO_FERIAS.COMPLETA);
+	}
+
 	public Ferias calcularFerias(float salarioBruto) {
 		return calcularFerias(salarioBruto, 0);
-		
+
 	}
-	
+
 	public Ferias calcularFerias(float salarioBruto, TIPO_FERIAS tipo) {
 		return calcularFerias(salarioBruto, 0, tipo);
-		
+
 	}
 
 }
