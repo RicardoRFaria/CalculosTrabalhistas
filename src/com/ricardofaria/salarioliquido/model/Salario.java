@@ -1,43 +1,15 @@
 package com.ricardofaria.salarioliquido.model;
 
-public class Salario {
+public class Salario extends Remuneracao {
 
-	private float salarioBruto;
 	private float salarioLiquido;
-	private float descontoInss;
-	private float descontoIrpf;
 
 	public Salario() {
 		super();
 	}
 
 	public Salario(float salarioBruto) {
-		super();
-		this.salarioBruto = salarioBruto;
-	}
-
-	public float getSalarioBruto() {
-		return salarioBruto;
-	}
-
-	public void setSalarioBruto(float salarioBruto) {
-		this.salarioBruto = salarioBruto;
-	}
-
-	public float getDescontoInss() {
-		return descontoInss;
-	}
-
-	public void setDescontoInss(float descontoInss) {
-		this.descontoInss = descontoInss;
-	}
-
-	public float getDescontoIrpf() {
-		return descontoIrpf;
-	}
-
-	public void setDescontoIrpf(float descontoIrpf) {
-		this.descontoIrpf = descontoIrpf;
+		super(salarioBruto);
 	}
 
 	public float getSalarioLiquido() {

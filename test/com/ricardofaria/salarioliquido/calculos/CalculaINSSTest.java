@@ -53,7 +53,7 @@ public class CalculaINSSTest {
 	@Test
 	public void testDescontoInssSalarioInicioFaixaTres() {
 		float salarioBruto = 2331.89f;
-		float resultadoEsperado = 256.50f;
+		float resultadoEsperado = 256.51f;
 		
 		float resultado = calcular(salarioBruto);
 		

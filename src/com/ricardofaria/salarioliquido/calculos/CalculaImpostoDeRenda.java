@@ -1,5 +1,8 @@
 package com.ricardofaria.salarioliquido.calculos;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Classe responsável por efetuar os cálculos de imposto de renda do funcionário
  * </br> Referência para os dados @see <a href=
@@ -34,33 +37,38 @@ class CalculaImpostoDeRenda {
 	 * @return valor a ser pago em IRPF
 	 */
 	public static float calcular(Float baseCalculo, int qtdDependentes) {
-		float valorDesconto = 0f;
-		float valorImposto = 0f;
-		float valorPorDependentes = VALOR_POR_DEPENDENTE * qtdDependentes;
+		return calcular(new BigDecimal(baseCalculo.toString()), qtdDependentes).floatValue();
+	}
+	
+	public static BigDecimal calcular(BigDecimal baseCalculo, int qtdDependentes) {
+		BigDecimal valorDesconto;
+		BigDecimal valorImposto;
+		BigDecimal valorPorDependentes = new BigDecimal(VALOR_POR_DEPENDENTE * qtdDependentes);
 
-		baseCalculo -= valorPorDependentes;
+		baseCalculo = baseCalculo.subtract(valorPorDependentes);
 
-		if (baseCalculo <= VALOR_LIMITE_FAIXA1) {
-			return 0f;
-		} else if (baseCalculo <= VALOR_LIMITE_FAIXA2) {
-			valorDesconto = VALOR_DEDUCAO_FAIXA2;
-			valorImposto = (float) (baseCalculo * 0.075);
-		} else if (baseCalculo <= VALOR_LIMITE_FAIXA3) {
-			valorDesconto = VALOR_DEDUCAO_FAIXA3;
-			valorImposto = (float) (baseCalculo * 0.15);
-		} else if (baseCalculo <= VALOR_LIMITE_FAIXA4) {
-			valorDesconto = VALOR_DEDUCAO_FAIXA4;
-			valorImposto = (float) (baseCalculo * 0.225);
+		if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA1) {
+			return BigDecimal.ZERO;
+		} else if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA2) {
+			valorDesconto = new BigDecimal(VALOR_DEDUCAO_FAIXA2);
+			valorImposto = new BigDecimal(baseCalculo.multiply(new BigDecimal("0.075")).toString());
+		} else if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA3) {
+			valorDesconto = new BigDecimal(VALOR_DEDUCAO_FAIXA3);
+			valorImposto = new BigDecimal(baseCalculo.multiply(new BigDecimal("0.15")).toString());
+		} else if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA4) {
+			valorDesconto = new BigDecimal(VALOR_DEDUCAO_FAIXA4);
+			valorImposto = new BigDecimal(baseCalculo.multiply(new BigDecimal("0.225")).toString());
 		} else {
-			valorDesconto = VALOR_DEDUCAO_MAXIMO;
-			valorImposto = (float) (baseCalculo * 0.275);
+			valorDesconto = new BigDecimal(VALOR_DEDUCAO_MAXIMO);
+			valorImposto = new BigDecimal(baseCalculo.multiply(new BigDecimal("0.275")).toString());
 		}
-		valorImposto -= valorDesconto;
-		if (valorImposto < 0) {
-			valorImposto = 0;
+		valorImposto = valorImposto.subtract(valorDesconto);
+		if (valorImposto.floatValue() < 0) {
+			return BigDecimal.ZERO;
 		}
 
-		return valorImposto;
+		return valorImposto.setScale(2, RoundingMode.HALF_EVEN);
+		
 	}
 
 }

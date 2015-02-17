@@ -67,7 +67,7 @@ public class CalculaImpostoDeRendaTest {
 	@Test
 	public void testCalcularSalarioTerceiraFaixaCom2Dependentes() {
 		float salario = 3200.0f;
-		float resultadoEsperado = 73.54f;
+		float resultadoEsperado = 73.55f;
 		int quantidadeDependentes = 2;
 		
 		float resultado = calcular(salario, quantidadeDependentes);
@@ -107,7 +107,7 @@ public class CalculaImpostoDeRendaTest {
 	@Test
 	public void testCalcularSalarioFaixaMaxima() {
 		float salario = 10000.0f;
-		float resultadoEsperado = 1886.66f;
+		float resultadoEsperado = 1886.67f;
 		int quantidadeDependentes = 0;
 		
 		float resultado = calcular(salario, quantidadeDependentes);
