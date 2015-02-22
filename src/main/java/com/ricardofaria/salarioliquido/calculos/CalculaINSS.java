@@ -1,7 +1,8 @@
 package com.ricardofaria.salarioliquido.calculos;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+
+import com.ricardofaria.salarioliquido.util.PrecisionUtil;
 
 /**
  * Classe responsável por efetuar os cálculos de INSS do funcionário </br>
@@ -26,17 +27,15 @@ public class CalculaINSS {
 	public static BigDecimal calcular(BigDecimal salarioBruto) {
 		BigDecimal retorno;
 		if (salarioBruto.floatValue() <= VALOR_LIMITE_FAIXA1) {
-			retorno = new BigDecimal(salarioBruto.toString())
-					.multiply(new BigDecimal("0.08"));
+			retorno = salarioBruto.multiply(new BigDecimal("0.08"));
 		} else if (salarioBruto.floatValue() <= VALOR_LIMITE_FAIXA2) {
-			retorno = new BigDecimal(salarioBruto.toString())
-					.multiply(new BigDecimal("0.09"));
+			retorno = salarioBruto.multiply(new BigDecimal("0.09"));
 		} else if (salarioBruto.floatValue() <= VALOR_LIMITE_FAIXA3) {
-			retorno = new BigDecimal(salarioBruto.toString())
-					.multiply(new BigDecimal("0.11"));
+			retorno = salarioBruto.multiply(new BigDecimal("0.11"));
 		} else {
 			retorno = new BigDecimal("513.01");
 		}
-		return retorno.setScale(2, RoundingMode.HALF_EVEN);
+		PrecisionUtil.changeToMonetaryBidecimal(retorno);
+		return retorno;
 	}
 }

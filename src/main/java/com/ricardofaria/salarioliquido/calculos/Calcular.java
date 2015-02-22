@@ -7,6 +7,8 @@ import com.ricardofaria.salarioliquido.model.Ferias;
 import com.ricardofaria.salarioliquido.model.Salario;
 import com.ricardofaria.salarioliquido.model.Ferias.TIPO_FERIAS;
 
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
+
 /**
  * 
  * Classe responsável por chamar os cálculos menores em sua ordem correta e
@@ -39,31 +41,30 @@ public class Calcular {
 	public Ferias calcularFerias(float salarioBruto, int numeroDependentes,
 			TIPO_FERIAS tipo) {
 		Ferias feriasObject = new Ferias();
-		BigDecimal salarioBrutoObj = new BigDecimal(
-				Float.toString(salarioBruto));
+		BigDecimal salarioBrutoObj = createMonetaryBigDecimal(salarioBruto);
 
 		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, tipo);
 
-		BigDecimal ferias = new BigDecimal(salarioBrutoObj.toString())
-				.multiply(new BigDecimal(0.333333));
+		BigDecimal ferias = salarioBrutoObj.multiply(new BigDecimal("0.333333"));
 		feriasObject.setValorFerias(ferias.floatValue());
 
-		Float salarioCalculo = ferias.floatValue()
-				+ salarioBrutoObj.floatValue();
+		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
 
-		float descontoInss = CalculaINSS.calcular(salarioCalculo);
-		float salarioDescontado = salarioCalculo - descontoInss;
-		float descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(
+		BigDecimal descontoInss = CalculaINSS.calcular(salarioCalculo);
+		BigDecimal salarioDescontado = salarioCalculo.subtract(descontoInss);
+		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(
 				salarioDescontado, numeroDependentes);
-		salarioDescontado -= descontoImpostoDeRenda;
+		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
 
 		if (tipo == TIPO_FERIAS.DIAS_20) {
-			salarioDescontado += calcularAbonoPecuniario(salarioBruto);
+			BigDecimal abonoPecuniario = calcularAbonoPecuniario(salarioBruto);
+			feriasObject.setAbonoPecuniario(abonoPecuniario.floatValue());
+			salarioDescontado = salarioDescontado.add(abonoPecuniario);
 		}
 
-		feriasObject.setFeriasLiquidas(salarioDescontado);
-		feriasObject.setDescontoInss(descontoInss);
-		feriasObject.setDescontoIrpf(descontoImpostoDeRenda);
+		feriasObject.setFeriasLiquidas(salarioDescontado.floatValue());
+		feriasObject.setDescontoInss(descontoInss.floatValue());
+		feriasObject.setDescontoIrpf(descontoImpostoDeRenda.floatValue());
 
 		return feriasObject;
 	}
@@ -81,9 +82,12 @@ public class Calcular {
 	public BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto,
 			TIPO_FERIAS tipo) {
 		if (tipo == TIPO_FERIAS.DIAS_20) {
-			salarioBruto = salarioBruto.divide(new BigDecimal(30), 2,
+			// Aqui o máximo de casas
+			salarioBruto = salarioBruto.divide(createMonetaryBigDecimal("30"), 10,
 					RoundingMode.HALF_EVEN);
-			salarioBruto = salarioBruto.multiply(new BigDecimal(20));
+			salarioBruto = salarioBruto.multiply(createMonetaryBigDecimal("20"));
+			// Aqui reduzimos para dinheiro
+			return changeToMonetaryBidecimal(salarioBruto);
 		}
 
 		return salarioBruto;
@@ -93,14 +97,20 @@ public class Calcular {
 	 * Efetua o cálculo do abono pecuniário em relação ao salário do funcionário
 	 * (Abono pecuniário só existe na modalidade de Férias 20 dias)
 	 * 
-	 * @param salarioBruto
+	 * @param salarioBrutoOriginal
+	 *            o mesmo inserido no início do cálculo para o funcionário
 	 * @return
 	 */
-	public double calcularAbonoPecuniario(float salarioBruto) {
-		Double abonoPecuniario = Double.valueOf(salarioBruto / 30) * 10;
-		abonoPecuniario *= 1.333;
-
-		return abonoPecuniario;
+	public BigDecimal calcularAbonoPecuniario(float salarioBrutoOriginal) {
+		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
+		// Aqui o máximo de casas
+		BigDecimal umDia = salarioBruto.divide(createMonetaryBigDecimal("30"), 10,
+				RoundingMode.HALF_EVEN);
+		BigDecimal dezDias = umDia.multiply(createMonetaryBigDecimal("10"));
+		BigDecimal abonoPecuniario = dezDias.multiply(new BigDecimal("1.333333"));
+		
+		// Aqui reduzimos para dinheiro
+		return changeToMonetaryBidecimal(abonoPecuniario);
 	}
 
 	public Ferias calcularFerias(float salarioBruto, int numeroDependentes) {

@@ -247,10 +247,10 @@ public class CalcularTest {
 		Ferias ferias = calcular.calcularFerias(salarioBruto, TIPO_FERIAS.DIAS_20);
 		
 		
-		assertEquals(175.13, ferias.getValorFerias(), 0.01);
+		assertEquals(175.11, ferias.getValorFerias(), 0.01);
 		assertEquals(56.04, ferias.getDescontoInss(), 0.01);
 		assertEquals(0.0, ferias.getDescontoIrpf(), 0.01);
-		assertEquals(350.13, ferias.getAbonoPecuniario(), 0.01);
+		assertEquals(350.23, ferias.getAbonoPecuniario(), 0.01);
 		assertEquals(994.63, ferias.getFeriasLiquidas(), 0.01);
 	}
 	
@@ -263,22 +263,21 @@ public class CalcularTest {
 		assertEquals(333.33, ferias.getValorFerias(), 0.01);
 		assertEquals(106.67, ferias.getDescontoInss(), 0.01);
 		assertEquals(0.0, ferias.getDescontoIrpf(), 0.01);
-		assertEquals(666.50, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(1893.16, ferias.getFeriasLiquidas(), 0.01);
+		assertEquals(666.66, ferias.getAbonoPecuniario(), 0.01);
+		assertEquals(1893.33, ferias.getFeriasLiquidas(), 0.01);
 	}
 	
 	@Test
 	public void testCalcular20DiasDeFerias2000() {
 		float salarioBruto = 2000.00f;
-		int dependentes = 0;
 		
-		Ferias ferias = calcular.calcularFerias(salarioBruto, dependentes);
+		Ferias ferias = calcular.calcularFerias(salarioBruto, TIPO_FERIAS.DIAS_20);
 		
-		assertEquals(666.67, ferias.getValorFerias(), 0.01);
-		assertEquals(293.33, ferias.getDescontoInss(), 0.01);
-		assertEquals(37.88, ferias.getDescontoIrpf(), 0.01);
-		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(2335.45, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(444.44, ferias.getValorFerias(), 0.01);
+		assertEquals(160.00, ferias.getDescontoInss(), 0.01);
+		assertEquals(0.00, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(888.89, ferias.getAbonoPecuniario(), 0.01);
+		assertEquals(2506.67, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
