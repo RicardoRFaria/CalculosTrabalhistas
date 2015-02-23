@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ricardofaria.salarioliquido.model.DecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.Ferias;
 import com.ricardofaria.salarioliquido.model.Ferias.TIPO_FERIAS;
 import com.ricardofaria.salarioliquido.model.Salario;
@@ -351,6 +352,122 @@ public class CalcularTest {
 		assertEquals(259.90, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(2222.22, ferias.getAbonoPecuniario(), 0.01);
 		assertEquals(5917.87, ferias.getFeriasLiquidas(), 0.01);	
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalarioMinimo() {
+		float salarioBruto = VALOR_SALARIO_MINIMO;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, 0); 
+		
+		assertEquals(63.04f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(0.0f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(394.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(330.96, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario1500() {
+		float salarioBruto = 1500.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(135.00f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(0.0f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(750.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(615.00, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario2000() {
+		float salarioBruto = 2000.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(180.00f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(0.0f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(1000.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(820.00, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario2500() {
+		float salarioBruto = 2500.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(275.00f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(26.76f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(1250.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(948.24, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario3000() {
+		float salarioBruto = 3000.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(330.00f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(60.13f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(1500.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(1109.87, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario3500() {
+		float salarioBruto = 3500.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(385.00f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(117.14f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(1750.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(1247.86, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario4000() {
+		float salarioBruto = 4000.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(440.00f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(183.89f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(2000.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(1376.11, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario4500() {
+		float salarioBruto = 4500.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(495.00f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(271.03f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(2250.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(1483.97, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularDecimoTerceiroCompletoSalario5000() {
+		float salarioBruto = 5000.00f;
+		int quantidadeDependentes = 0;
+		
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
+		
+		assertEquals(513.01f, decimoTerceiro.getDescontoInss(), 0.01);
+		assertEquals(379.47f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(2500.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
+		assertEquals(1607.52, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}
 	
 

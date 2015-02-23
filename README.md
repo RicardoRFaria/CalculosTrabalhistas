@@ -3,4 +3,5 @@ Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários (
 
 Atualmente implementados:
 - Cálculo de salário líquido
-- Cálculo de férias
+- Cálculo de férias (Completa e parcial de 20 dias)
+- Cálculo de 13º (Completo e parcial por data de início)

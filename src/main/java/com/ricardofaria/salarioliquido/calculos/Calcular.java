@@ -3,9 +3,12 @@ package com.ricardofaria.salarioliquido.calculos;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.ricardofaria.salarioliquido.model.DecimoTerceiro;
+import com.ricardofaria.salarioliquido.model.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
 import com.ricardofaria.salarioliquido.model.Ferias;
 import com.ricardofaria.salarioliquido.model.Salario;
 import com.ricardofaria.salarioliquido.model.Ferias.TIPO_FERIAS;
+import com.ricardofaria.salarioliquido.util.ReduzSalarioPorData;
 
 import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
 
@@ -45,7 +48,8 @@ public class Calcular {
 
 		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, tipo);
 
-		BigDecimal ferias = salarioBrutoObj.multiply(new BigDecimal("0.333333"));
+		BigDecimal ferias = salarioBrutoObj
+				.multiply(new BigDecimal("0.333333"));
 		feriasObject.setValorFerias(ferias.floatValue());
 
 		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
@@ -83,9 +87,10 @@ public class Calcular {
 			TIPO_FERIAS tipo) {
 		if (tipo == TIPO_FERIAS.DIAS_20) {
 			// Aqui o máximo de casas
-			salarioBruto = salarioBruto.divide(createMonetaryBigDecimal("30"), 10,
-					RoundingMode.HALF_EVEN);
-			salarioBruto = salarioBruto.multiply(createMonetaryBigDecimal("20"));
+			salarioBruto = salarioBruto.divide(createMonetaryBigDecimal("30"),
+					10, RoundingMode.HALF_EVEN);
+			salarioBruto = salarioBruto
+					.multiply(createMonetaryBigDecimal("20"));
 			// Aqui reduzimos para dinheiro
 			return changeToMonetaryBidecimal(salarioBruto);
 		}
@@ -104,11 +109,12 @@ public class Calcular {
 	public BigDecimal calcularAbonoPecuniario(float salarioBrutoOriginal) {
 		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
 		// Aqui o máximo de casas
-		BigDecimal umDia = salarioBruto.divide(createMonetaryBigDecimal("30"), 10,
-				RoundingMode.HALF_EVEN);
+		BigDecimal umDia = salarioBruto.divide(createMonetaryBigDecimal("30"),
+				10, RoundingMode.HALF_EVEN);
 		BigDecimal dezDias = umDia.multiply(createMonetaryBigDecimal("10"));
-		BigDecimal abonoPecuniario = dezDias.multiply(new BigDecimal("1.333333"));
-		
+		BigDecimal abonoPecuniario = dezDias
+				.multiply(new BigDecimal("1.333333"));
+
 		// Aqui reduzimos para dinheiro
 		return changeToMonetaryBidecimal(abonoPecuniario);
 	}
@@ -126,6 +132,71 @@ public class Calcular {
 	public Ferias calcularFerias(float salarioBruto, TIPO_FERIAS tipo) {
 		return calcularFerias(salarioBruto, 0, tipo);
 
+	}
+
+	/**
+	 * Efetua o cálculo de décimo terceiro completo do funcionário (Situação
+	 * normal, o funcionário iníciou o trabalho antes do ano começar)
+	 * 
+	 * @param salarioBruto
+	 * @param numeroDependentes
+	 * @return
+	 */
+	public DecimoTerceiro calcularDecimoTerceiro(BigDecimal salarioBruto,
+			int numeroDependentes) {
+		BigDecimal descontoInss = CalculaINSS.calcular(salarioBruto);
+		BigDecimal salarioDescontado = salarioBruto.subtract(descontoInss);
+		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(
+				salarioDescontado, numeroDependentes);
+		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
+
+		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(
+				salarioBruto.floatValue());
+		decimoTerceiro.setDescontoInss(descontoInss.floatValue());
+		decimoTerceiro.setDescontoIrpf(descontoImpostoDeRenda.floatValue());
+		decimoTerceiro.setSalarioParcelaUm(salarioBruto.divide(
+				new BigDecimal("2")).floatValue());
+
+		BigDecimal parcelaDois = salarioBruto.divide(new BigDecimal("2"))
+				.subtract(descontoInss).subtract(descontoImpostoDeRenda);
+		decimoTerceiro.setSalarioParcelaDois(parcelaDois.floatValue());
+
+		decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.COMPLETO);
+
+		return decimoTerceiro;
+	}
+
+	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal,
+			int numeroDependentes) {
+		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
+		return calcularDecimoTerceiro(salarioBruto, numeroDependentes);
+	}
+
+	/**
+	 * Efetua o cálculo parcial de décimo terceiro do funcionário. (Utilizado
+	 * nos casos onde o funcionário começou a trabalhar após o início do ano)
+	 * 
+	 * @param salarioBrutoOriginal
+	 * @param numeroDependentes
+	 * @param diaDeInicioFuncionar
+	 * @param mesDeInicioFuncionario
+	 * @return
+	 */
+	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal,
+			int numeroDependentes, int diaDeInicioFuncionar,
+			int mesDeInicioFuncionario) {
+		float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(
+				salarioBrutoOriginal, diaDeInicioFuncionar,
+				mesDeInicioFuncionario);
+
+		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoReduzido);
+
+		DecimoTerceiro decimoTerceiro = calcularDecimoTerceiro(salarioBruto,
+				numeroDependentes);
+		decimoTerceiro.setSalarioBruto(salarioBrutoOriginal);
+		decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);
+
+		return decimoTerceiro;
 	}
 
 }
