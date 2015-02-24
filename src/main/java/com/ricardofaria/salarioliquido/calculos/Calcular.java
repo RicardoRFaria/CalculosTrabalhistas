@@ -154,12 +154,8 @@ public class Calcular {
 				salarioBruto.floatValue());
 		decimoTerceiro.setDescontoInss(descontoInss.floatValue());
 		decimoTerceiro.setDescontoIrpf(descontoImpostoDeRenda.floatValue());
-		decimoTerceiro.setSalarioParcelaUm(salarioBruto.divide(
-				new BigDecimal("2")).floatValue());
-
-		BigDecimal parcelaDois = salarioBruto.divide(new BigDecimal("2"))
-				.subtract(descontoInss).subtract(descontoImpostoDeRenda);
-		decimoTerceiro.setSalarioParcelaDois(parcelaDois.floatValue());
+		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioBruto));
+		decimoTerceiro.setSalarioParcelaDois(CalculaDecimoTerceiro.calcularParcelaDois(salarioBruto, descontoInss, descontoImpostoDeRenda));
 
 		decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.COMPLETO);
 
