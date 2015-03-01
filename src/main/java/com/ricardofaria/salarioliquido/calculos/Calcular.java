@@ -87,9 +87,9 @@ public class Calcular {
 			TIPO_FERIAS tipo) {
 		if (tipo == TIPO_FERIAS.DIAS_20) {
 			// Aqui o máximo de casas
-			salarioBruto = salarioBruto.divide(createMonetaryBigDecimal("30"),
+			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"),
 					10, RoundingMode.HALF_EVEN);
-			salarioBruto = salarioBruto
+			feriasParcial = feriasParcial
 					.multiply(createMonetaryBigDecimal("20"));
 			// Aqui reduzimos para dinheiro
 			return changeToMonetaryBidecimal(salarioBruto);

@@ -8,6 +8,10 @@ package com.ricardofaria.salarioliquido.util;
  *
  */
 public class ReduzSalarioPorData {
+	
+	private ReduzSalarioPorData() {
+		super();
+	}
 
 	/**
 	 * Reduz o salário do funcionário com base na data de entrada, útil para
@@ -23,11 +27,11 @@ public class ReduzSalarioPorData {
 	 */
 	public static float reduzirDecimoTerceiro(float salarioBruto,
 			int diaDeInicio, int mesDeInicio) {
-		mesDeInicio = 12 - mesDeInicio;
+		int quantidadeMeses = 12 - mesDeInicio;
 		if (diaDeInicio <= 15) {
-			mesDeInicio++;
+			quantidadeMeses++;
 		}
-		salarioBruto = (salarioBruto / 12) * mesDeInicio;
-		return salarioBruto;
+		float salarioParaCalculo = (salarioBruto / 12) * quantidadeMeses;
+		return salarioParaCalculo;
 	}
 }

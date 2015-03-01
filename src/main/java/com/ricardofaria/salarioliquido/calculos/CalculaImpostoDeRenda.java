@@ -14,6 +14,10 @@ import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
  *
  */
 class CalculaImpostoDeRenda {
+	
+	private CalculaImpostoDeRenda() {
+		super();
+	}
 
 	public static final float VALOR_POR_DEPENDENTE = 187.80F;
 
@@ -45,25 +49,29 @@ class CalculaImpostoDeRenda {
 	public static BigDecimal calcular(BigDecimal baseCalculo, int qtdDependentes) {
 		BigDecimal valorDesconto;
 		BigDecimal valorImposto;
-		BigDecimal valorPorDependentes = new BigDecimal(VALOR_POR_DEPENDENTE
-				* qtdDependentes);
+		BigDecimal valorPorDependentes = BigDecimal
+				.valueOf(VALOR_POR_DEPENDENTE * qtdDependentes);
 
-		baseCalculo = baseCalculo.subtract(valorPorDependentes);
+		BigDecimal baseCalculoReduzida = baseCalculo.subtract(valorPorDependentes);
 
-		if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA1) {
+		if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA1) {
 			return BigDecimal.ZERO;
-		} else if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA2) {
+		} else if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA2) {
 			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_FAIXA2);
-			valorImposto = baseCalculo.multiply(createMonetaryBigDecimal("0.075"));
-		} else if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA3) {
+			valorImposto = baseCalculoReduzida
+					.multiply(createMonetaryBigDecimal("0.075"));
+		} else if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA3) {
 			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_FAIXA3);
-			valorImposto = baseCalculo.multiply(createMonetaryBigDecimal("0.15"));
-		} else if (baseCalculo.floatValue() <= VALOR_LIMITE_FAIXA4) {
+			valorImposto = baseCalculoReduzida
+					.multiply(createMonetaryBigDecimal("0.15"));
+		} else if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA4) {
 			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_FAIXA4);
-			valorImposto = baseCalculo.multiply(createMonetaryBigDecimal("0.225"));
+			valorImposto = baseCalculoReduzida
+					.multiply(createMonetaryBigDecimal("0.225"));
 		} else {
 			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_MAXIMO);
-			valorImposto = baseCalculo.multiply(createMonetaryBigDecimal("0.275"));
+			valorImposto = baseCalculoReduzida
+					.multiply(createMonetaryBigDecimal("0.275"));
 		}
 		valorImposto = valorImposto.subtract(valorDesconto);
 		if (valorImposto.floatValue() < 0) {

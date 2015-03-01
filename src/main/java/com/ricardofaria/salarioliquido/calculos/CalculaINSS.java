@@ -14,6 +14,10 @@ import com.ricardofaria.salarioliquido.util.PrecisionUtil;
  *
  */
 public class CalculaINSS {
+	
+	private CalculaINSS() {
+		super();
+	}
 
 	public static final double VALOR_LIMITE_FAIXA1 = 1399.12;
 	public static final double VALOR_LIMITE_FAIXA2 = 2331.88;
