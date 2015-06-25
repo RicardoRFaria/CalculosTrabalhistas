@@ -92,7 +92,7 @@ public class Calcular {
 			feriasParcial = feriasParcial
 					.multiply(createMonetaryBigDecimal("20"));
 			// Aqui reduzimos para dinheiro
-			return changeToMonetaryBidecimal(salarioBruto);
+			return changeToMonetaryBidecimal(feriasParcial);
 		}
 
 		return salarioBruto;

@@ -19,17 +19,17 @@ class CalculaImpostoDeRenda {
 		super();
 	}
 
-	public static final float VALOR_POR_DEPENDENTE = 187.80F;
+	public static final float VALOR_POR_DEPENDENTE = 189.59F;
+	
+	public static final double VALOR_LIMITE_FAIXA1 = 1903.98;
+	public static final double VALOR_LIMITE_FAIXA2 = 2826.65;
+	public static final double VALOR_LIMITE_FAIXA3 = 3751.05;
+	public static final double VALOR_LIMITE_FAIXA4 = 4664.68;
 
-	public static final float VALOR_LIMITE_FAIXA1 = 1868.22f;
-	public static final float VALOR_LIMITE_FAIXA2 = 2799.86f;
-	public static final float VALOR_LIMITE_FAIXA3 = 3733.19f;
-	public static final float VALOR_LIMITE_FAIXA4 = 4664.68f;
-
-	public static final float VALOR_DEDUCAO_FAIXA2 = 140.12f;
-	public static final float VALOR_DEDUCAO_FAIXA3 = 350.11f;
-	public static final float VALOR_DEDUCAO_FAIXA4 = 630.10f;
-	public static final float VALOR_DEDUCAO_MAXIMO = 863.33f;
+	public static final float VALOR_DEDUCAO_FAIXA2 = 142.80f;
+	public static final float VALOR_DEDUCAO_FAIXA3 = 354.80f;
+	public static final float VALOR_DEDUCAO_FAIXA4 = 636.13f;
+	public static final float VALOR_DEDUCAO_MAXIMO = 869.36f;
 
 	/**
 	 * Calcula o IRPF com base na base de cálculo informada e quantidade
@@ -49,10 +49,10 @@ class CalculaImpostoDeRenda {
 	public static BigDecimal calcular(BigDecimal baseCalculo, int qtdDependentes) {
 		BigDecimal valorDesconto;
 		BigDecimal valorImposto;
-		BigDecimal valorPorDependentes = BigDecimal
+		BigDecimal valorDependentes = BigDecimal
 				.valueOf(VALOR_POR_DEPENDENTE * qtdDependentes);
 
-		BigDecimal baseCalculoReduzida = baseCalculo.subtract(valorPorDependentes);
+		BigDecimal baseCalculoReduzida = baseCalculo.subtract(valorDependentes);
 
 		if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA1) {
 			return BigDecimal.ZERO;

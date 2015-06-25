@@ -64,8 +64,8 @@ public class CalcularTest {
 		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(275.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(26.76f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2198.24f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(24.08f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(2200.92f, salario.getSalarioLiquido(), 0.01);
 	}
 	
 	@Test
@@ -76,8 +76,8 @@ public class CalcularTest {
 		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(330.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(60.13f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2609.87f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(57.45f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(2612.55f, salario.getSalarioLiquido(), 0.01);
 	}
 	
 	@Test
@@ -88,8 +88,8 @@ public class CalcularTest {
 		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(385.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(117.14f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2997.86f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(112.45f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(3002.55f, salario.getSalarioLiquido(), 0.01);
 	}
 	
 	@Test
@@ -100,8 +100,8 @@ public class CalcularTest {
 		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(440.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(183.89f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3376.11f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(179.20f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(3380.80f, salario.getSalarioLiquido(), 0.01);
 	}
 	
 	@Test
@@ -112,8 +112,8 @@ public class CalcularTest {
 		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(495.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(271.03f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3733.97f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(265.00f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(3740.00f, salario.getSalarioLiquido(), 0.01);
 	}
 	
 	@Test
@@ -124,8 +124,8 @@ public class CalcularTest {
 		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(513.01f, salario.getDescontoInss(), 0.01);
-		assertEquals(379.47f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(4107.52f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(373.44f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(4113.55f, salario.getSalarioLiquido(), 0.01);
 	}
 	
 	@Test
@@ -164,9 +164,9 @@ public class CalcularTest {
 		
 		assertEquals(666.67, ferias.getValorFerias(), 0.01);
 		assertEquals(293.33, ferias.getDescontoInss(), 0.01);
-		assertEquals(37.88, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(35.20, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(2335.45, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(2338.14, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -177,9 +177,9 @@ public class CalcularTest {
 		
 		assertEquals(833.33, ferias.getValorFerias(), 0.01);
 		assertEquals(366.67, ferias.getDescontoInss(), 0.01);
-		assertEquals(94.88, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(90.20, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(2871.77, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(2876.46, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -189,9 +189,9 @@ public class CalcularTest {
 		
 		assertEquals(1000.00, ferias.getValorFerias(), 0.01);
 		assertEquals(440.00, ferias.getDescontoInss(), 0.01);
-		assertEquals(183.88, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(179.20, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(3376.10, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(3380.80, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -201,9 +201,9 @@ public class CalcularTest {
 		
 		assertEquals(1166.67, ferias.getValorFerias(), 0.01);
 		assertEquals(513.01, ferias.getDescontoInss(), 0.01);
-		assertEquals(304.47, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(298.44, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(3849.18, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(3855.22, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -213,9 +213,9 @@ public class CalcularTest {
 		
 		assertEquals(1333.33, ferias.getValorFerias(), 0.01);
 		assertEquals(513.01, ferias.getDescontoInss(), 0.01);
-		assertEquals(462.26, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(456.23, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(4358.06, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(4364.09, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -225,9 +225,9 @@ public class CalcularTest {
 		
 		assertEquals(1500.00, ferias.getValorFerias(), 0.01);
 		assertEquals(513.01, ferias.getDescontoInss(), 0.01);
-		assertEquals(645.59, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(639.56, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(4841.39, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(4847.43, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -237,9 +237,9 @@ public class CalcularTest {
 		
 		assertEquals(1666.67, ferias.getValorFerias(), 0.01);
 		assertEquals(513.01, ferias.getDescontoInss(), 0.01);
-		assertEquals(828.92, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(822.90, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(0.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(5324.72, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(5330.76, ferias.getFeriasLiquidas(), 0.01);	
 	}
 
 	@Test
@@ -249,7 +249,7 @@ public class CalcularTest {
 		
 		
 		assertEquals(175.11, ferias.getValorFerias(), 0.01);
-		assertEquals(56.04, ferias.getDescontoInss(), 0.01);
+		assertEquals(56.03, ferias.getDescontoInss(), 0.01);
 		assertEquals(0.0, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(350.23, ferias.getAbonoPecuniario(), 0.01);
 		assertEquals(994.63, ferias.getFeriasLiquidas(), 0.01);
@@ -289,9 +289,9 @@ public class CalcularTest {
 		
 		assertEquals(555.56, ferias.getValorFerias(), 0.01);
 		assertEquals(200.00, ferias.getDescontoInss(), 0.01);
-		assertEquals(11.55, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(8.87, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(1111.11, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(3121.78, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(3124.46, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -301,9 +301,9 @@ public class CalcularTest {
 		
 		assertEquals(666.67, ferias.getValorFerias(), 0.01);
 		assertEquals(293.33, ferias.getDescontoInss(), 0.01);
-		assertEquals(37.88, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(35.20, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(1333.33, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(3668.78, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(3671.47, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -313,9 +313,9 @@ public class CalcularTest {
 		
 		assertEquals(777.78, ferias.getValorFerias(), 0.01);
 		assertEquals(342.22, ferias.getDescontoInss(), 0.01);
-		assertEquals(67.54, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(64.87, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(1555.56, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(4256.89, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(4259.58, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -325,9 +325,9 @@ public class CalcularTest {
 		
 		assertEquals(888.89, ferias.getValorFerias(), 0.01);
 		assertEquals(391.11, ferias.getDescontoInss(), 0.01);
-		assertEquals(124.56, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(119.87, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(1777.78, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(4817.67, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(4822.36, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -337,9 +337,9 @@ public class CalcularTest {
 		
 		assertEquals(1000.00, ferias.getValorFerias(), 0.01);
 		assertEquals(440.00, ferias.getDescontoInss(), 0.01);
-		assertEquals(183.89, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(179.20, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(2000.0, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(5376.10, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(5380.80, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -349,9 +349,9 @@ public class CalcularTest {
 		
 		assertEquals(1111.11, ferias.getValorFerias(), 0.01);
 		assertEquals(488.89, ferias.getDescontoInss(), 0.01);
-		assertEquals(259.90, ferias.getDescontoIrpf(), 0.01);
+		assertEquals(253.87, ferias.getDescontoIrpf(), 0.01);
 		assertEquals(2222.22, ferias.getAbonoPecuniario(), 0.01);
-		assertEquals(5917.87, ferias.getFeriasLiquidas(), 0.01);	
+		assertEquals(5923.91, ferias.getFeriasLiquidas(), 0.01);	
 	}
 	
 	@Test
@@ -400,9 +400,9 @@ public class CalcularTest {
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(275.00f, decimoTerceiro.getDescontoInss(), 0.01);
-		assertEquals(26.76f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(24.08f, decimoTerceiro.getDescontoIrpf(), 0.01);
 		assertEquals(1250.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(948.24, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(950.92, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}
 	
 	@Test
@@ -413,9 +413,9 @@ public class CalcularTest {
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(330.00f, decimoTerceiro.getDescontoInss(), 0.01);
-		assertEquals(60.13f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(57.45f, decimoTerceiro.getDescontoIrpf(), 0.01);
 		assertEquals(1500.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1109.87, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(1112.55, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}
 	
 	@Test
@@ -426,9 +426,9 @@ public class CalcularTest {
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(385.00f, decimoTerceiro.getDescontoInss(), 0.01);
-		assertEquals(117.14f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(112.44f, decimoTerceiro.getDescontoIrpf(), 0.01);
 		assertEquals(1750.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1247.86, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(1252.55, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}
 	
 	@Test
@@ -439,9 +439,9 @@ public class CalcularTest {
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(440.00f, decimoTerceiro.getDescontoInss(), 0.01);
-		assertEquals(183.89f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(179.20f, decimoTerceiro.getDescontoIrpf(), 0.01);
 		assertEquals(2000.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1376.11, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(1380.80, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}
 	
 	@Test
@@ -452,9 +452,9 @@ public class CalcularTest {
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(495.00f, decimoTerceiro.getDescontoInss(), 0.01);
-		assertEquals(271.03f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(265.00f, decimoTerceiro.getDescontoIrpf(), 0.01);
 		assertEquals(2250.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1483.97, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(1490.00, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}
 	
 	@Test
@@ -465,9 +465,9 @@ public class CalcularTest {
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(513.01f, decimoTerceiro.getDescontoInss(), 0.01);
-		assertEquals(379.47f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(373.44f, decimoTerceiro.getDescontoIrpf(), 0.01);
 		assertEquals(2500.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1607.52, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(1613.55, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}
 	
 
