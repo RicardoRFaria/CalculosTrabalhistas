@@ -15,9 +15,14 @@ import com.ricardofaria.salarioliquido.util.PrecisionUtil;
  */
 public class CalculaINSS {
 
-	public static final double VALOR_LIMITE_FAIXA1 = 1399.12;
-    public static final double VALOR_LIMITE_FAIXA2 = 2331.88;
-    public static final double VALOR_LIMITE_FAIXA3 = 4663.75;
+	public static final float VALOR_LIMITE_FAIXA1 = 1399.12f;
+    public static final float VALOR_LIMITE_FAIXA2 = 2331.88f;
+    public static final float VALOR_LIMITE_FAIXA3 = 4663.75f;
+    
+    public static final BigDecimal MULTIPLICADOR_FAIXA1 = new BigDecimal("0.08");
+    public static final BigDecimal MULTIPLICADOR_FAIXA2 = new BigDecimal("0.09");
+    public static final BigDecimal MULTIPLICADOR_FAIXA3 = new BigDecimal("0.11");
+    public static final BigDecimal TETO_INSS = new BigDecimal("513.01");
 
 	public static float calcular(Float salarioBruto) {
 
@@ -27,13 +32,13 @@ public class CalculaINSS {
 	public static BigDecimal calcular(BigDecimal salarioBruto) {
 		BigDecimal retorno;
 		if (salarioBruto.floatValue() <= VALOR_LIMITE_FAIXA1) {
-			retorno = salarioBruto.multiply(new BigDecimal("0.08"));
+			retorno = salarioBruto.multiply(MULTIPLICADOR_FAIXA1);
 		} else if (salarioBruto.floatValue() <= VALOR_LIMITE_FAIXA2) {
-			retorno = salarioBruto.multiply(new BigDecimal("0.09"));
+			retorno = salarioBruto.multiply(MULTIPLICADOR_FAIXA2);
 		} else if (salarioBruto.floatValue() <= VALOR_LIMITE_FAIXA3) {
-			retorno = salarioBruto.multiply(new BigDecimal("0.11"));
+			retorno = salarioBruto.multiply(MULTIPLICADOR_FAIXA3);
 		} else {
-			retorno = new BigDecimal("513.01");
+			retorno = TETO_INSS;
 		}
 		PrecisionUtil.changeToMonetaryBidecimal(retorno);
 		return retorno;

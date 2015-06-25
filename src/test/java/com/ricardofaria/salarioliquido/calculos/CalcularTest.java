@@ -426,7 +426,7 @@ public class CalcularTest {
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(salarioBruto, quantidadeDependentes); 
 		
 		assertEquals(385.00f, decimoTerceiro.getDescontoInss(), 0.01);
-		assertEquals(112.44f, decimoTerceiro.getDescontoIrpf(), 0.01);
+		assertEquals(112.45f, decimoTerceiro.getDescontoIrpf(), 0.01);
 		assertEquals(1750.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
 		assertEquals(1252.55, decimoTerceiro.getSalarioParcelaDois(), 0.01);
 	}

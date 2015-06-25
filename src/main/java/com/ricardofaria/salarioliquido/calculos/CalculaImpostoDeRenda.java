@@ -11,25 +11,26 @@ import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
  * >Receita Federal - Tabela 2015</a>
  * 
  * @author Ricardo Faria
- *
+ * 
  */
 class CalculaImpostoDeRenda {
-	
-	private CalculaImpostoDeRenda() {
-		super();
-	}
 
-	public static final float VALOR_POR_DEPENDENTE = 189.59F;
-	
-	public static final double VALOR_LIMITE_FAIXA1 = 1903.98;
-	public static final double VALOR_LIMITE_FAIXA2 = 2826.65;
-	public static final double VALOR_LIMITE_FAIXA3 = 3751.05;
-	public static final double VALOR_LIMITE_FAIXA4 = 4664.68;
+	public static final BigDecimal VALOR_POR_DEPENDENTE = new BigDecimal("189.59");
 
-	public static final float VALOR_DEDUCAO_FAIXA2 = 142.80f;
-	public static final float VALOR_DEDUCAO_FAIXA3 = 354.80f;
-	public static final float VALOR_DEDUCAO_FAIXA4 = 636.13f;
-	public static final float VALOR_DEDUCAO_MAXIMO = 869.36f;
+	public static final float VALOR_LIMITE_FAIXA1 = 1903.98f;
+	public static final float VALOR_LIMITE_FAIXA2 = 2826.65f;
+	public static final float VALOR_LIMITE_FAIXA3 = 3751.05f;
+	public static final float VALOR_LIMITE_FAIXA4 = 4664.68f;
+
+	public static final BigDecimal VALOR_DEDUCAO_FAIXA2 = new BigDecimal("142.80");
+	public static final BigDecimal VALOR_DEDUCAO_FAIXA3 = new BigDecimal("354.80");
+	public static final BigDecimal VALOR_DEDUCAO_FAIXA4 = new BigDecimal("636.13");
+	public static final BigDecimal VALOR_DEDUCAO_MAXIMO = new BigDecimal("869.36");
+	
+	private static final BigDecimal MULTIPLICADOR_FAIXA2 = new BigDecimal("0.075");
+	private static final BigDecimal MULTIPLICADOR_FAIXA3 = new BigDecimal("0.15");
+	private static final BigDecimal MULTIPLICADOR_FAIXA4 = new BigDecimal("0.225");
+	private static final BigDecimal MULTIPLICADOR_FAIXA_TETO = new BigDecimal("0.275");
 
 	/**
 	 * Calcula o IRPF com base na base de cálculo informada e quantidade
@@ -49,29 +50,25 @@ class CalculaImpostoDeRenda {
 	public static BigDecimal calcular(BigDecimal baseCalculo, int qtdDependentes) {
 		BigDecimal valorDesconto;
 		BigDecimal valorImposto;
-		BigDecimal valorDependentes = BigDecimal
-				.valueOf(VALOR_POR_DEPENDENTE * qtdDependentes);
+		BigDecimal valorDependentes = VALOR_POR_DEPENDENTE.multiply(new BigDecimal(qtdDependentes));
 
 		BigDecimal baseCalculoReduzida = baseCalculo.subtract(valorDependentes);
 
-		if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA1) {
+		float baseCalculoComparacao = baseCalculoReduzida.floatValue();
+		if (baseCalculoComparacao <= VALOR_LIMITE_FAIXA1) {
 			return BigDecimal.ZERO;
-		} else if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA2) {
-			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_FAIXA2);
-			valorImposto = baseCalculoReduzida
-					.multiply(createMonetaryBigDecimal("0.075"));
-		} else if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA3) {
-			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_FAIXA3);
-			valorImposto = baseCalculoReduzida
-					.multiply(createMonetaryBigDecimal("0.15"));
-		} else if (baseCalculoReduzida.floatValue() <= VALOR_LIMITE_FAIXA4) {
-			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_FAIXA4);
-			valorImposto = baseCalculoReduzida
-					.multiply(createMonetaryBigDecimal("0.225"));
+		} else if (baseCalculoComparacao <= VALOR_LIMITE_FAIXA2) {
+			valorDesconto = VALOR_DEDUCAO_FAIXA2;
+			valorImposto = baseCalculoReduzida.multiply(MULTIPLICADOR_FAIXA2);
+		} else if (baseCalculoComparacao <= VALOR_LIMITE_FAIXA3) {
+			valorDesconto = VALOR_DEDUCAO_FAIXA3;
+			valorImposto = baseCalculoReduzida.multiply(MULTIPLICADOR_FAIXA3);
+		} else if (baseCalculoComparacao <= VALOR_LIMITE_FAIXA4) {
+			valorDesconto = VALOR_DEDUCAO_FAIXA4;
+			valorImposto = baseCalculoReduzida.multiply(MULTIPLICADOR_FAIXA4);
 		} else {
-			valorDesconto = createMonetaryBigDecimal(VALOR_DEDUCAO_MAXIMO);
-			valorImposto = baseCalculoReduzida
-					.multiply(createMonetaryBigDecimal("0.275"));
+			valorDesconto = VALOR_DEDUCAO_MAXIMO;
+			valorImposto = baseCalculoReduzida.multiply(MULTIPLICADOR_FAIXA_TETO);
 		}
 		valorImposto = valorImposto.subtract(valorDesconto);
 		if (valorImposto.floatValue() < 0) {
