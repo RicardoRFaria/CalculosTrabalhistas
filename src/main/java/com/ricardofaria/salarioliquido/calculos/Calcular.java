@@ -86,12 +86,16 @@ public class Calcular {
 	public BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto,
 			TIPO_FERIAS tipo) {
 		if (tipo == TIPO_FERIAS.DIAS_20) {
-			// Aqui o máximo de casas
 			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"),
 					10, RoundingMode.HALF_EVEN);
 			feriasParcial = feriasParcial
 					.multiply(createMonetaryBigDecimal("20"));
-			// Aqui reduzimos para dinheiro
+			return changeToMonetaryBidecimal(feriasParcial);
+		} else if (tipo == TIPO_FERIAS.DIAS_15) {
+			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"),
+					10, RoundingMode.HALF_EVEN);
+			feriasParcial = feriasParcial
+					.multiply(createMonetaryBigDecimal("15"));
 			return changeToMonetaryBidecimal(feriasParcial);
 		}
 

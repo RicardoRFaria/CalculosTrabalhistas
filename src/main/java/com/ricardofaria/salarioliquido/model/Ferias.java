@@ -3,7 +3,7 @@ package com.ricardofaria.salarioliquido.model;
 public class Ferias extends Remuneracao {
 	
 	public enum TIPO_FERIAS {
-		COMPLETA, DIAS_20;
+		COMPLETA, DIAS_20, DIAS_15;
 	}
 	
 	private float abonoPecuniario;
