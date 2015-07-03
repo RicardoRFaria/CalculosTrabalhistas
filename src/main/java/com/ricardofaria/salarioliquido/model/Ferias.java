@@ -9,6 +9,7 @@ public class Ferias extends Remuneracao {
 	private float abonoPecuniario;
 	private float valorFerias;
 	private float feriasLiquidas;
+	private float adiantamentoDecimoTerceiro;
 
 	public float getAbonoPecuniario() {
 		return abonoPecuniario;
@@ -32,6 +33,14 @@ public class Ferias extends Remuneracao {
 
 	public void setValorFerias(float valorFerias) {
 		this.valorFerias = valorFerias;
+	}
+
+	public float getAdiantamentoDecimoTerceiro() {
+		return adiantamentoDecimoTerceiro;
+	}
+
+	public void setAdiantamentoDecimoTerceiro(float adiantamentoDecimoTerceiro) {
+		this.adiantamentoDecimoTerceiro = adiantamentoDecimoTerceiro;
 	}
 
 }

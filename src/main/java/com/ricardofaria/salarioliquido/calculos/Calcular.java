@@ -100,6 +100,37 @@ public class Calcular {
 		return feriasObject;
 	}
 
+	public Ferias calcularFerias(float salarioBruto, int numeroDependentes) {
+		return calcularFerias(salarioBruto, numeroDependentes, TIPO_FERIAS.COMPLETA);
+	}
+
+	public Ferias calcularFerias(float salarioBruto) {
+		return calcularFerias(salarioBruto, 0);
+
+	}
+
+	public Ferias calcularFerias(float salarioBruto, TIPO_FERIAS tipo) {
+		return calcularFerias(salarioBruto, 0, tipo);
+	}
+	
+	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(float salarioBruto, int numeroDependentes) {
+		return calcularFeriasComAdiantamentoDeDecimoTerceiro(salarioBruto, numeroDependentes, TIPO_FERIAS.COMPLETA);
+	}
+	
+	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(float salarioBruto, TIPO_FERIAS tipo) {
+		return calcularFeriasComAdiantamentoDeDecimoTerceiro(salarioBruto, 0, tipo);
+	}
+	
+	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(float salarioBruto, int numeroDependentes, TIPO_FERIAS tipo) {
+		Ferias ferias = calcularFerias(salarioBruto, numeroDependentes, tipo);
+		
+		float primeiraParcelaDecimoTerceiro = salarioBruto / 2;
+		ferias.setAdiantamentoDecimoTerceiro(primeiraParcelaDecimoTerceiro);
+		ferias.setFeriasLiquidas(ferias.getFeriasLiquidas() + primeiraParcelaDecimoTerceiro);
+		
+		return ferias;
+	}
+	
 	/**
 	 * Modifica o salário bruto informado com base na modalidade de férias do
 	 * funcionário
@@ -141,20 +172,6 @@ public class Calcular {
 
 		// Aqui reduzimos para dinheiro
 		return changeToMonetaryBidecimal(abonoPecuniario);
-	}
-
-	public Ferias calcularFerias(float salarioBruto, int numeroDependentes) {
-		return calcularFerias(salarioBruto, numeroDependentes, TIPO_FERIAS.COMPLETA);
-	}
-
-	public Ferias calcularFerias(float salarioBruto) {
-		return calcularFerias(salarioBruto, 0);
-
-	}
-
-	public Ferias calcularFerias(float salarioBruto, TIPO_FERIAS tipo) {
-		return calcularFerias(salarioBruto, 0, tipo);
-
 	}
 
 	/**
