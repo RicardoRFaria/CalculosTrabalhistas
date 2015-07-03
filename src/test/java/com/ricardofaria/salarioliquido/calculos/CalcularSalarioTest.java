@@ -2,6 +2,9 @@ package com.ricardofaria.salarioliquido.calculos;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -125,5 +128,127 @@ public class CalcularSalarioTest {
 		assertEquals(4113.55f, salario.getSalarioLiquido(), 0.01);
 	}
 	
+	
+	@Test
+	public void testCalcularSalarioParcialMinimo() {
+		float salarioBruto = VALOR_SALARIO_MINIMO;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, dataInicioFuncionar); 
+		
+		assertEquals(42.77f, salario.getDescontoInss(), 0.01);
+		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(491.94f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial1500() {
+		float salarioBruto = 1500.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar); 
+		
+		assertEquals(81.43f, salario.getDescontoInss(), 0.01);
+		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(936.43f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial2000() {
+		float salarioBruto = 2000.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		
+		assertEquals(108.57f, salario.getDescontoInss(), 0.01);
+		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(1248.57f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial2500() {
+		float salarioBruto = 2500.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		
+		assertEquals(152.68f, salario.getDescontoInss(), 0.01);
+		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(1543.75f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial3000() {
+		float salarioBruto = 3000.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		
+		assertEquals(183.21f, salario.getDescontoInss(), 0.01);
+		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(1852.50f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial3500() {
+		float salarioBruto = 3500.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		
+		assertEquals(261.25f, salario.getDescontoInss(), 0.01);
+		assertEquals(15.73f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(2098.02f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial4000() {
+		float salarioBruto = 4000.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		
+		assertEquals(298.57f, salario.getDescontoInss(), 0.01);
+		assertEquals(38.38f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(2377.34f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial4500() {
+		float salarioBruto = 4500.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		
+		assertEquals(335.89f, salario.getDescontoInss(), 0.01);
+		assertEquals(61.03f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(2656.65f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	@Test
+	public void testCalcularSalarioParcial5000() {
+		float salarioBruto = 5000.00f;
+		int quantidadeDependentes = 0;
+		Date dataInicioFuncionar = getDataInicioFuncionario();
+		
+		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		
+		assertEquals(373.21f, salario.getDescontoInss(), 0.01);
+		assertEquals(98.15f, salario.getDescontoIrpf(), 0.01);
+		assertEquals(2921.50f, salario.getSalarioLiquido(), 0.01);
+	}
+	
+	public Date getDataInicioFuncionario() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2015, Calendar.FEBRUARY, 10, 0, 0, 1);
+		return calendar.getTime();
+	}
 
 }

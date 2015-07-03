@@ -2,6 +2,8 @@ package com.ricardofaria.salarioliquido.calculos;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.ricardofaria.salarioliquido.model.DecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
@@ -25,8 +27,7 @@ public class Calcular {
 	public Salario calcularSalario(float salarioBruto, int numeroDependentes) {
 		float inss = CalculaINSS.calcular(salarioBruto);
 		float salarioParaIrpf = salarioBruto - inss;
-		float irpf = CalculaImpostoDeRenda.calcular(salarioParaIrpf,
-				numeroDependentes);
+		float irpf = CalculaImpostoDeRenda.calcular(salarioParaIrpf, numeroDependentes);
 		float salarioLivre = salarioBruto - inss - irpf;
 
 		Salario salario = new Salario(salarioBruto);
@@ -41,23 +42,58 @@ public class Calcular {
 		return calcularSalario(salarioBruto, 0);
 	}
 
-	public Ferias calcularFerias(float salarioBruto, int numeroDependentes,
-			TIPO_FERIAS tipo) {
+	/**
+	 * Efetua o cálculo de salário com base na data de início do funcionário
+	 * 
+	 * @param salarioBruto
+	 *            por mês
+	 * @param dataInicio
+	 *            efetiva do trabalho
+	 * @return salário parcial calculado
+	 */
+	public Salario calcularSalarioParcial(float salarioBruto, Date dataInicio) {
+		return calcularSalarioParcial(salarioBruto, 0, dataInicio);
+	}
+
+	/**
+	 * Efetua o cálculo de salário com base na data de início do funcionário
+	 * 
+	 * @param salarioBruto
+	 *            por mês
+	 * @param numeroDependentes
+	 *            caso haja
+	 * @param dataInicio
+	 *            efetiva do trabalho
+	 * @return salário parcial calculado
+	 */
+	public Salario calcularSalarioParcial(float salarioBruto, int numeroDependentes, Date dataInicio) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dataInicio);
+
+		int quantidadeDiasMes = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int diaAtual = calendar.get(Calendar.DAY_OF_MONTH);
+		int diasTrabalhados = quantidadeDiasMes - (diaAtual - 1);
+
+		float salarioDiario = salarioBruto / quantidadeDiasMes;
+		float salarioTotal = salarioDiario * diasTrabalhados;
+
+		return calcularSalario(salarioTotal, numeroDependentes);
+	}
+
+	public Ferias calcularFerias(float salarioBruto, int numeroDependentes, TIPO_FERIAS tipo) {
 		Ferias feriasObject = new Ferias();
 		BigDecimal salarioBrutoObj = createMonetaryBigDecimal(salarioBruto);
 
 		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, tipo);
 
-		BigDecimal ferias = salarioBrutoObj
-				.multiply(new BigDecimal("0.333333"));
+		BigDecimal ferias = salarioBrutoObj.multiply(new BigDecimal("0.333333"));
 		feriasObject.setValorFerias(ferias.floatValue());
 
 		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
 
 		BigDecimal descontoInss = CalculaINSS.calcular(salarioCalculo);
 		BigDecimal salarioDescontado = salarioCalculo.subtract(descontoInss);
-		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(
-				salarioDescontado, numeroDependentes);
+		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, numeroDependentes);
 		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
 
 		if (tipo == TIPO_FERIAS.DIAS_20) {
@@ -83,19 +119,14 @@ public class Calcular {
 	 *            de férias a ser aplicado
 	 * @return
 	 */
-	public BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto,
-			TIPO_FERIAS tipo) {
+	public BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto, TIPO_FERIAS tipo) {
 		if (tipo == TIPO_FERIAS.DIAS_20) {
-			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"),
-					10, RoundingMode.HALF_EVEN);
-			feriasParcial = feriasParcial
-					.multiply(createMonetaryBigDecimal("20"));
+			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"), 10, RoundingMode.HALF_EVEN);
+			feriasParcial = feriasParcial.multiply(createMonetaryBigDecimal("20"));
 			return changeToMonetaryBidecimal(feriasParcial);
 		} else if (tipo == TIPO_FERIAS.DIAS_15) {
-			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"),
-					10, RoundingMode.HALF_EVEN);
-			feriasParcial = feriasParcial
-					.multiply(createMonetaryBigDecimal("15"));
+			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"), 10, RoundingMode.HALF_EVEN);
+			feriasParcial = feriasParcial.multiply(createMonetaryBigDecimal("15"));
 			return changeToMonetaryBidecimal(feriasParcial);
 		}
 
@@ -113,19 +144,16 @@ public class Calcular {
 	public BigDecimal calcularAbonoPecuniario(float salarioBrutoOriginal) {
 		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
 		// Aqui o máximo de casas
-		BigDecimal umDia = salarioBruto.divide(createMonetaryBigDecimal("30"),
-				10, RoundingMode.HALF_EVEN);
+		BigDecimal umDia = salarioBruto.divide(createMonetaryBigDecimal("30"), 10, RoundingMode.HALF_EVEN);
 		BigDecimal dezDias = umDia.multiply(createMonetaryBigDecimal("10"));
-		BigDecimal abonoPecuniario = dezDias
-				.multiply(new BigDecimal("1.333333"));
+		BigDecimal abonoPecuniario = dezDias.multiply(new BigDecimal("1.333333"));
 
 		// Aqui reduzimos para dinheiro
 		return changeToMonetaryBidecimal(abonoPecuniario);
 	}
 
 	public Ferias calcularFerias(float salarioBruto, int numeroDependentes) {
-		return calcularFerias(salarioBruto, numeroDependentes,
-				TIPO_FERIAS.COMPLETA);
+		return calcularFerias(salarioBruto, numeroDependentes, TIPO_FERIAS.COMPLETA);
 	}
 
 	public Ferias calcularFerias(float salarioBruto) {
@@ -146,28 +174,25 @@ public class Calcular {
 	 * @param numeroDependentes
 	 * @return
 	 */
-	public DecimoTerceiro calcularDecimoTerceiro(BigDecimal salarioBruto,
-			int numeroDependentes) {
+	public DecimoTerceiro calcularDecimoTerceiro(BigDecimal salarioBruto, int numeroDependentes) {
 		BigDecimal descontoInss = CalculaINSS.calcular(salarioBruto);
 		BigDecimal salarioDescontado = salarioBruto.subtract(descontoInss);
-		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(
-				salarioDescontado, numeroDependentes);
+		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, numeroDependentes);
 		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
 
-		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(
-				salarioBruto.floatValue());
+		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(salarioBruto.floatValue());
 		decimoTerceiro.setDescontoInss(descontoInss.floatValue());
 		decimoTerceiro.setDescontoIrpf(descontoImpostoDeRenda.floatValue());
 		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioBruto));
-		decimoTerceiro.setSalarioParcelaDois(CalculaDecimoTerceiro.calcularParcelaDois(salarioBruto, descontoInss, descontoImpostoDeRenda));
+		decimoTerceiro.setSalarioParcelaDois(
+				CalculaDecimoTerceiro.calcularParcelaDois(salarioBruto, descontoInss, descontoImpostoDeRenda));
 
 		decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.COMPLETO);
 
 		return decimoTerceiro;
 	}
 
-	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal,
-			int numeroDependentes) {
+	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal, int numeroDependentes) {
 		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
 		return calcularDecimoTerceiro(salarioBruto, numeroDependentes);
 	}
@@ -182,17 +207,14 @@ public class Calcular {
 	 * @param mesDeInicioFuncionario
 	 * @return
 	 */
-	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal,
-			int numeroDependentes, int diaDeInicioFuncionar,
-			int mesDeInicioFuncionario) {
-		float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(
-				salarioBrutoOriginal, diaDeInicioFuncionar,
-				mesDeInicioFuncionario);
+	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal, int numeroDependentes,
+			int diaDeInicioFuncionar, int mesDeInicioFuncionario) {
+		float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(salarioBrutoOriginal,
+				diaDeInicioFuncionar, mesDeInicioFuncionario);
 
 		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoReduzido);
 
-		DecimoTerceiro decimoTerceiro = calcularDecimoTerceiro(salarioBruto,
-				numeroDependentes);
+		DecimoTerceiro decimoTerceiro = calcularDecimoTerceiro(salarioBruto, numeroDependentes);
 		decimoTerceiro.setSalarioBruto(salarioBrutoOriginal);
 		decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);
 
