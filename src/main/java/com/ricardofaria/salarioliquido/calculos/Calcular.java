@@ -2,7 +2,6 @@ package com.ricardofaria.salarioliquido.calculos;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.ricardofaria.salarioliquido.model.DecimoTerceiro;
@@ -67,17 +66,9 @@ public class Calcular {
 	 * @return salário parcial calculado
 	 */
 	public Salario calcularSalarioParcial(float salarioBruto, int numeroDependentes, Date dataInicio) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(dataInicio);
+		float salarioReduzido = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(salarioBruto, dataInicio);
 
-		int quantidadeDiasMes = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		int diaAtual = calendar.get(Calendar.DAY_OF_MONTH);
-		int diasTrabalhados = quantidadeDiasMes - (diaAtual - 1);
-
-		float salarioDiario = salarioBruto / quantidadeDiasMes;
-		float salarioTotal = salarioDiario * diasTrabalhados;
-
-		return calcularSalario(salarioTotal, numeroDependentes);
+		return calcularSalario(salarioReduzido, numeroDependentes);
 	}
 
 	public Ferias calcularFerias(float salarioBruto, int numeroDependentes, TIPO_FERIAS tipo) {

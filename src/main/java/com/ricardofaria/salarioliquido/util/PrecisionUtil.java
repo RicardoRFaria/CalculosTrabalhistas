@@ -5,10 +5,6 @@ import java.math.RoundingMode;
 
 public class PrecisionUtil {
 
-	private PrecisionUtil() {
-		super();
-	}
-
 	public static BigDecimal createMonetaryBigDecimal(String value) {
 		BigDecimal bigDecimal = new BigDecimal(value);
 		bigDecimal.setScale(2, RoundingMode.HALF_EVEN);
