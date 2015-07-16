@@ -3,6 +3,7 @@ package com.ricardofaria.salarioliquido.calculos;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.ricardofaria.salarioliquido.model.input.ParametrosFerias;
 import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
 import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.resultado.Ferias;
@@ -42,11 +43,11 @@ public class Calcular {
 		return salario;
 	}
 
-	public Ferias calcularFerias(float salarioBruto, int numeroDependentes, TIPO_FERIAS tipo) {
+	public Ferias calcularFerias(ParametrosFerias parametro) {
 		Ferias feriasObject = new Ferias();
-		BigDecimal salarioBrutoObj = createMonetaryBigDecimal(salarioBruto);
+		BigDecimal salarioBrutoObj = createMonetaryBigDecimal(parametro.getSalarioBruto());
 
-		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, tipo);
+		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, parametro.getTipo());
 
 		BigDecimal ferias = salarioBrutoObj.multiply(new BigDecimal("0.333333"));
 		feriasObject.setValorFerias(ferias.floatValue());
@@ -55,11 +56,11 @@ public class Calcular {
 
 		BigDecimal descontoInss = CalculaINSS.calcular(salarioCalculo);
 		BigDecimal salarioDescontado = salarioCalculo.subtract(descontoInss);
-		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, numeroDependentes);
+		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, parametro.getNumeroDependentes());
 		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
 
-		if (tipo == TIPO_FERIAS.DIAS_20) {
-			BigDecimal abonoPecuniario = calcularAbonoPecuniario(salarioBruto);
+		if (parametro.getTipo() == TIPO_FERIAS.DIAS_20) {
+			BigDecimal abonoPecuniario = calcularAbonoPecuniario(parametro.getSalarioBruto());
 			feriasObject.setAbonoPecuniario(abonoPecuniario.floatValue());
 			salarioDescontado = salarioDescontado.add(abonoPecuniario);
 		}
@@ -71,31 +72,10 @@ public class Calcular {
 		return feriasObject;
 	}
 
-	public Ferias calcularFerias(float salarioBruto, int numeroDependentes) {
-		return calcularFerias(salarioBruto, numeroDependentes, TIPO_FERIAS.COMPLETA);
-	}
-
-	public Ferias calcularFerias(float salarioBruto) {
-		return calcularFerias(salarioBruto, 0);
-
-	}
-
-	public Ferias calcularFerias(float salarioBruto, TIPO_FERIAS tipo) {
-		return calcularFerias(salarioBruto, 0, tipo);
-	}
-	
-	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(float salarioBruto, int numeroDependentes) {
-		return calcularFeriasComAdiantamentoDeDecimoTerceiro(salarioBruto, numeroDependentes, TIPO_FERIAS.COMPLETA);
-	}
-	
-	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(float salarioBruto, TIPO_FERIAS tipo) {
-		return calcularFeriasComAdiantamentoDeDecimoTerceiro(salarioBruto, 0, tipo);
-	}
-	
-	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(float salarioBruto, int numeroDependentes, TIPO_FERIAS tipo) {
-		Ferias ferias = calcularFerias(salarioBruto, numeroDependentes, tipo);
+	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(ParametrosFerias parametro) {
+		Ferias ferias = calcularFerias(parametro);
 		
-		float primeiraParcelaDecimoTerceiro = salarioBruto / 2;
+		float primeiraParcelaDecimoTerceiro = parametro.getSalarioBruto() / 2;
 		ferias.setAdiantamentoDecimoTerceiro(primeiraParcelaDecimoTerceiro);
 		ferias.setFeriasLiquidas(ferias.getFeriasLiquidas() + primeiraParcelaDecimoTerceiro);
 		
