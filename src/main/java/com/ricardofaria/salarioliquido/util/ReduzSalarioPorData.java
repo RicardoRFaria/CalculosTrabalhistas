@@ -1,7 +1,10 @@
 package com.ricardofaria.salarioliquido.util;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+
+import com.ricardofaria.salarioliquido.model.input.ParametrosDecimoTerceiro;
 
 /**
  * 
@@ -24,12 +27,12 @@ public class ReduzSalarioPorData {
 	 *            do funcionário na empresa
 	 * @return salário reduzido com base no tempo de trabalho
 	 */
-	public static float reduzirDecimoTerceiro(float salarioBruto, int diaDeInicio, int mesDeInicio) {
-		int quantidadeMeses = 12 - mesDeInicio;
-		if (diaDeInicio <= 15) {
+	public static float reduzirDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
+		int quantidadeMeses = 12 - parametro.getMesDeInicioFuncionario();
+		if (parametro.getDiaDeInicioFuncionar() <= 15) {
 			quantidadeMeses++;
 		}
-		float salarioParaCalculo = (salarioBruto / 12) * quantidadeMeses;
+		float salarioParaCalculo = (parametro.getSalarioBruto() / 12) * quantidadeMeses;
 		return salarioParaCalculo;
 	}
 
@@ -55,5 +58,19 @@ public class ReduzSalarioPorData {
 		float salarioReduzido = salarioDiario * diasTrabalhados;
 
 		return salarioReduzido;
+	}
+	
+	/**
+	 * Efetua a redução do salário pago por mês ao funcionário com base na data
+	 * de início de trabalho e nos dias do mês início
+	 * 
+	 * @param salarioBruto
+	 *            pago por mês ao funcionário
+	 * @param dataInicio
+	 *            do funcionário na empresa
+	 * @return salário parcial
+	 */
+	public static BigDecimal reduzirSalarioPorDataDeInicio(BigDecimal salarioBruto, Date dataInicio) {
+		return new BigDecimal(reduzirSalarioPorDataDeInicio(salarioBruto.floatValue(), dataInicio));
 	}
 }

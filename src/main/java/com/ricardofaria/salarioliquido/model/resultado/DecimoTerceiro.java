@@ -1,5 +1,7 @@
 package com.ricardofaria.salarioliquido.model.resultado;
 
+import java.math.BigDecimal;
+
 public class DecimoTerceiro extends Remuneracao {
 
 	public enum TIPO_DECIMO_TERCEIRO {
@@ -14,7 +16,7 @@ public class DecimoTerceiro extends Remuneracao {
 		super();
 	}
 	
-	public DecimoTerceiro(float salarioBruto) {
+	public DecimoTerceiro(BigDecimal salarioBruto) {
 		super(salarioBruto);
 	}
 

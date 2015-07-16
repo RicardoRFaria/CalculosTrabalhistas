@@ -11,7 +11,7 @@ public class ParametrosBase {
 	
 	public ParametrosBase(float salarioBruto) {
 		super();
-		this.salarioBruto = salarioBruto;
+		setSalarioBruto(salarioBruto);
 	}
 	
 	public float getSalarioBruto() {

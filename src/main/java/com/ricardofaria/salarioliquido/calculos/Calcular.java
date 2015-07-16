@@ -25,6 +25,12 @@ import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
  */
 public class Calcular {
 
+	private static final BigDecimal DIAS_10 = new BigDecimal("10");
+	private static final BigDecimal DIAS_15 = new BigDecimal("15");
+	private static final BigDecimal DIAS_20 = new BigDecimal("20");
+	private static final BigDecimal DIAS_30 = new BigDecimal("30");
+	private static final BigDecimal UM_TERCO = new BigDecimal("0.333333");
+
 	public Salario calcularSalario(ParametrosSalario parametro) {
 		float salarioCalculo = parametro.getSalarioBruto();
 		if (parametro.getDataInicioColaborador() != null) {
@@ -50,8 +56,8 @@ public class Calcular {
 
 		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, parametro.getTipo());
 
-		BigDecimal ferias = salarioBrutoObj.multiply(new BigDecimal("0.333333"));
-		feriasObject.setValorFerias(ferias.floatValue());
+		BigDecimal ferias = salarioBrutoObj.multiply(UM_TERCO);
+		feriasObject.setValorFerias(ferias);
 
 		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
 
@@ -62,13 +68,13 @@ public class Calcular {
 
 		if (parametro.getTipo() == TIPO_FERIAS.DIAS_20) {
 			BigDecimal abonoPecuniario = calcularAbonoPecuniario(parametro.getSalarioBruto());
-			feriasObject.setAbonoPecuniario(abonoPecuniario.floatValue());
+			feriasObject.setAbonoPecuniario(abonoPecuniario);
 			salarioDescontado = salarioDescontado.add(abonoPecuniario);
 		}
 
-		feriasObject.setFeriasLiquidas(salarioDescontado.floatValue());
-		feriasObject.setDescontoInss(descontoInss.floatValue());
-		feriasObject.setDescontoIrpf(descontoImpostoDeRenda.floatValue());
+		feriasObject.setFeriasLiquidas(salarioDescontado);
+		feriasObject.setDescontoInss(descontoInss);
+		feriasObject.setDescontoIrpf(descontoImpostoDeRenda);
 
 		return feriasObject;
 	}
@@ -94,17 +100,22 @@ public class Calcular {
 	 * @return
 	 */
 	public BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto, TIPO_FERIAS tipo) {
+		if (tipo == TIPO_FERIAS.COMPLETA) {
+			return salarioBruto;
+		}
+		BigDecimal feriasParcial = obterUmDia(salarioBruto);
 		if (tipo == TIPO_FERIAS.DIAS_20) {
-			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"), 10, RoundingMode.HALF_EVEN);
-			feriasParcial = feriasParcial.multiply(createMonetaryBigDecimal("20"));
+			feriasParcial = feriasParcial.multiply(DIAS_20);
 			return changeToMonetaryBidecimal(feriasParcial);
 		} else if (tipo == TIPO_FERIAS.DIAS_15) {
-			BigDecimal feriasParcial = salarioBruto.divide(createMonetaryBigDecimal("30"), 10, RoundingMode.HALF_EVEN);
-			feriasParcial = feriasParcial.multiply(createMonetaryBigDecimal("15"));
+			feriasParcial = feriasParcial.multiply(DIAS_15);
 			return changeToMonetaryBidecimal(feriasParcial);
 		}
+		throw new IllegalArgumentException("Tipo de férias não implementado. Tipo atual: " + tipo.toString());
+	}
 
-		return salarioBruto;
+	private BigDecimal obterUmDia(BigDecimal salarioBruto) {
+		return salarioBruto.divide(DIAS_30, 10, RoundingMode.HALF_EVEN);
 	}
 
 	/**
@@ -117,12 +128,11 @@ public class Calcular {
 	 */
 	public BigDecimal calcularAbonoPecuniario(float salarioBrutoOriginal) {
 		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
-		// Aqui o máximo de casas
-		BigDecimal umDia = salarioBruto.divide(createMonetaryBigDecimal("30"), 10, RoundingMode.HALF_EVEN);
-		BigDecimal dezDias = umDia.multiply(createMonetaryBigDecimal("10"));
-		BigDecimal abonoPecuniario = dezDias.multiply(new BigDecimal("1.333333"));
+		
+		BigDecimal umDia = obterUmDia(salarioBruto);
+		BigDecimal dezDias = umDia.multiply(DIAS_10);
+		BigDecimal abonoPecuniario = dezDias.multiply(UM_TERCO).add(dezDias);
 
-		// Aqui reduzimos para dinheiro
 		return changeToMonetaryBidecimal(abonoPecuniario);
 	}
 
@@ -137,9 +147,7 @@ public class Calcular {
 	public DecimoTerceiro calcularDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
 		BigDecimal salarioBruto;
 		if (parametro.isSalarioReduzido()) {
-			float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(parametro.getSalarioBruto(),
-					parametro.getDiaDeInicioFuncionar(), parametro.getMesDeInicioFuncionario());
-
+			float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(parametro);
 			salarioBruto = createMonetaryBigDecimal(salarioBrutoReduzido);
 		} else {
 			salarioBruto = createMonetaryBigDecimal(parametro.getSalarioBruto());
@@ -149,9 +157,9 @@ public class Calcular {
 		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, parametro.getNumeroDependentes());
 		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
 
-		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(salarioBruto.floatValue());
-		decimoTerceiro.setDescontoInss(descontoInss.floatValue());
-		decimoTerceiro.setDescontoIrpf(descontoImpostoDeRenda.floatValue());
+		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(salarioBruto);
+		decimoTerceiro.setDescontoInss(descontoInss);
+		decimoTerceiro.setDescontoIrpf(descontoImpostoDeRenda);
 		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioBruto));
 		decimoTerceiro.setSalarioParcelaDois(
 				CalculaDecimoTerceiro.calcularParcelaDois(salarioBruto, descontoInss, descontoImpostoDeRenda));

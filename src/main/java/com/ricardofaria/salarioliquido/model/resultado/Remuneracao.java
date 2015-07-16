@@ -1,5 +1,7 @@
 package com.ricardofaria.salarioliquido.model.resultado;
 
+import java.math.BigDecimal;
+
 public abstract class Remuneracao {
 
 	private float salarioBruto;
@@ -11,7 +13,13 @@ public abstract class Remuneracao {
 	}
 	
 	public Remuneracao(float salarioBruto) {
-		this.salarioBruto = salarioBruto;
+		super();
+		setSalarioBruto(salarioBruto);
+	}
+	
+	public Remuneracao(BigDecimal salarioBruto) {
+		super();
+		setSalarioBruto(salarioBruto);
 	}
 	
 	public float getSalarioBruto() {
@@ -21,6 +29,10 @@ public abstract class Remuneracao {
 	public void setSalarioBruto(float salarioBruto) {
 		this.salarioBruto = salarioBruto;
 	}
+	
+	public void setSalarioBruto(BigDecimal salarioBruto) {
+		this.salarioBruto = salarioBruto.floatValue();
+	}
 
 	public float getDescontoInss() {
 		return descontoInss;
@@ -29,6 +41,10 @@ public abstract class Remuneracao {
 	public void setDescontoInss(float descontoInss) {
 		this.descontoInss = descontoInss;
 	}
+	
+	public void setDescontoInss(BigDecimal descontoInss) {
+		this.descontoInss = descontoInss.floatValue();	
+	}
 
 	public float getDescontoIrpf() {
 		return descontoIrpf;
@@ -36,6 +52,10 @@ public abstract class Remuneracao {
 
 	public void setDescontoIrpf(float descontoIrpf) {
 		this.descontoIrpf = descontoIrpf;
+	}
+	
+	public void setDescontoIrpf(BigDecimal descontoIrpf) {
+		this.descontoIrpf = descontoIrpf.floatValue();
 	}
 
 }
