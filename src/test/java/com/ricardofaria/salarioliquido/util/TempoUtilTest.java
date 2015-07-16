@@ -28,5 +28,47 @@ public class TempoUtilTest {
 		
 		assertEquals(5, quantidadeDiasDeFolga);
 	}
+	
+	@Test
+	public void testHorasMensais44HorasSemanais() {
+		float horasMensais = TempoUtil.calcularHorasMensais(44);
+		assertEquals(220, horasMensais, 0.01);
+	}
+	
+	@Test
+	public void testHorasMensais40HorasSemanais() {
+		float horasMensais = TempoUtil.calcularHorasMensais(40);
+		assertEquals(200, horasMensais, 0.01);
+	}
+	
+	@Test
+	public void testConverterHorasParaFloat10Horas() {
+		String horasEmString = "10:00";
+		float horasEmFloat = TempoUtil.hoursToFloat(horasEmString);
+		
+		assertEquals(10f, horasEmFloat, 0.01f);
+		
+		horasEmString = "10";
+		horasEmFloat = TempoUtil.hoursToFloat(horasEmString);
+		
+		assertEquals(10f, horasEmFloat, 0.01f);
+	}
+	
+	@Test
+	public void testConverterHorasParaFloat10HorasE55Minutos() {
+		String horasEmString = "10:55";
+		float horasEmFloat = TempoUtil.hoursToFloat(horasEmString);
+		
+		assertEquals(10.917f, horasEmFloat, 0.01f);
+	}
+	
+	@Test
+	public void testConverterHorasParaFloatMeiaHora() {
+		String horasEmString = "0:30";
+		float horasEmFloat = TempoUtil.hoursToFloat(horasEmString);
+		
+		assertEquals(0.5f, horasEmFloat, 0.01f);
+	}
+	
 
 }
