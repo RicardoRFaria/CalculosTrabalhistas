@@ -1,6 +1,8 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import static org.junit.Assert.*;
+import static com.ricardofaria.salarioliquido.calculos.CalculaDecimoTerceiro.calcularParcelaDois;
+import static com.ricardofaria.salarioliquido.calculos.CalculaDecimoTerceiro.calcularParcelaUm;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
@@ -8,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ricardofaria.salarioliquido.model.DecimoTerceiro;
-
-import static com.ricardofaria.salarioliquido.calculos.CalculaDecimoTerceiro.*;
 
 public class CalculaDecimoTerceiroTest {
 	

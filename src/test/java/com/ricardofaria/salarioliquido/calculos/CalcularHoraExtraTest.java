@@ -1,14 +1,16 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import static org.junit.Assert.*;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ricardofaria.salarioliquido.model.HoraExtra;
-import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
 
 public class CalcularHoraExtraTest {
 	
@@ -46,9 +48,11 @@ public class CalcularHoraExtraTest {
 		BigDecimal valorPorHoraExtra = createMonetaryBigDecimal("34.09");
 		String quantidadeDeHoras = "01:00";
 		
-		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras);
 		
-		assertEquals(valorPorHoraExtra, horaExtra.getValorTotal());
+		
+		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras, getDateFevereiro2015());
+		
+		assertEquals(createMonetaryBigDecimal("39.77"), horaExtra.getValorTotal());
 	}
 	
 	@Test
@@ -56,9 +60,9 @@ public class CalcularHoraExtraTest {
 		BigDecimal valorPorHoraExtra = createMonetaryBigDecimal("34.09");
 		String quantidadeDeHoras = "01:30";
 		
-		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras);
+		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras, getDateFevereiro2015());
 		
-		assertEquals(createMonetaryBigDecimal("51.14"), horaExtra.getValorTotal());
+		assertEquals(createMonetaryBigDecimal("59.66"), horaExtra.getValorTotal());
 	}
 	
 	@Test
@@ -66,9 +70,15 @@ public class CalcularHoraExtraTest {
 		BigDecimal valorPorHoraExtra = createMonetaryBigDecimal("34.09");
 		String quantidadeDeHoras = "100:00";
 		
-		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras);
+		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras, getDateFevereiro2015());
 		
-		assertEquals(createMonetaryBigDecimal("3409.00"), horaExtra.getValorTotal());
+		assertEquals(createMonetaryBigDecimal("3977.17"), horaExtra.getValorTotal());
 	}
 
+	
+	public Date getDateFevereiro2015() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2015, Calendar.FEBRUARY, 1, 0, 0, 0);
+		return calendar.getTime();
+	}
 }

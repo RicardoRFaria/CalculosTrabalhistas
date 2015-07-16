@@ -5,8 +5,10 @@ import static com.ricardofaria.salarioliquido.util.TempoUtil.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 
 import com.ricardofaria.salarioliquido.model.HoraExtra;
+import com.ricardofaria.salarioliquido.util.TempoUtil;
 
 public class CalculaHorasExtras {
 	
@@ -17,7 +19,7 @@ public class CalculaHorasExtras {
 		if (porcentagemAdicionalHoraExtra < 50) {
 			throw new IllegalArgumentException("A porcentagem adicional de hora extra não pode ser menor que 50%. Valor atual: " + porcentagemAdicionalHoraExtra);
 		}
-		BigDecimal quantidadeHorasMensais = createMonetaryBigDecimal(calcularHorasMensais(quantidadeHorasSemanais));
+		BigDecimal quantidadeHorasMensais = createMonetaryBigDecimal(calcularHorasMensaisCLT(quantidadeHorasSemanais));
 		
 		BigDecimal salarioPorHora = salarioBruto.divide(quantidadeHorasMensais, 4, RoundingMode.HALF_EVEN);
 		BigDecimal porcentagemMultiplicacao = new BigDecimal(1 + (porcentagemAdicionalHoraExtra / 100));
@@ -26,12 +28,24 @@ public class CalculaHorasExtras {
 		return changeToMonetaryBidecimal(horaExtra);
 	}
 	
-	public static HoraExtra calcularTotalHorasExtras(BigDecimal valorPorHora, String tempoDeHoraExtra) {
+	public static HoraExtra calcularTotalHorasExtras(BigDecimal valorPorHora, String tempoDeHoraExtra, Date mes) {
 		BigDecimal quantidadeHorasMultiplicacao = new BigDecimal(hoursToFloat(tempoDeHoraExtra));
-		BigDecimal valorTotal = valorPorHora.multiply(quantidadeHorasMultiplicacao);
-		valorTotal = changeToMonetaryBidecimal(valorTotal);
+		BigDecimal valorTotalDeHoras = valorPorHora.multiply(quantidadeHorasMultiplicacao);
 		
-		return new HoraExtra(valorPorHora, tempoDeHoraExtra, valorTotal);
+		BigDecimal valorDSR = calcularDSRHoraExtra(valorTotalDeHoras, mes);
+		BigDecimal valorTotal = changeToMonetaryBidecimal(valorTotalDeHoras.add(valorDSR));
+		
+		return new HoraExtra(valorPorHora, tempoDeHoraExtra, valorTotal, valorDSR);
+	}
+	
+	public static BigDecimal calcularDSRHoraExtra(BigDecimal valorTotalDeHorasExtras, Date mes) {
+		int diasUteis = TempoUtil.calcularDiasUteisNoMes(mes);
+		int diasDSR = TempoUtil.calcularDiasDeFolgaNoMes(mes);
+		
+		BigDecimal valorDSRDiaUtil = valorTotalDeHorasExtras.divide(new BigDecimal(diasUteis), 4, RoundingMode.HALF_EVEN);
+		BigDecimal valorDSR = valorDSRDiaUtil.multiply(new BigDecimal(diasDSR));
+		
+		return changeToMonetaryBidecimal(valorDSR);
 	}
 
 }

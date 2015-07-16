@@ -13,7 +13,7 @@ public class TempoUtil {
 	 * em consideração feriados)
 	 * 
 	 * @param mes
-	 *            date com mês corrente
+	 *            date com mês referente ao cálculo
 	 * @return quantidade de domingos
 	 */
 	public static int calcularDiasDeFolgaNoMes(Date mes) {
@@ -32,7 +32,32 @@ public class TempoUtil {
 		return quantidadeDomingos;
 	}
 
-	public static float calcularHorasMensais(float quantidadeHorasSemanais) {
+	/**
+	 * Calcula quantidade de dias úteis existentes no mês de acordo com a
+	 * legislação de CLT brasileira
+	 * 
+	 * @param mes
+	 *            date com mês referente ao cálculo
+	 * @return
+	 */
+	public static int calcularDiasUteisNoMes(Date mes) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(mes);
+
+		int quantidadeDeDiasNoMes = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int diasDeFolga = calcularDiasDeFolgaNoMes(mes);
+
+		return quantidadeDeDiasNoMes - diasDeFolga;
+	}
+
+	/**
+	 * Calcula a quantidade de horas de trabalho mensais do trabalho CLT de
+	 * acordo com a quantidade horas semanais e a legislação brasileira
+	 * 
+	 * @param quantidadeHorasSemanais
+	 * @return
+	 */
+	public static float calcularHorasMensaisCLT(float quantidadeHorasSemanais) {
 		float quantidadeHorasDiarias = quantidadeHorasSemanais / DIAS_TRABALHO_SEMANA;
 		float quantidadeHorasMensais = quantidadeHorasDiarias * DIAS_MES_FINANCEIRO;
 		return quantidadeHorasMensais;

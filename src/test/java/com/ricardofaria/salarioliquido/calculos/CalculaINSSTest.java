@@ -1,10 +1,9 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import static org.junit.Assert.*;
+import static com.ricardofaria.salarioliquido.calculos.CalculaINSS.calcular;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import static com.ricardofaria.salarioliquido.calculos.CalculaINSS.*;
 
 public class CalculaINSSTest {
 	

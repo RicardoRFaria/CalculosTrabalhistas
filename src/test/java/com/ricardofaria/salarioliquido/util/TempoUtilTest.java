@@ -1,6 +1,6 @@
 package com.ricardofaria.salarioliquido.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 
@@ -31,13 +31,13 @@ public class TempoUtilTest {
 	
 	@Test
 	public void testHorasMensais44HorasSemanais() {
-		float horasMensais = TempoUtil.calcularHorasMensais(44);
+		float horasMensais = TempoUtil.calcularHorasMensaisCLT(44);
 		assertEquals(220, horasMensais, 0.01);
 	}
 	
 	@Test
 	public void testHorasMensais40HorasSemanais() {
-		float horasMensais = TempoUtil.calcularHorasMensais(40);
+		float horasMensais = TempoUtil.calcularHorasMensaisCLT(40);
 		assertEquals(200, horasMensais, 0.01);
 	}
 	

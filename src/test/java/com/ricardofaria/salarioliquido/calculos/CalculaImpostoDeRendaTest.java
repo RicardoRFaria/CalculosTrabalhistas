@@ -1,10 +1,9 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import static org.junit.Assert.*;
+import static com.ricardofaria.salarioliquido.calculos.CalculaImpostoDeRenda.calcular;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import static com.ricardofaria.salarioliquido.calculos.CalculaImpostoDeRenda.*;
 
 public class CalculaImpostoDeRendaTest {
 
