@@ -8,7 +8,8 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ricardofaria.salarioliquido.model.Salario;
+import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
+import com.ricardofaria.salarioliquido.model.resultado.Salario;
 
 public class CalcularSalarioTest {
 	
@@ -23,9 +24,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalarioMinimo() {
-		float salarioBruto = VALOR_SALARIO_MINIMO;
+		ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(63.04f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
@@ -34,10 +35,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario1500() {
-		float salarioBruto = 1500.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(1500f);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(135.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
@@ -46,10 +46,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario2000() {
-		float salarioBruto = 2000.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(2000f);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(180.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
@@ -58,10 +57,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario2500() {
-		float salarioBruto = 2500.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(2500f);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(275.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(24.08f, salario.getDescontoIrpf(), 0.01);
@@ -70,10 +68,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario3000() {
-		float salarioBruto = 3000.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(3000f);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(330.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(57.45f, salario.getDescontoIrpf(), 0.01);
@@ -82,10 +79,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario3500() {
-		float salarioBruto = 3500.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(3500f);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(385.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(112.45f, salario.getDescontoIrpf(), 0.01);
@@ -94,10 +90,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario4000() {
-		float salarioBruto = 4000.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(4000);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(440.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(179.20f, salario.getDescontoIrpf(), 0.01);
@@ -106,10 +101,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario4500() {
-		float salarioBruto = 4500.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(4500);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(495.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(265.00f, salario.getDescontoIrpf(), 0.01);
@@ -118,10 +112,9 @@ public class CalcularSalarioTest {
 	
 	@Test
 	public void testCalcularSalario5000() {
-		float salarioBruto = 5000.00f;
-		int quantidadeDependentes = 0;
+		ParametrosSalario parametro = new ParametrosSalario(5000f);
 		
-		Salario salario = calcular.calcularSalario(salarioBruto, quantidadeDependentes); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(513.01f, salario.getDescontoInss(), 0.01);
 		assertEquals(373.44f, salario.getDescontoIrpf(), 0.01);
@@ -130,11 +123,11 @@ public class CalcularSalarioTest {
 	
 	
 	@Test
-	public void testCalcularSalarioParcialMinimo() {
-		float salarioBruto = VALOR_SALARIO_MINIMO;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalarioMinimo() {
+		ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, dataInicioFuncionar); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(42.77f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
@@ -142,12 +135,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial1500() {
-		float salarioBruto = 1500.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario1500() {
+		ParametrosSalario parametro = new ParametrosSalario(1500f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar); 
+		Salario salario = calcular.calcularSalario(parametro); 
 		
 		assertEquals(81.43f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
@@ -155,12 +147,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial2000() {
-		float salarioBruto = 2000.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario2000() {
+		ParametrosSalario parametro = new ParametrosSalario(2000f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		Salario salario = calcular.calcularSalario(parametro);
 		
 		assertEquals(108.57f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
@@ -168,12 +159,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial2500() {
-		float salarioBruto = 2500.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario2500() {
+		ParametrosSalario parametro = new ParametrosSalario(2500f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		Salario salario = calcular.calcularSalario(parametro);
 		
 		assertEquals(152.68f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
@@ -181,12 +171,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial3000() {
-		float salarioBruto = 3000.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario3000() {
+		ParametrosSalario parametro = new ParametrosSalario(3000f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		Salario salario = calcular.calcularSalario(parametro);
 		
 		assertEquals(183.21f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
@@ -194,12 +183,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial3500() {
-		float salarioBruto = 3500.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario3500() {
+		ParametrosSalario parametro = new ParametrosSalario(3500f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		Salario salario = calcular.calcularSalario(parametro);
 		
 		assertEquals(261.25f, salario.getDescontoInss(), 0.01);
 		assertEquals(15.73f, salario.getDescontoIrpf(), 0.01);
@@ -207,12 +195,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial4000() {
-		float salarioBruto = 4000.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario4000() {
+		ParametrosSalario parametro = new ParametrosSalario(4000f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		Salario salario = calcular.calcularSalario(parametro);
 		
 		assertEquals(298.57f, salario.getDescontoInss(), 0.01);
 		assertEquals(38.38f, salario.getDescontoIrpf(), 0.01);
@@ -220,12 +207,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial4500() {
-		float salarioBruto = 4500.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario4500() {
+		ParametrosSalario parametro = new ParametrosSalario(4500f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		Salario salario = calcular.calcularSalario(parametro);
 		
 		assertEquals(335.89f, salario.getDescontoInss(), 0.01);
 		assertEquals(61.03f, salario.getDescontoIrpf(), 0.01);
@@ -233,12 +219,11 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testCalcularSalarioParcial5000() {
-		float salarioBruto = 5000.00f;
-		int quantidadeDependentes = 0;
-		Date dataInicioFuncionar = getDataInicioFuncionario();
+	public void testcalcularSalario5000() {
+		ParametrosSalario parametro = new ParametrosSalario(5000f);
+		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalarioParcial(salarioBruto, quantidadeDependentes, dataInicioFuncionar);
+		Salario salario = calcular.calcularSalario(parametro);
 		
 		assertEquals(373.21f, salario.getDescontoInss(), 0.01);
 		assertEquals(98.15f, salario.getDescontoIrpf(), 0.01);

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ricardofaria.salarioliquido.model.DecimoTerceiro;
+import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro;
 
 public class CalculaDecimoTerceiroTest {
 	

@@ -1,4 +1,4 @@
-package com.ricardofaria.salarioliquido.model;
+package com.ricardofaria.salarioliquido.model.resultado;
 
 public class Ferias extends Remuneracao {
 	

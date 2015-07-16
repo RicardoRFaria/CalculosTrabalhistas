@@ -1,8 +1,9 @@
-package com.ricardofaria.salarioliquido.model;
+package com.ricardofaria.salarioliquido.model.resultado;
 
 public class Salario extends Remuneracao {
 
 	private float salarioLiquido;
+	private HoraExtra horaExtra;
 
 	public Salario() {
 		super();
@@ -20,4 +21,12 @@ public class Salario extends Remuneracao {
 		this.salarioLiquido = salarioLiquido;
 	}
 
+	public void setHoraExtra(HoraExtra horaExtra) {
+		this.horaExtra = horaExtra;
+	}
+	
+	public HoraExtra getHoraExtra() {
+		return horaExtra;
+	}
+	
 }

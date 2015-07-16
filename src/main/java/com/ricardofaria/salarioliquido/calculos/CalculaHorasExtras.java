@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
 
-import com.ricardofaria.salarioliquido.model.HoraExtra;
+import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
 import com.ricardofaria.salarioliquido.util.TempoUtil;
 
 public class CalculaHorasExtras {

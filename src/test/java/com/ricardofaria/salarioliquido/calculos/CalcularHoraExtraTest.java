@@ -10,7 +10,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ricardofaria.salarioliquido.model.HoraExtra;
+import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
 
 public class CalcularHoraExtraTest {
 	
@@ -20,6 +20,18 @@ public class CalcularHoraExtraTest {
 	public void init() {
 		this.calcular = new Calcular();
 	}	
+	
+	public Date getDateFevereiro2015() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2015, Calendar.FEBRUARY, 1, 0, 0, 0);
+		return calendar.getTime();
+	}
+	
+	public Date getDateMarco2015() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2015, Calendar.MARCH, 1, 0, 0, 0);
+		return calendar.getTime();
+	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCalcularValorHoraExtraComAdicionalAbaixoDe50Porcento() {
@@ -74,11 +86,21 @@ public class CalcularHoraExtraTest {
 		
 		assertEquals(createMonetaryBigDecimal("3977.17"), horaExtra.getValorTotal());
 	}
-
 	
-	public Date getDateFevereiro2015() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(2015, Calendar.FEBRUARY, 1, 0, 0, 0);
-		return calendar.getTime();
+	@Test
+	public void testCalcularDSRFevereiro2015() {
+		BigDecimal valorHoraExtra = createMonetaryBigDecimal("100.00");
+		BigDecimal valorDSR = CalculaHorasExtras.calcularDSRHoraExtra(valorHoraExtra, getDateFevereiro2015());
+		
+		assertEquals(createMonetaryBigDecimal("16.67"), valorDSR);
 	}
+	
+	@Test
+	public void testCalcularDSRMarch2015() {
+		BigDecimal valorHoraExtra = createMonetaryBigDecimal("100.00");
+		BigDecimal valorDSR = CalculaHorasExtras.calcularDSRHoraExtra(valorHoraExtra, getDateMarco2015());
+		
+		assertEquals(createMonetaryBigDecimal("19.23"), valorDSR);
+	}
+
 }

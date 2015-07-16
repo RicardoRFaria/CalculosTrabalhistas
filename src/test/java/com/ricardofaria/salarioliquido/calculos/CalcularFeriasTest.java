@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ricardofaria.salarioliquido.model.Ferias;
-import com.ricardofaria.salarioliquido.model.Ferias.TIPO_FERIAS;
+import com.ricardofaria.salarioliquido.model.resultado.Ferias;
+import com.ricardofaria.salarioliquido.model.resultado.Ferias.TIPO_FERIAS;
 
 public class CalcularFeriasTest {
 	

@@ -2,13 +2,13 @@ package com.ricardofaria.salarioliquido.calculos;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
 
-import com.ricardofaria.salarioliquido.model.DecimoTerceiro;
-import com.ricardofaria.salarioliquido.model.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
-import com.ricardofaria.salarioliquido.model.Ferias;
-import com.ricardofaria.salarioliquido.model.Salario;
-import com.ricardofaria.salarioliquido.model.Ferias.TIPO_FERIAS;
+import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
+import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro;
+import com.ricardofaria.salarioliquido.model.resultado.Ferias;
+import com.ricardofaria.salarioliquido.model.resultado.Salario;
+import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
+import com.ricardofaria.salarioliquido.model.resultado.Ferias.TIPO_FERIAS;
 import com.ricardofaria.salarioliquido.util.ReduzSalarioPorData;
 
 import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
@@ -23,52 +23,23 @@ import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
  */
 public class Calcular {
 
-	public Salario calcularSalario(float salarioBruto, int numeroDependentes) {
-		float inss = CalculaINSS.calcular(salarioBruto);
-		float salarioParaIrpf = salarioBruto - inss;
-		float irpf = CalculaImpostoDeRenda.calcular(salarioParaIrpf, numeroDependentes);
-		float salarioLivre = salarioBruto - inss - irpf;
+	public Salario calcularSalario(ParametrosSalario parametro) {
+		float salarioCalculo = parametro.getSalarioBruto();
+		if (parametro.getDataInicioColaborador() != null) {
+			salarioCalculo = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(parametro.getSalarioBruto(), parametro.getDataInicioColaborador());
+		}
+		
+		float inss = CalculaINSS.calcular(salarioCalculo);
+		float salarioParaIrpf = salarioCalculo - inss;
+		float irpf = CalculaImpostoDeRenda.calcular(salarioParaIrpf, parametro.getNumeroDependentes());
+		float salarioLivre = salarioCalculo - inss - irpf;
 
-		Salario salario = new Salario(salarioBruto);
+		Salario salario = new Salario(parametro.getSalarioBruto());
 		salario.setDescontoInss(inss);
 		salario.setDescontoIrpf(irpf);
 		salario.setSalarioLiquido(salarioLivre);
 
 		return salario;
-	}
-
-	public Salario calcularSalario(float salarioBruto) {
-		return calcularSalario(salarioBruto, 0);
-	}
-
-	/**
-	 * Efetua o cálculo de salário com base na data de início do funcionário
-	 * 
-	 * @param salarioBruto
-	 *            por mês
-	 * @param dataInicio
-	 *            efetiva do trabalho
-	 * @return salário parcial calculado
-	 */
-	public Salario calcularSalarioParcial(float salarioBruto, Date dataInicio) {
-		return calcularSalarioParcial(salarioBruto, 0, dataInicio);
-	}
-
-	/**
-	 * Efetua o cálculo de salário com base na data de início do funcionário
-	 * 
-	 * @param salarioBruto
-	 *            por mês
-	 * @param numeroDependentes
-	 *            caso haja
-	 * @param dataInicio
-	 *            efetiva do trabalho
-	 * @return salário parcial calculado
-	 */
-	public Salario calcularSalarioParcial(float salarioBruto, int numeroDependentes, Date dataInicio) {
-		float salarioReduzido = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(salarioBruto, dataInicio);
-
-		return calcularSalario(salarioReduzido, numeroDependentes);
 	}
 
 	public Ferias calcularFerias(float salarioBruto, int numeroDependentes, TIPO_FERIAS tipo) {
