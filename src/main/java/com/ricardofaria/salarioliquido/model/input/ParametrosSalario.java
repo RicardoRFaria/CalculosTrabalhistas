@@ -11,24 +11,7 @@ public class ParametrosSalario extends ParametrosBase {
 	}
 	
 	public ParametrosSalario(float salarioBruto) {
-		super();
-		this.salarioBruto = salarioBruto;
-	}
-
-	public float getSalarioBruto() {
-		return salarioBruto;
-	}
-
-	public void setSalarioBruto(float salarioBruto) {
-		this.salarioBruto = salarioBruto;
-	}
-
-	public int getNumeroDependentes() {
-		return numeroDependentes;
-	}
-
-	public void setNumeroDependentes(int numeroDependentes) {
-		this.numeroDependentes = numeroDependentes;
+		super(salarioBruto);
 	}
 
 	public Date getDataInicioColaborador() {

@@ -15,22 +15,9 @@ public class ParametrosFerias extends ParametrosBase {
 	}
 	
 	public ParametrosFerias(float salarioBruto) {
-		super();
-		this.salarioBruto = salarioBruto;
+		super(salarioBruto);
 	}
 	
-	public float getSalarioBruto() {
-		return salarioBruto;
-	}
-	public void setSalarioBruto(float salarioBruto) {
-		this.salarioBruto = salarioBruto;
-	}
-	public int getNumeroDependentes() {
-		return numeroDependentes;
-	}
-	public void setNumeroDependentes(int numeroDependentes) {
-		this.numeroDependentes = numeroDependentes;
-	}
 	public TIPO_FERIAS getTipo() {
 		return tipo;
 	}

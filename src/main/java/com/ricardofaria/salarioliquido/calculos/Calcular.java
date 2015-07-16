@@ -3,6 +3,7 @@ package com.ricardofaria.salarioliquido.calculos;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.ricardofaria.salarioliquido.model.input.ParametrosDecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.input.ParametrosFerias;
 import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
 import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro;
@@ -133,10 +134,19 @@ public class Calcular {
 	 * @param numeroDependentes
 	 * @return
 	 */
-	public DecimoTerceiro calcularDecimoTerceiro(BigDecimal salarioBruto, int numeroDependentes) {
+	public DecimoTerceiro calcularDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
+		BigDecimal salarioBruto;
+		if (parametro.isSalarioReduzido()) {
+			float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(parametro.getSalarioBruto(),
+					parametro.getDiaDeInicioFuncionar(), parametro.getMesDeInicioFuncionario());
+
+			salarioBruto = createMonetaryBigDecimal(salarioBrutoReduzido);
+		} else {
+			salarioBruto = createMonetaryBigDecimal(parametro.getSalarioBruto());
+		}
 		BigDecimal descontoInss = CalculaINSS.calcular(salarioBruto);
 		BigDecimal salarioDescontado = salarioBruto.subtract(descontoInss);
-		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, numeroDependentes);
+		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, parametro.getNumeroDependentes());
 		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
 
 		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(salarioBruto.floatValue());
@@ -146,36 +156,11 @@ public class Calcular {
 		decimoTerceiro.setSalarioParcelaDois(
 				CalculaDecimoTerceiro.calcularParcelaDois(salarioBruto, descontoInss, descontoImpostoDeRenda));
 
-		decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.COMPLETO);
-
-		return decimoTerceiro;
-	}
-
-	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal, int numeroDependentes) {
-		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
-		return calcularDecimoTerceiro(salarioBruto, numeroDependentes);
-	}
-
-	/**
-	 * Efetua o cálculo parcial de décimo terceiro do funcionário. (Utilizado
-	 * nos casos onde o funcionário começou a trabalhar após o início do ano)
-	 * 
-	 * @param salarioBrutoOriginal
-	 * @param numeroDependentes
-	 * @param diaDeInicioFuncionar
-	 * @param mesDeInicioFuncionario
-	 * @return
-	 */
-	public DecimoTerceiro calcularDecimoTerceiro(float salarioBrutoOriginal, int numeroDependentes,
-			int diaDeInicioFuncionar, int mesDeInicioFuncionario) {
-		float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(salarioBrutoOriginal,
-				diaDeInicioFuncionar, mesDeInicioFuncionario);
-
-		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoReduzido);
-
-		DecimoTerceiro decimoTerceiro = calcularDecimoTerceiro(salarioBruto, numeroDependentes);
-		decimoTerceiro.setSalarioBruto(salarioBrutoOriginal);
-		decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);
+		if (parametro.isSalarioReduzido()) {
+			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);			
+		} else {
+			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.COMPLETO);			
+		}
 
 		return decimoTerceiro;
 	}

@@ -2,11 +2,32 @@ package com.ricardofaria.salarioliquido.model.input;
 
 public class ParametrosBase {
 
-	protected float salarioBruto;
-	protected int numeroDependentes;
+	private float salarioBruto;
+	private int numeroDependentes;
 
 	public ParametrosBase() {
 		super();
+	}
+	
+	public ParametrosBase(float salarioBruto) {
+		super();
+		this.salarioBruto = salarioBruto;
+	}
+	
+	public float getSalarioBruto() {
+		return salarioBruto;
+	}
+
+	public void setSalarioBruto(float salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
+
+	public int getNumeroDependentes() {
+		return numeroDependentes;
+	}
+
+	public void setNumeroDependentes(int numeroDependentes) {
+		this.numeroDependentes = numeroDependentes;
 	}
 
 }
