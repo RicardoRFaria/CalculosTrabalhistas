@@ -7,19 +7,11 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
 
 public class CalcularHoraExtraTest {
-	
-	private Calcular calcular;
-	
-	@Before
-	public void init() {
-		this.calcular = new Calcular();
-	}	
 	
 	public Date getDateFevereiro2015() {
 		Calendar calendar = Calendar.getInstance();
