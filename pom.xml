@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ricardofaria</groupId>
 	<artifactId>calculostrabalhistas</artifactId>
-	<version>1.1.0</version>	<name>Cálculos Trabalhistas</name>
+	<version>1.2.0</version>	<name>Cálculos Trabalhistas</name>
 	<description>Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários.</description>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

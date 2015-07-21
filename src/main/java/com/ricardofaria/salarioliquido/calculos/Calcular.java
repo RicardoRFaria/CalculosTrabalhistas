@@ -8,6 +8,7 @@ import com.ricardofaria.salarioliquido.model.input.ParametrosFerias;
 import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
 import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.resultado.Ferias;
+import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
 import com.ricardofaria.salarioliquido.model.resultado.Salario;
 import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
 import com.ricardofaria.salarioliquido.model.resultado.Ferias.TIPO_FERIAS;
@@ -32,9 +33,19 @@ public class Calcular {
 	private static final BigDecimal UM_TERCO = new BigDecimal("0.333333");
 
 	public Salario calcularSalario(ParametrosSalario parametro) {
+		if (parametro.getDataInicioColaborador() != null && parametro.getParametroHoraExtra() != null) {
+			throw new UnsupportedOperationException("O cálculo de hora extra com mês de trabalho parcial ainda não foi implementado.");
+		}
+		
 		float salarioCalculo = parametro.getSalarioBruto();
+		HoraExtra horaExtra = null;
+		
 		if (parametro.getDataInicioColaborador() != null) {
 			salarioCalculo = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(parametro.getSalarioBruto(), parametro.getDataInicioColaborador());
+		}
+		if (parametro.getParametroHoraExtra() != null) {
+			horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametro.getParametroHoraExtra());
+			salarioCalculo += horaExtra.getValorTotal().floatValue();
 		}
 		
 		float inss = CalculaINSS.calcular(salarioCalculo);
@@ -46,7 +57,8 @@ public class Calcular {
 		salario.setDescontoInss(inss);
 		salario.setDescontoIrpf(irpf);
 		salario.setSalarioLiquido(salarioLivre);
-
+		salario.setHoraExtra(horaExtra);
+		
 		return salario;
 	}
 
