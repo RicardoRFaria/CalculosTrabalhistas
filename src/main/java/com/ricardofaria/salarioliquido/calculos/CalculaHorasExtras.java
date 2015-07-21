@@ -7,38 +7,40 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
 
+import com.ricardofaria.salarioliquido.model.input.ParametrosHoraExtra;
 import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
 import com.ricardofaria.salarioliquido.util.TempoUtil;
 
 public class CalculaHorasExtras {
 	
-	public static BigDecimal calcularValorHoraExtra(BigDecimal salarioBruto, float quantidadeHorasSemanais, float porcentagemAdicionalHoraExtra) {
-		if (quantidadeHorasSemanais <= 0) {
-			throw new IllegalArgumentException("A quantidade de horas semanais não pode ser igual ou menor que zero. Valor atual: " + quantidadeHorasSemanais);
+	public static BigDecimal calcularValorHoraExtra(ParametrosHoraExtra parametros) {
+		if (parametros.getQuantidadeHorasSemanais() <= 0) {
+			throw new IllegalArgumentException("A quantidade de horas semanais não pode ser igual ou menor que zero. Valor atual: " + parametros.getQuantidadeHorasSemanais());
 		}
-		if (porcentagemAdicionalHoraExtra < 50) {
-			throw new IllegalArgumentException("A porcentagem adicional de hora extra não pode ser menor que 50%. Valor atual: " + porcentagemAdicionalHoraExtra);
+		if (parametros.getPorcentagemAdicionalHoraExtra() < 50) {
+			throw new IllegalArgumentException("A porcentagem adicional de hora extra não pode ser menor que 50%. Valor atual: " + parametros.getPorcentagemAdicionalHoraExtra());
 		}
-		BigDecimal quantidadeHorasMensais = createMonetaryBigDecimal(calcularHorasMensaisCLT(quantidadeHorasSemanais));
+		BigDecimal quantidadeHorasMensais = createMonetaryBigDecimal(calcularHorasMensaisCLT(parametros.getQuantidadeHorasSemanais()));
 		
-		BigDecimal salarioPorHora = salarioBruto.divide(quantidadeHorasMensais, 4, RoundingMode.HALF_EVEN);
-		BigDecimal porcentagemMultiplicacao = new BigDecimal(1 + (porcentagemAdicionalHoraExtra / 100));
+		BigDecimal salarioPorHora = parametros.getSalarioBruto().divide(quantidadeHorasMensais, 4, RoundingMode.HALF_EVEN);
+		BigDecimal porcentagemMultiplicacao = new BigDecimal(1 + (parametros.getPorcentagemAdicionalHoraExtra() / 100));
 		BigDecimal horaExtra = salarioPorHora.multiply(porcentagemMultiplicacao);
 		
 		return changeToMonetaryBidecimal(horaExtra);
 	}
 	
-	public static HoraExtra calcularTotalHorasExtras(BigDecimal valorPorHora, String tempoDeHoraExtra, Date mes) {
-		BigDecimal quantidadeHorasMultiplicacao = new BigDecimal(hoursToFloat(tempoDeHoraExtra));
+	public static HoraExtra calcularTotalHorasExtras(ParametrosHoraExtra parametros) {
+		BigDecimal quantidadeHorasMultiplicacao = new BigDecimal(parametros.getTempoDeHoraExtraParaMultiplicacao());
+		BigDecimal valorPorHora = calcularValorHoraExtra(parametros);
 		BigDecimal valorTotalDeHoras = valorPorHora.multiply(quantidadeHorasMultiplicacao);
 		
-		BigDecimal valorDSR = calcularDSRHoraExtra(valorTotalDeHoras, mes);
+		BigDecimal valorDSR = calcularDSRHoraExtra(valorTotalDeHoras, parametros.getMesReferencia());
 		BigDecimal valorTotal = changeToMonetaryBidecimal(valorTotalDeHoras.add(valorDSR));
 		
-		return new HoraExtra(valorPorHora, tempoDeHoraExtra, valorTotal, valorDSR);
+		return new HoraExtra(valorPorHora, parametros.getTempoDeHoraExtra(), valorTotal, valorDSR);
 	}
 	
-	public static BigDecimal calcularDSRHoraExtra(BigDecimal valorTotalDeHorasExtras, Date mes) {
+	static BigDecimal calcularDSRHoraExtra(BigDecimal valorTotalDeHorasExtras, Date mes) {
 		int diasUteis = TempoUtil.calcularDiasUteisNoMes(mes);
 		int diasDSR = TempoUtil.calcularDiasDeFolgaNoMes(mes);
 		

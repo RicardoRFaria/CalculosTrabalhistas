@@ -9,6 +9,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import com.ricardofaria.salarioliquido.model.input.ParametrosHoraExtra;
 import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
 
 public class CalcularHoraExtraTest {
@@ -27,54 +28,56 @@ public class CalcularHoraExtraTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCalcularValorHoraExtraComAdicionalAbaixoDe50Porcento() {
-		BigDecimal salarioBruto = createMonetaryBigDecimal("5000");
-		CalculaHorasExtras.calcularValorHoraExtra(salarioBruto, 44f, 30);
+		ParametrosHoraExtra parametros = new ParametrosHoraExtra(createMonetaryBigDecimal("5000"));
+		parametros.setQuantidadeHorasSemanais(44);
+		parametros.setPorcentagemAdicionalHoraExtra(30);
+		CalculaHorasExtras.calcularValorHoraExtra(parametros);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCalcularValorHoraExtraSemHorasSemanais() {
-		BigDecimal salarioBruto = createMonetaryBigDecimal("5000");
-		CalculaHorasExtras.calcularValorHoraExtra(salarioBruto, 0, 50);
+		ParametrosHoraExtra parametros = new ParametrosHoraExtra(createMonetaryBigDecimal("5000"));
+		parametros.setQuantidadeHorasSemanais(0);
+		CalculaHorasExtras.calcularValorHoraExtra(parametros);
 	}
 	
 	@Test
 	public void testCalcularValorHoraExtraSalario5000EAdicionalDe50Porcento() {
-		BigDecimal salarioBruto = createMonetaryBigDecimal("5000");
-		float quantidadeHorasSemanais = 44f;
-		float porcentagemAdicionalHoraExtra = 50;
-		BigDecimal valorHoras = CalculaHorasExtras.calcularValorHoraExtra(salarioBruto, quantidadeHorasSemanais, porcentagemAdicionalHoraExtra);
+		ParametrosHoraExtra parametros = new ParametrosHoraExtra(createMonetaryBigDecimal("5000"));
+		BigDecimal valorHoras = CalculaHorasExtras.calcularValorHoraExtra(parametros);
 		
 		assertEquals(createMonetaryBigDecimal("34.09"), valorHoras);
 	}
 	
 	@Test
 	public void testCalcularHoraExtraDeUmaHora() {
-		BigDecimal valorPorHoraExtra = createMonetaryBigDecimal("34.09");
-		String quantidadeDeHoras = "01:00";
+		ParametrosHoraExtra parametros = new ParametrosHoraExtra(createMonetaryBigDecimal("5000"));
+		parametros.setTempoDeHoraExtra("01:00");	
+		parametros.setMesReferencia(getDateFevereiro2015());
 		
-		
-		
-		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras, getDateFevereiro2015());
+		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametros);
 		
 		assertEquals(createMonetaryBigDecimal("39.77"), horaExtra.getValorTotal());
 	}
 	
 	@Test
 	public void testCalcularHoraExtraDeUmaHoraEMeia() {
-		BigDecimal valorPorHoraExtra = createMonetaryBigDecimal("34.09");
-		String quantidadeDeHoras = "01:30";
+		ParametrosHoraExtra parametros = new ParametrosHoraExtra(createMonetaryBigDecimal("5000"));
+		parametros.setTempoDeHoraExtra("01:30");	
+		parametros.setMesReferencia(getDateFevereiro2015());
 		
-		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras, getDateFevereiro2015());
+		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametros);
 		
 		assertEquals(createMonetaryBigDecimal("59.66"), horaExtra.getValorTotal());
 	}
 	
 	@Test
 	public void testCalcularHoraExtraDe100Horas() {
-		BigDecimal valorPorHoraExtra = createMonetaryBigDecimal("34.09");
-		String quantidadeDeHoras = "100:00";
+		ParametrosHoraExtra parametros = new ParametrosHoraExtra(createMonetaryBigDecimal("5000"));
+		parametros.setTempoDeHoraExtra("100:00");
+		parametros.setMesReferencia(getDateFevereiro2015());
 		
-		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(valorPorHoraExtra, quantidadeDeHoras, getDateFevereiro2015());
+		HoraExtra horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametros);
 		
 		assertEquals(createMonetaryBigDecimal("3977.17"), horaExtra.getValorTotal());
 	}
