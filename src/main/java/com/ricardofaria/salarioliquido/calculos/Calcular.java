@@ -43,27 +43,23 @@ public class Calcular {
 		if (parametro.getDataInicioColaborador() != null) {
 			salarioCalculo = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(parametro.getSalarioBruto(), parametro.getDataInicioColaborador());
 		}
+		if (parametro.isAdicionalDePericulosidade()) {
+			salarioCalculo = CalculaSalario.calcularSalarioBrutoComAdicionalDePericulosidade(salarioCalculo);
+		}
 		if (parametro.getParametroHoraExtra() != null) {
 			horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametro.getParametroHoraExtra());
 			salarioCalculo += horaExtra.getValorTotal().floatValue();
 		}
 		
-		float inss = CalculaINSS.calcular(salarioCalculo);
-		float salarioParaIrpf = salarioCalculo - inss;
-		float irpf = CalculaImpostoDeRenda.calcular(salarioParaIrpf, parametro.getNumeroDependentes());
-		float salarioLivre = salarioCalculo - inss - irpf;
-
 		Salario salario = new Salario(parametro.getSalarioBruto());
-		salario.setDescontoInss(inss);
-		salario.setDescontoIrpf(irpf);
-		salario.setSalarioLiquido(salarioLivre);
+		CalculaSalario.calcularRemuneracao(salario, parametro, salarioCalculo);
 		salario.setHoraExtra(horaExtra);
 		
 		return salario;
 	}
 
 	public Ferias calcularFerias(ParametrosFerias parametro) {
-		Ferias feriasObject = new Ferias();
+		Ferias feriasObject = new Ferias(parametro.getSalarioBruto());
 		BigDecimal salarioBrutoObj = createMonetaryBigDecimal(parametro.getSalarioBruto());
 
 		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, parametro.getTipo());
@@ -73,20 +69,13 @@ public class Calcular {
 
 		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
 
-		BigDecimal descontoInss = CalculaINSS.calcular(salarioCalculo);
-		BigDecimal salarioDescontado = salarioCalculo.subtract(descontoInss);
-		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, parametro.getNumeroDependentes());
-		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
+		feriasObject = (Ferias) CalculaSalario.calcularRemuneracao(feriasObject, parametro, salarioCalculo.floatValue());
 
 		if (parametro.getTipo() == TIPO_FERIAS.DIAS_20) {
 			BigDecimal abonoPecuniario = calcularAbonoPecuniario(parametro.getSalarioBruto());
 			feriasObject.setAbonoPecuniario(abonoPecuniario);
-			salarioDescontado = salarioDescontado.add(abonoPecuniario);
+			feriasObject.setValorLiquido(feriasObject.getValorLiquido() + abonoPecuniario.floatValue());
 		}
-
-		feriasObject.setFeriasLiquidas(salarioDescontado);
-		feriasObject.setDescontoInss(descontoInss);
-		feriasObject.setDescontoIrpf(descontoImpostoDeRenda);
 
 		return feriasObject;
 	}
@@ -96,7 +85,7 @@ public class Calcular {
 		
 		float primeiraParcelaDecimoTerceiro = parametro.getSalarioBruto() / 2;
 		ferias.setAdiantamentoDecimoTerceiro(primeiraParcelaDecimoTerceiro);
-		ferias.setFeriasLiquidas(ferias.getFeriasLiquidas() + primeiraParcelaDecimoTerceiro);
+		ferias.setValorLiquido(ferias.getValorLiquido() + primeiraParcelaDecimoTerceiro);
 		
 		return ferias;
 	}

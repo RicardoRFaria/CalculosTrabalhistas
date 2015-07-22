@@ -30,7 +30,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(63.04f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(724.96f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(724.96f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(135.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1365.00f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(1365.00f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(180.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1820.0f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(1820.0f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(275.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(24.08f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2200.92f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(2200.92f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -74,7 +74,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(330.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(57.45f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2612.55f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(2612.55f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(385.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(112.45f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3002.55f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(3002.55f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -96,7 +96,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(440.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(179.20f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3380.80f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(3380.80f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -107,7 +107,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(495.00f, salario.getDescontoInss(), 0.01);
 		assertEquals(265.00f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3740.00f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(3740.00f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -118,7 +118,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(513.01f, salario.getDescontoInss(), 0.01);
 		assertEquals(373.44f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(4113.55f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(4113.55f, salario.getValorLiquido(), 0.01);
 	}
 	
 	
@@ -131,7 +131,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(42.77f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(491.94f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(491.94f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -143,7 +143,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(81.43f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(936.43f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(936.43f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -155,7 +155,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(108.57f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1248.57f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(1248.57f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -167,7 +167,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(152.68f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1543.75f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(1543.75f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -179,7 +179,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(183.21f, salario.getDescontoInss(), 0.01);
 		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1852.50f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(1852.50f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -191,7 +191,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(261.25f, salario.getDescontoInss(), 0.01);
 		assertEquals(15.73f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2098.02f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(2098.02f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -203,7 +203,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(298.57f, salario.getDescontoInss(), 0.01);
 		assertEquals(38.38f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2377.34f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(2377.34f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -215,7 +215,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(335.89f, salario.getDescontoInss(), 0.01);
 		assertEquals(61.03f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2656.65f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(2656.65f, salario.getValorLiquido(), 0.01);
 	}
 	
 	@Test
@@ -227,7 +227,7 @@ public class CalcularSalarioTest {
 		
 		assertEquals(373.21f, salario.getDescontoInss(), 0.01);
 		assertEquals(98.15f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2921.50f, salario.getSalarioLiquido(), 0.01);
+		assertEquals(2921.50f, salario.getValorLiquido(), 0.01);
 	}
 	
 	public Date getDataInicioFuncionario() {

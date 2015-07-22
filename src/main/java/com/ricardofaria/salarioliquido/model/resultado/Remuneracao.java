@@ -7,6 +7,8 @@ public abstract class Remuneracao {
 	private float salarioBruto;
 	private float descontoInss;
 	private float descontoIrpf;
+	private float adicionalPericulosidade;
+	private float valorLiquido;
 	
 	public Remuneracao() {
 		super();
@@ -56,6 +58,26 @@ public abstract class Remuneracao {
 	
 	public void setDescontoIrpf(BigDecimal descontoIrpf) {
 		this.descontoIrpf = descontoIrpf.floatValue();
+	}
+
+	public float getAdicionalPericulosidade() {
+		return adicionalPericulosidade;
+	}
+
+	public void setAdicionalPericulosidade(float adicionalPericulosidade) {
+		this.adicionalPericulosidade = adicionalPericulosidade;
+	}
+
+	public float getValorLiquido() {
+		return valorLiquido;
+	}
+
+	public void setValorLiquido(float valorLiquido) {
+		this.valorLiquido = valorLiquido;
+	}
+	
+	public void setValorLiquido(BigDecimal feriasLiquidas) {
+		this.valorLiquido = feriasLiquidas.floatValue();
 	}
 
 }

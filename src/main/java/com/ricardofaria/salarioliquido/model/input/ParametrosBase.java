@@ -4,6 +4,7 @@ public class ParametrosBase {
 
 	private float salarioBruto;
 	private int numeroDependentes;
+	private boolean adicionalDePericulosidade;
 
 	public ParametrosBase() {
 		super();
@@ -28,6 +29,14 @@ public class ParametrosBase {
 
 	public void setNumeroDependentes(int numeroDependentes) {
 		this.numeroDependentes = numeroDependentes;
+	}
+
+	public boolean isAdicionalDePericulosidade() {
+		return adicionalDePericulosidade;
+	}
+
+	public void setAdicionalDePericulosidade(boolean adicionalDePericulosidade) {
+		this.adicionalDePericulosidade = adicionalDePericulosidade;
 	}
 
 }
