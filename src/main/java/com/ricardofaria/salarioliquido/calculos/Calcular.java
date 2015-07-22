@@ -37,7 +37,7 @@ public class Calcular {
 			throw new UnsupportedOperationException("O cálculo de hora extra com mês de trabalho parcial ainda não foi implementado.");
 		}
 		
-		float salarioCalculo = parametro.getSalarioBruto();
+		BigDecimal salarioCalculo = parametro.getSalarioBruto();
 		HoraExtra horaExtra = null;
 		
 		if (parametro.getDataInicioColaborador() != null) {
@@ -48,11 +48,11 @@ public class Calcular {
 		}
 		if (parametro.getParametroHoraExtra() != null) {
 			horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametro.getParametroHoraExtra());
-			salarioCalculo += horaExtra.getValorTotal().floatValue();
+			salarioCalculo = salarioCalculo.add(horaExtra.getValorTotal());
 		}
 		
 		Salario salario = new Salario(parametro.getSalarioBruto());
-		CalculaSalario.calcularRemuneracao(salario, parametro, salarioCalculo);
+		salario = (Salario) CalculaSalario.calcularRemuneracao(salario, parametro, salarioCalculo.floatValue());
 		salario.setHoraExtra(horaExtra);
 		
 		return salario;
@@ -60,7 +60,7 @@ public class Calcular {
 
 	public Ferias calcularFerias(ParametrosFerias parametro) {
 		Ferias feriasObject = new Ferias(parametro.getSalarioBruto());
-		BigDecimal salarioBrutoObj = createMonetaryBigDecimal(parametro.getSalarioBruto());
+		BigDecimal salarioBrutoObj = parametro.getSalarioBruto();
 
 		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, parametro.getTipo());
 
@@ -83,7 +83,7 @@ public class Calcular {
 	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(ParametrosFerias parametro) {
 		Ferias ferias = calcularFerias(parametro);
 		
-		float primeiraParcelaDecimoTerceiro = parametro.getSalarioBruto() / 2;
+		float primeiraParcelaDecimoTerceiro = parametro.getSalarioBruto().floatValue() / 2;
 		ferias.setAdiantamentoDecimoTerceiro(primeiraParcelaDecimoTerceiro);
 		ferias.setValorLiquido(ferias.getValorLiquido() + primeiraParcelaDecimoTerceiro);
 		
@@ -127,8 +127,7 @@ public class Calcular {
 	 *            o mesmo inserido no início do cálculo para o funcionário
 	 * @return
 	 */
-	public BigDecimal calcularAbonoPecuniario(float salarioBrutoOriginal) {
-		BigDecimal salarioBruto = createMonetaryBigDecimal(salarioBrutoOriginal);
+	public BigDecimal calcularAbonoPecuniario(BigDecimal salarioBruto) {
 		
 		BigDecimal umDia = obterUmDia(salarioBruto);
 		BigDecimal dezDias = umDia.multiply(DIAS_10);
@@ -148,12 +147,11 @@ public class Calcular {
 	public DecimoTerceiro calcularDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
 		BigDecimal salarioCalculo;
 		if (parametro.isSalarioReduzido()) {
-			float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(parametro);
-			salarioCalculo = createMonetaryBigDecimal(salarioBrutoReduzido);
+			salarioCalculo = ReduzSalarioPorData.reduzirDecimoTerceiro(parametro);
 		} else {
-			salarioCalculo = createMonetaryBigDecimal(parametro.getSalarioBruto());
+			salarioCalculo = parametro.getSalarioBruto();
 		}
-		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(new BigDecimal(parametro.getSalarioBruto()));
+		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(parametro.getSalarioBruto());
 		
 		decimoTerceiro = (DecimoTerceiro) CalculaSalario.calcularRemuneracao(decimoTerceiro, parametro, salarioCalculo.floatValue());
 		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioCalculo));

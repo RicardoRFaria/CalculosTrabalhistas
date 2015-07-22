@@ -1,6 +1,7 @@
 package com.ricardofaria.salarioliquido.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -15,6 +16,8 @@ import com.ricardofaria.salarioliquido.model.input.ParametrosDecimoTerceiro;
  */
 public class ReduzSalarioPorData {
 
+	private static final int QUANTIDADE_MESES_ANO = 12;
+
 	/**
 	 * Reduz o salário do funcionário com base na data de entrada, útil para
 	 * cálculos parciais de 13º
@@ -27,12 +30,12 @@ public class ReduzSalarioPorData {
 	 *            do funcionário na empresa
 	 * @return salário reduzido com base no tempo de trabalho
 	 */
-	public static float reduzirDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
+	public static BigDecimal reduzirDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
 		int quantidadeMeses = 12 - parametro.getMesDeInicioFuncionario();
 		if (parametro.getDiaDeInicioFuncionar() <= 15) {
 			quantidadeMeses++;
 		}
-		float salarioParaCalculo = (parametro.getSalarioBruto() / 12) * quantidadeMeses;
+		BigDecimal salarioParaCalculo = parametro.getSalarioBruto().divide(new BigDecimal(QUANTIDADE_MESES_ANO)).multiply(new BigDecimal(quantidadeMeses));
 		return salarioParaCalculo;
 	}
 
@@ -46,7 +49,7 @@ public class ReduzSalarioPorData {
 	 *            do funcionário na empresa
 	 * @return salário parcial
 	 */
-	public static float reduzirSalarioPorDataDeInicio(float salarioBruto, Date dataInicio) {
+	public static BigDecimal reduzirSalarioPorDataDeInicio(BigDecimal salarioBruto, Date dataInicio) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(dataInicio);
 
@@ -54,23 +57,9 @@ public class ReduzSalarioPorData {
 		int diaAtual = calendar.get(Calendar.DAY_OF_MONTH);
 		int diasTrabalhados = quantidadeDiasMes - (diaAtual - 1);
 
-		float salarioDiario = salarioBruto / quantidadeDiasMes;
-		float salarioReduzido = salarioDiario * diasTrabalhados;
+		BigDecimal salarioDiario = salarioBruto.divide(new BigDecimal(quantidadeDiasMes), 4, RoundingMode.HALF_EVEN);
+		BigDecimal salarioReduzido = salarioDiario.multiply(new BigDecimal(diasTrabalhados));
 
 		return salarioReduzido;
-	}
-	
-	/**
-	 * Efetua a redução do salário pago por mês ao funcionário com base na data
-	 * de início de trabalho e nos dias do mês início
-	 * 
-	 * @param salarioBruto
-	 *            pago por mês ao funcionário
-	 * @param dataInicio
-	 *            do funcionário na empresa
-	 * @return salário parcial
-	 */
-	public static BigDecimal reduzirSalarioPorDataDeInicio(BigDecimal salarioBruto, Date dataInicio) {
-		return new BigDecimal(reduzirSalarioPorDataDeInicio(salarioBruto.floatValue(), dataInicio));
 	}
 }

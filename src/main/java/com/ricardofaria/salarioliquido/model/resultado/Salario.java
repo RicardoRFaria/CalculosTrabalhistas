@@ -1,5 +1,7 @@
 package com.ricardofaria.salarioliquido.model.resultado;
 
+import java.math.BigDecimal;
+
 public class Salario extends Remuneracao {
 
 	private HoraExtra horaExtra;
@@ -9,6 +11,10 @@ public class Salario extends Remuneracao {
 	}
 
 	public Salario(float salarioBruto) {
+		super(salarioBruto);
+	}
+	
+	public Salario(BigDecimal salarioBruto) {
 		super(salarioBruto);
 	}
 

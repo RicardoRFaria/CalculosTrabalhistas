@@ -19,6 +19,10 @@ public class Ferias extends Remuneracao {
 	public Ferias(float valorFerias) {
 		super(valorFerias);
 	}
+	
+	public Ferias(BigDecimal valorFerias) {
+		super(valorFerias);
+	}
 
 	public float getAbonoPecuniario() {
 		return abonoPecuniario;

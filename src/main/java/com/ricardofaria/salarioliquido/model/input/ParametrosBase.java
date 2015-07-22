@@ -1,8 +1,12 @@
 package com.ricardofaria.salarioliquido.model.input;
 
+import java.math.BigDecimal;
+
+import com.ricardofaria.salarioliquido.util.PrecisionUtil;
+
 public class ParametrosBase {
 
-	private float salarioBruto;
+	private BigDecimal salarioBruto;
 	private int numeroDependentes;
 	private boolean adicionalDePericulosidade;
 
@@ -15,12 +19,25 @@ public class ParametrosBase {
 		setSalarioBruto(salarioBruto);
 	}
 	
-	public float getSalarioBruto() {
+	public ParametrosBase(BigDecimal salarioBruto) {
+		super();
+		setSalarioBruto(salarioBruto);
+	}
+	
+	public BigDecimal getSalarioBruto() {
 		return salarioBruto;
 	}
+	
+	public float getSalarioBrutoFloat() {
+		return salarioBruto.floatValue();
+	}
 
-	public void setSalarioBruto(float salarioBruto) {
+	public void setSalarioBruto(BigDecimal salarioBruto) {
 		this.salarioBruto = salarioBruto;
+	}
+	
+	public void setSalarioBruto(float salarioBruto) {
+		this.salarioBruto = PrecisionUtil.createMonetaryBigDecimal(salarioBruto);
 	}
 
 	public int getNumeroDependentes() {
