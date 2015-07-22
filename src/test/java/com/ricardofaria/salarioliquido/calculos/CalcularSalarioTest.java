@@ -1,7 +1,10 @@
 package com.ricardofaria.salarioliquido.calculos;
 
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
+
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,6 +17,7 @@ import com.ricardofaria.salarioliquido.model.resultado.Salario;
 public class CalcularSalarioTest {
 	
 	private static final float VALOR_SALARIO_MINIMO = 788.00f;
+	private static final BigDecimal BIG_DECIMAL_0 = createMonetaryBigDecimal("0");
 
 	private Calcular calcular;
 	
@@ -28,9 +32,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(63.04f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(724.96f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(63.04f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(724.96f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -39,9 +43,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(135.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1365.00f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(135.00f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(1365.00f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -50,9 +54,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(180.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1820.0f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(180.00f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(1820.0f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -61,9 +65,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(275.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(24.08f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2200.92f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(275.00f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(24.08f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2200.92f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -72,9 +76,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(330.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(57.45f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2612.55f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(330.00f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(57.45f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2612.55f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -83,9 +87,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(385.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(112.45f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3002.55f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(385.00f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(112.45f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(3002.55f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -94,9 +98,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(440.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(179.20f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3380.80f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(440.00f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(179.20f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(3380.80f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -105,9 +109,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(495.00f, salario.getDescontoInss(), 0.01);
-		assertEquals(265.00f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(3740.00f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(495.00f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(265.00f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(3740.00f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -116,9 +120,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(513.01f, salario.getDescontoInss(), 0.01);
-		assertEquals(373.44f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(4113.55f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(513.01f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(373.44f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(4113.55f), salario.getValorLiquido());
 	}
 	
 	
@@ -129,9 +133,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(42.77f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(491.94f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(42.78f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(491.94f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -141,9 +145,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro); 
 		
-		assertEquals(81.43f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(936.43f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(81.43f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(936.43f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -153,9 +157,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro);
 		
-		assertEquals(108.57f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.0f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1248.57f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(108.57f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(1248.57f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -165,9 +169,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro);
 		
-		assertEquals(152.68f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1543.75f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(152.68f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(1543.75f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -177,9 +181,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro);
 		
-		assertEquals(183.21f, salario.getDescontoInss(), 0.01);
-		assertEquals(0.00f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(1852.50f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(183.21f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(1852.50f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -189,9 +193,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro);
 		
-		assertEquals(261.25f, salario.getDescontoInss(), 0.01);
-		assertEquals(15.73f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2098.02f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(261.25f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(15.73f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2098.02f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -201,9 +205,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro);
 		
-		assertEquals(298.57f, salario.getDescontoInss(), 0.01);
-		assertEquals(38.38f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2377.34f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(298.57f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(38.38f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2377.34f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -213,9 +217,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro);
 		
-		assertEquals(335.89f, salario.getDescontoInss(), 0.01);
-		assertEquals(61.03f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2656.65f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(335.89f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(61.03f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2656.65f), salario.getValorLiquido());
 	}
 	
 	@Test
@@ -225,9 +229,9 @@ public class CalcularSalarioTest {
 		
 		Salario salario = calcular.calcularSalario(parametro);
 		
-		assertEquals(373.21f, salario.getDescontoInss(), 0.01);
-		assertEquals(98.15f, salario.getDescontoIrpf(), 0.01);
-		assertEquals(2921.50f, salario.getValorLiquido(), 0.01);
+		assertEquals(createMonetaryBigDecimal(373.21f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(98.15f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2921.50f), salario.getValorLiquido());
 	}
 	
 	public Date getDataInicioFuncionario() {

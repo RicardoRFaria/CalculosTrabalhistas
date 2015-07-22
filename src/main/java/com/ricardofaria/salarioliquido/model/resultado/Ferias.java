@@ -1,16 +1,26 @@
 package com.ricardofaria.salarioliquido.model.resultado;
 
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
+
 import java.math.BigDecimal;
 
 public class Ferias extends Remuneracao {
+	
+	private static final BigDecimal VALOR_0 = createMonetaryBigDecimal("0");
 	
 	public enum TIPO_FERIAS {
 		COMPLETA, DIAS_20, DIAS_15;
 	}
 	
-	private float abonoPecuniario;
-	private float valorFerias;
-	private float adiantamentoDecimoTerceiro;
+	private BigDecimal abonoPecuniario;
+	private BigDecimal valorFerias;
+	private BigDecimal adiantamentoDecimoTerceiro;
+	
+	{
+		abonoPecuniario = VALOR_0;
+		valorFerias = VALOR_0;
+		adiantamentoDecimoTerceiro = VALOR_0;
+	}
 	
 	public Ferias() {
 		super();
@@ -24,36 +34,52 @@ public class Ferias extends Remuneracao {
 		super(valorFerias);
 	}
 
-	public float getAbonoPecuniario() {
+	public BigDecimal getAbonoPecuniario() {
 		return abonoPecuniario;
+	}
+	
+	public float getAbonoPecuniarioFloat() {
+		return abonoPecuniario.floatValue();
 	}
 
 	public void setAbonoPecuniario(float abonoPecuniario) {
-		this.abonoPecuniario = abonoPecuniario;
+		this.abonoPecuniario = createMonetaryBigDecimal(abonoPecuniario);
 	}
 	
 	public void setAbonoPecuniario(BigDecimal abonoPecuniario) {
-		this.abonoPecuniario = abonoPecuniario.floatValue();
+		this.abonoPecuniario = changeToMonetaryBidecimal(abonoPecuniario);
 	}
 
-	public float getValorFerias() {
+	public BigDecimal getValorFerias() {
 		return valorFerias;
+	}
+	
+	public float getValorFeriasFloat() {
+		return valorFerias.floatValue();
 	}
 
 	public void setValorFerias(float valorFerias) {
-		this.valorFerias = valorFerias;
+		this.valorFerias = createMonetaryBigDecimal(valorFerias);
 	}
 	
 	public void setValorFerias(BigDecimal valorFerias) {
-		this.valorFerias = valorFerias.floatValue();
+		this.valorFerias = changeToMonetaryBidecimal(valorFerias);
 	}
 
-	public float getAdiantamentoDecimoTerceiro() {
+	public BigDecimal getAdiantamentoDecimoTerceiro() {
 		return adiantamentoDecimoTerceiro;
+	}
+	
+	public float getAdiantamentoDecimoTerceiroFloat() {
+		return adiantamentoDecimoTerceiro.floatValue();
 	}
 
 	public void setAdiantamentoDecimoTerceiro(float adiantamentoDecimoTerceiro) {
-		this.adiantamentoDecimoTerceiro = adiantamentoDecimoTerceiro;
+		this.adiantamentoDecimoTerceiro = createMonetaryBigDecimal(adiantamentoDecimoTerceiro);
+	}
+	
+	public void setAdiantamentoDecimoTerceiro(BigDecimal adiantamentoDecimoTerceiro) {
+		this.adiantamentoDecimoTerceiro = changeToMonetaryBidecimal(adiantamentoDecimoTerceiro);
 	}
 
 }
