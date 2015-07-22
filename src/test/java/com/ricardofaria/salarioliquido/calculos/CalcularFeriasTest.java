@@ -18,11 +18,11 @@ public class CalcularFeriasTest {
 
 	private static final float VALOR_SALARIO_MINIMO = 788.00f;
 
-	private Calcular calcular;
+	private CalculaFerias calcular;
 	
 	@Before
 	public void init() {
-		this.calcular = new Calcular();
+		this.calcular = new CalculaFerias();
 	}
 	
 	@Test

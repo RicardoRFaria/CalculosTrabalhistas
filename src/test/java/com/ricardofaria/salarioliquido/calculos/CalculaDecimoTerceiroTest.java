@@ -17,11 +17,11 @@ public class CalculaDecimoTerceiroTest {
 	
 	private static final float VALOR_SALARIO_MINIMO = 788.00f;
 
-	private Calcular calcular;
+	private CalculaDecimoTerceiro calcular;
 	
 	@Before
 	public void init() {
-		this.calcular = new Calcular();
+		this.calcular = new CalculaDecimoTerceiro();
 	}
 
 	@Test

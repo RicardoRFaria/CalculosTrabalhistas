@@ -5,9 +5,11 @@ import static com.ricardofaria.salarioliquido.util.PrecisionUtil.changeToMonetar
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.ricardofaria.salarioliquido.model.input.ParametrosFerias;
+import com.ricardofaria.salarioliquido.model.resultado.Ferias;
 import com.ricardofaria.salarioliquido.model.resultado.Ferias.TIPO_FERIAS;
 
-public class CalculaFerias {
+public class CalculaFerias extends CalculaRemuneracao {
 	
 	private static final BigDecimal DIAS_10 = new BigDecimal("10");
 	private static final BigDecimal DIAS_15 = new BigDecimal("15");
@@ -59,6 +61,38 @@ public class CalculaFerias {
 		BigDecimal abonoPecuniario = dezDias.multiply(UM_TERCO).add(dezDias);
 
 		return changeToMonetaryBidecimal(abonoPecuniario);
+	}
+	
+	public Ferias calcularFerias(ParametrosFerias parametro) {
+		Ferias feriasObject = new Ferias(parametro.getSalarioBruto());
+		BigDecimal salarioBrutoObj = parametro.getSalarioBruto();
+
+		salarioBrutoObj = CalculaFerias.aplicarModificarDeFeriasParcial(salarioBrutoObj, parametro.getTipo());
+
+		BigDecimal ferias = salarioBrutoObj.multiply(UM_TERCO);
+		feriasObject.setValorFerias(ferias);
+
+		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
+
+		feriasObject = (Ferias) calcularRemuneracao(feriasObject, parametro, salarioCalculo.floatValue());
+
+		if (parametro.getTipo() == TIPO_FERIAS.DIAS_20) {
+			BigDecimal abonoPecuniario = CalculaFerias.calcularAbonoPecuniario(parametro.getSalarioBruto());
+			feriasObject.setAbonoPecuniario(abonoPecuniario);
+			feriasObject.setValorLiquido(feriasObject.getValorLiquido().add(abonoPecuniario));
+		}
+
+		return feriasObject;
+	}
+
+	public Ferias calcularFeriasComAdiantamentoDeDecimoTerceiro(ParametrosFerias parametro) {
+		Ferias ferias = calcularFerias(parametro);
+		
+		BigDecimal primeiraParcelaDecimoTerceiro = parametro.getSalarioBruto().divide(new BigDecimal(2), 4, RoundingMode.HALF_EVEN);
+		ferias.setAdiantamentoDecimoTerceiro(primeiraParcelaDecimoTerceiro);
+		ferias.setValorLiquido(ferias.getValorLiquido().add(primeiraParcelaDecimoTerceiro));
+		
+		return ferias;
 	}
 	
 }

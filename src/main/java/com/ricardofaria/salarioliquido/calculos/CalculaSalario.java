@@ -1,45 +1,39 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
-
 import java.math.BigDecimal;
 
-import com.ricardofaria.salarioliquido.model.input.ParametrosBase;
-import com.ricardofaria.salarioliquido.model.resultado.Remuneracao;
+import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
+import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
+import com.ricardofaria.salarioliquido.model.resultado.Salario;
+import com.ricardofaria.salarioliquido.util.ReduzSalarioPorData;
 
-public class CalculaSalario {
+public class CalculaSalario extends CalculaRemuneracao {
 	
-	private static final BigDecimal PORCENTAGEM_ADICIONAL_PERICULOSIDADE = new BigDecimal("0.3");
 	
-	public static float calcularSalarioBrutoComAdicionalDePericulosidade(float salarioBruto) {
-		return calcularSalarioBrutoComAdicionalDePericulosidade(createMonetaryBigDecimal(salarioBruto)).floatValue();
-	}
-	
-	public static BigDecimal calcularSalarioBrutoComAdicionalDePericulosidade(BigDecimal salarioBruto) {
-		BigDecimal adicionalPericulosidade = calcularAdicionalDePericulosidade(salarioBruto);
-		return salarioBruto.add(adicionalPericulosidade);
-	}
-	
-	public static float calcularAdicionalDePericulosidade(float salario) {
-		return calcularAdicionalDePericulosidade(createMonetaryBigDecimal(salario)).floatValue();
-	}
-	
-	public static BigDecimal calcularAdicionalDePericulosidade(BigDecimal salario) {
-		return salario.multiply(PORCENTAGEM_ADICIONAL_PERICULOSIDADE);
-	}
-	
-	public static Remuneracao calcularRemuneracao(Remuneracao remuneracao, ParametrosBase parametro, float salarioCalculo) {
-		float inss = CalculaINSS.calcular(salarioCalculo);
-		float salarioParaIrpf = salarioCalculo - inss;
-		float irpf = CalculaImpostoDeRenda.calcular(salarioParaIrpf, parametro.getNumeroDependentes());
-		float salarioLivre = salarioCalculo - inss - irpf;
-		float adicionalPericulosidade = CalculaSalario.calcularAdicionalDePericulosidade(salarioCalculo);
+	public Salario calcularSalario(ParametrosSalario parametro) {
+		if (parametro.getDataInicioColaborador() != null && parametro.getParametroHoraExtra() != null) {
+			throw new UnsupportedOperationException("O cálculo de hora extra com mês de trabalho parcial ainda não foi implementado.");
+		}
 		
-		remuneracao.setDescontoInss(inss);
-		remuneracao.setDescontoIrpf(irpf);
-		remuneracao.setValorLiquido(salarioLivre);
-		remuneracao.setAdicionalPericulosidade(adicionalPericulosidade);
-		return remuneracao;
+		BigDecimal salarioCalculo = parametro.getSalarioBruto();
+		HoraExtra horaExtra = null;
+		
+		if (parametro.getDataInicioColaborador() != null) {
+			salarioCalculo = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(parametro.getSalarioBruto(), parametro.getDataInicioColaborador());
+		}
+		if (parametro.isAdicionalDePericulosidade()) {
+			salarioCalculo = calcularSalarioBrutoComAdicionalDePericulosidade(salarioCalculo);
+		}
+		if (parametro.getParametroHoraExtra() != null) {
+			horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametro.getParametroHoraExtra());
+			salarioCalculo = salarioCalculo.add(horaExtra.getValorTotal());
+		}
+		
+		Salario salario = new Salario(parametro.getSalarioBruto());
+		salario = (Salario) calcularRemuneracao(salario, parametro, salarioCalculo.floatValue());
+		salario.setHoraExtra(horaExtra);
+		
+		return salario;
 	}
 
 }

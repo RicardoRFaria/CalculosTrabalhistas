@@ -18,11 +18,11 @@ public class CalcularSalarioTest {
 	private static final float VALOR_SALARIO_MINIMO = 788.00f;
 	private static final BigDecimal BIG_DECIMAL_0 = createMonetaryBigDecimal("0");
 
-	private Calcular calcular;
+	private CalculaSalario calcular;
 	
 	@Before
 	public void init() {
-		this.calcular = new Calcular();
+		this.calcular = new CalculaSalario();
 	}
 	
 	@Test
