@@ -45,7 +45,7 @@ public class CalculaDecimoTerceiro extends CalculaRemuneracao {
 		}
 		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(parametro.getSalarioBruto());
 		
-		decimoTerceiro = (DecimoTerceiro) calcularRemuneracao(decimoTerceiro, parametro, salarioCalculo.floatValue());
+		calcularRemuneracao(decimoTerceiro, parametro, salarioCalculo.floatValue());
 		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioCalculo));
 		decimoTerceiro.setSalarioParcelaDois(
 				CalculaDecimoTerceiro.calcularParcelaDois(salarioCalculo, decimoTerceiro.getDescontoInss(), decimoTerceiro.getDescontoIrpf()));

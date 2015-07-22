@@ -74,7 +74,7 @@ public class CalculaFerias extends CalculaRemuneracao {
 
 		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
 
-		feriasObject = (Ferias) calcularRemuneracao(feriasObject, parametro, salarioCalculo.floatValue());
+		calcularRemuneracao(feriasObject, parametro, salarioCalculo.floatValue());
 
 		if (parametro.getTipo() == TIPO_FERIAS.DIAS_20) {
 			BigDecimal abonoPecuniario = CalculaFerias.calcularAbonoPecuniario(parametro.getSalarioBruto());

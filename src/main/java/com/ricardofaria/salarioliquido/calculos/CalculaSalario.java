@@ -30,7 +30,7 @@ public class CalculaSalario extends CalculaRemuneracao {
 		}
 		
 		Salario salario = new Salario(parametro.getSalarioBruto());
-		salario = (Salario) calcularRemuneracao(salario, parametro, salarioCalculo.floatValue());
+		calcularRemuneracao(salario, parametro, salarioCalculo.floatValue());
 		salario.setHoraExtra(horaExtra);
 		
 		return salario;
