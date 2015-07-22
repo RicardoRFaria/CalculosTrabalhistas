@@ -146,24 +146,19 @@ public class Calcular {
 	 * @return
 	 */
 	public DecimoTerceiro calcularDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
-		BigDecimal salarioBruto;
+		BigDecimal salarioCalculo;
 		if (parametro.isSalarioReduzido()) {
 			float salarioBrutoReduzido = ReduzSalarioPorData.reduzirDecimoTerceiro(parametro);
-			salarioBruto = createMonetaryBigDecimal(salarioBrutoReduzido);
+			salarioCalculo = createMonetaryBigDecimal(salarioBrutoReduzido);
 		} else {
-			salarioBruto = createMonetaryBigDecimal(parametro.getSalarioBruto());
+			salarioCalculo = createMonetaryBigDecimal(parametro.getSalarioBruto());
 		}
-		BigDecimal descontoInss = CalculaINSS.calcular(salarioBruto);
-		BigDecimal salarioDescontado = salarioBruto.subtract(descontoInss);
-		BigDecimal descontoImpostoDeRenda = CalculaImpostoDeRenda.calcular(salarioDescontado, parametro.getNumeroDependentes());
-		salarioDescontado = salarioDescontado.subtract(descontoImpostoDeRenda);
-
-		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(salarioBruto);
-		decimoTerceiro.setDescontoInss(descontoInss);
-		decimoTerceiro.setDescontoIrpf(descontoImpostoDeRenda);
-		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioBruto));
+		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(new BigDecimal(parametro.getSalarioBruto()));
+		
+		decimoTerceiro = (DecimoTerceiro) CalculaSalario.calcularRemuneracao(decimoTerceiro, parametro, salarioCalculo.floatValue());
+		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioCalculo));
 		decimoTerceiro.setSalarioParcelaDois(
-				CalculaDecimoTerceiro.calcularParcelaDois(salarioBruto, descontoInss, descontoImpostoDeRenda));
+				CalculaDecimoTerceiro.calcularParcelaDois(salarioCalculo, new BigDecimal(decimoTerceiro.getDescontoInss()), new BigDecimal(decimoTerceiro.getDescontoIrpf())));
 
 		if (parametro.isSalarioReduzido()) {
 			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);			
