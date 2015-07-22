@@ -7,11 +7,11 @@ import com.ricardofaria.salarioliquido.model.input.ParametrosDecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.input.ParametrosFerias;
 import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
 import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro;
+import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
 import com.ricardofaria.salarioliquido.model.resultado.Ferias;
+import com.ricardofaria.salarioliquido.model.resultado.Ferias.TIPO_FERIAS;
 import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
 import com.ricardofaria.salarioliquido.model.resultado.Salario;
-import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
-import com.ricardofaria.salarioliquido.model.resultado.Ferias.TIPO_FERIAS;
 import com.ricardofaria.salarioliquido.util.ReduzSalarioPorData;
 
 /**

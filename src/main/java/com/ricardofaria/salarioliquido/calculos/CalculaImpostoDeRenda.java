@@ -1,8 +1,8 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import java.math.BigDecimal;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.changeToMonetaryBidecimal;
 
-import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
+import java.math.BigDecimal;
 
 /**
  * Classe responsável por efetuar os cálculos de imposto de renda do funcionário

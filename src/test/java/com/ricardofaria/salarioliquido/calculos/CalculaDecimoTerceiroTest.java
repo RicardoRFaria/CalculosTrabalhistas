@@ -2,7 +2,7 @@ package com.ricardofaria.salarioliquido.calculos;
 
 import static com.ricardofaria.salarioliquido.calculos.CalculaDecimoTerceiro.calcularParcelaDois;
 import static com.ricardofaria.salarioliquido.calculos.CalculaDecimoTerceiro.calcularParcelaUm;
-import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
@@ -27,17 +27,17 @@ public class CalculaDecimoTerceiroTest {
 	@Test
 	public void testParcelaUmValorSimples() {
 		BigDecimal salarioBruto = new BigDecimal("2000");
-		float parcelaUm = calcularParcelaUm(salarioBruto);
+		BigDecimal parcelaUm = calcularParcelaUm(salarioBruto);
 		
-		assertEquals(1000f, parcelaUm, 0.01);
+		assertEquals(createMonetaryBigDecimal(1000f), parcelaUm);
 	}
 	
 	@Test
 	public void testParcelaUmValorQueNecessitaArredondamento() {
 		BigDecimal salarioBruto = new BigDecimal("1375.15");
-		float parcelaUm = calcularParcelaUm(salarioBruto);
+		BigDecimal parcelaUm = calcularParcelaUm(salarioBruto);
 		
-		assertEquals(687.58f, parcelaUm, 0.01);
+		assertEquals(createMonetaryBigDecimal(687.58f), parcelaUm);
 	}
 	
 	@Test
@@ -45,9 +45,9 @@ public class CalculaDecimoTerceiroTest {
 		BigDecimal salarioBruto = new BigDecimal("2000");
 		BigDecimal descontoINSS = new BigDecimal("100");
 		BigDecimal descontoIRPF = new BigDecimal("100");
-		float parcelaUm = calcularParcelaDois(salarioBruto, descontoINSS, descontoIRPF);
+		BigDecimal parcelaUm = calcularParcelaDois(salarioBruto, descontoINSS, descontoIRPF);
 		
-		assertEquals(800f, parcelaUm, 0.01);
+		assertEquals(createMonetaryBigDecimal(800.0f), parcelaUm);
 	}
 	
 	@Test
@@ -55,9 +55,9 @@ public class CalculaDecimoTerceiroTest {
 		BigDecimal salarioBruto = new BigDecimal("2000");
 		BigDecimal descontoINSS = new BigDecimal("0");
 		BigDecimal descontoIRPF = new BigDecimal("0");
-		float parcelaUm = calcularParcelaDois(salarioBruto, descontoINSS, descontoIRPF);
+		BigDecimal parcelaUm = calcularParcelaDois(salarioBruto, descontoINSS, descontoIRPF);
 		
-		assertEquals(1000f, parcelaUm, 0.01);
+		assertEquals(createMonetaryBigDecimal(1000.0f), parcelaUm);
 	}
 
 	@Test
@@ -69,8 +69,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(63.04f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(394.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(330.96, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(394.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(330.96f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -80,8 +80,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(135.00f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(750.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(615.00, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(750.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(615.00f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -92,8 +92,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(180.00f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(1000.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(820.00, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(1000.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(820.00f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -104,8 +104,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(275.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(24.08f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(1250.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(950.92, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(1250.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(950.92f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -116,8 +116,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(330.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(57.45f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(1500.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1112.55, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(1500.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(1112.55f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -128,8 +128,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(385.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(112.45f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(1750.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1252.55, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(1750.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(1252.55f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -140,8 +140,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(440.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(179.20f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(2000.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1380.80, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(2000.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(1380.80f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -152,8 +152,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(495.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(265.0f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(2250.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1490.00, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(2250.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(1490.00f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 	@Test
@@ -164,8 +164,8 @@ public class CalculaDecimoTerceiroTest {
 		
 		assertEquals(createMonetaryBigDecimal(513.01f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(373.44f), decimoTerceiro.getDescontoIrpf());
-		assertEquals(2500.00, decimoTerceiro.getSalarioParcelaUm(), 0.01);
-		assertEquals(1613.55, decimoTerceiro.getSalarioParcelaDois(), 0.01);
+		assertEquals(createMonetaryBigDecimal(2500.00f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(1613.55f), decimoTerceiro.getSalarioParcelaDois());
 	}
 	
 }

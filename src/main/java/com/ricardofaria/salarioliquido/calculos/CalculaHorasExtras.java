@@ -1,7 +1,8 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
-import static com.ricardofaria.salarioliquido.util.TempoUtil.*;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.changeToMonetaryBidecimal;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
+import static com.ricardofaria.salarioliquido.util.TempoUtil.calcularHorasMensaisCLT;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

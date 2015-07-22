@@ -1,5 +1,8 @@
 package com.ricardofaria.salarioliquido.model.resultado;
 
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.changeToMonetaryBidecimal;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
+
 import java.math.BigDecimal;
 
 public class DecimoTerceiro extends Remuneracao {
@@ -9,8 +12,8 @@ public class DecimoTerceiro extends Remuneracao {
 	}
 
 	private TIPO_DECIMO_TERCEIRO tipo;
-	private float salarioParcelaUm;
-	private float salarioParcelaDois;
+	private BigDecimal salarioParcelaUm;
+	private BigDecimal salarioParcelaDois;
 	
 	public DecimoTerceiro() {
 		super();
@@ -28,20 +31,36 @@ public class DecimoTerceiro extends Remuneracao {
 		this.tipo = tipo;
 	}
 
-	public float getSalarioParcelaUm() {
+	public BigDecimal getSalarioParcelaUm() {
 		return salarioParcelaUm;
+	}
+	
+	public float getSalarioParcelaUmFloat() {
+		return salarioParcelaUm.floatValue();
 	}
 
 	public void setSalarioParcelaUm(float salarioParcelaUm) {
-		this.salarioParcelaUm = salarioParcelaUm;
+		this.salarioParcelaUm = createMonetaryBigDecimal(salarioParcelaUm);
+	}
+	
+	public void setSalarioParcelaUm(BigDecimal salarioParcelaUm) {
+		this.salarioParcelaUm = changeToMonetaryBidecimal(salarioParcelaUm);
 	}
 
-	public float getSalarioParcelaDois() {
+	public BigDecimal getSalarioParcelaDois() {
 		return salarioParcelaDois;
+	}
+	
+	public float getSalarioParcelaDoisFloat() {
+		return salarioParcelaDois.floatValue();
 	}
 
 	public void setSalarioParcelaDois(float salarioParcelaDois) {
-		this.salarioParcelaDois = salarioParcelaDois;
+		this.salarioParcelaDois = createMonetaryBigDecimal(salarioParcelaDois);
+	}
+	
+	public void setSalarioParcelaDois(BigDecimal salarioParcelaDois) {
+		this.salarioParcelaDois = changeToMonetaryBidecimal(salarioParcelaDois);
 	}
 
 }

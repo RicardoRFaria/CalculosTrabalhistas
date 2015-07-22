@@ -1,6 +1,6 @@
 package com.ricardofaria.salarioliquido.calculos;
 
-import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
 
 import java.math.BigDecimal;
 

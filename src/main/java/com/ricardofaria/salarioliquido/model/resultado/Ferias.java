@@ -1,6 +1,7 @@
 package com.ricardofaria.salarioliquido.model.resultado;
 
-import static com.ricardofaria.salarioliquido.util.PrecisionUtil.*;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.changeToMonetaryBidecimal;
+import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
 
 import java.math.BigDecimal;
 
