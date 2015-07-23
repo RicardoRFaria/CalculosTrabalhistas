@@ -26,13 +26,11 @@ public abstract class CalculaRemuneracao {
 		float salarioParaIrpf = salarioCalculo - inss;
 		float irpf = CalculaImpostoDeRenda.calcular(salarioParaIrpf, parametro.getNumeroDependentes());
 		float salarioLivre = salarioCalculo - inss - irpf;
-		float adicionalPericulosidade = calcularAdicionalDePericulosidade(salarioCalculo);
 
 		remuneracao.setSalarioBruto(parametro.getSalarioBruto());
 		remuneracao.setDescontoInss(inss);
 		remuneracao.setDescontoIrpf(irpf);
 		remuneracao.setValorLiquido(salarioLivre);
-		remuneracao.setAdicionalPericulosidade(adicionalPericulosidade);
 	}
 
 	public float calcularSalarioBrutoComAdicionalDePericulosidade(float salarioBruto) {

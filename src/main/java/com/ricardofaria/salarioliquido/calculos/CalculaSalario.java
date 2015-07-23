@@ -21,7 +21,9 @@ public class CalculaSalario extends CalculaRemuneracao {
 		if (parametro.getDataInicioColaborador() != null) {
 			salarioCalculo = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(parametro.getSalarioBruto(), parametro.getDataInicioColaborador());
 		}
+		BigDecimal adicionalPericulosidade = new BigDecimal("0");
 		if (parametro.isAdicionalDePericulosidade()) {
+			adicionalPericulosidade = calcularAdicionalDePericulosidade(salarioCalculo);
 			salarioCalculo = calcularSalarioBrutoComAdicionalDePericulosidade(salarioCalculo);
 		}
 		if (parametro.getParametroHoraExtra() != null) {
@@ -31,6 +33,7 @@ public class CalculaSalario extends CalculaRemuneracao {
 		
 		Salario salario = new Salario(parametro.getSalarioBruto());
 		calcularRemuneracao(salario, parametro, salarioCalculo.floatValue());
+		salario.setAdicionalPericulosidade(adicionalPericulosidade);
 		salario.setHoraExtra(horaExtra);
 		
 		return salario;

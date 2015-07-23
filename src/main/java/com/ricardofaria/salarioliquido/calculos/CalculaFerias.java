@@ -67,14 +67,21 @@ public class CalculaFerias extends CalculaRemuneracao {
 		Ferias feriasObject = new Ferias(parametro.getSalarioBruto());
 		BigDecimal salarioBrutoObj = parametro.getSalarioBruto();
 
-		salarioBrutoObj = CalculaFerias.aplicarModificarDeFeriasParcial(salarioBrutoObj, parametro.getTipo());
+		salarioBrutoObj = aplicarModificarDeFeriasParcial(salarioBrutoObj, parametro.getTipo());
 
+		BigDecimal adicionalPericulosidade = new BigDecimal("0");
+		if (parametro.isAdicionalDePericulosidade()) {
+			adicionalPericulosidade = calcularAdicionalDePericulosidade(salarioBrutoObj);
+			salarioBrutoObj = calcularSalarioBrutoComAdicionalDePericulosidade(salarioBrutoObj);
+		}
+		
 		BigDecimal ferias = salarioBrutoObj.multiply(UM_TERCO);
 		feriasObject.setValorFerias(ferias);
 
 		BigDecimal salarioCalculo = ferias.add(salarioBrutoObj);
 
 		calcularRemuneracao(feriasObject, parametro, salarioCalculo.floatValue());
+		feriasObject.setAdicionalPericulosidade(adicionalPericulosidade);
 
 		if (parametro.getTipo() == TIPO_FERIAS.DIAS_20) {
 			BigDecimal abonoPecuniario = CalculaFerias.calcularAbonoPecuniario(parametro.getSalarioBruto());

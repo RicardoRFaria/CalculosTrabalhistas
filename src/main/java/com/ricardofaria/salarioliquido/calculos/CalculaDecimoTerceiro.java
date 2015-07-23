@@ -43,12 +43,20 @@ public class CalculaDecimoTerceiro extends CalculaRemuneracao {
 		} else {
 			salarioCalculo = parametro.getSalarioBruto();
 		}
+		
+		BigDecimal adicionalPericulosidade = new BigDecimal("0");
+		if (parametro.isAdicionalDePericulosidade()) {
+			adicionalPericulosidade = calcularAdicionalDePericulosidade(salarioCalculo);
+			salarioCalculo = calcularSalarioBrutoComAdicionalDePericulosidade(salarioCalculo);
+		}
+		
 		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(parametro.getSalarioBruto());
 		
 		calcularRemuneracao(decimoTerceiro, parametro, salarioCalculo.floatValue());
 		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioCalculo));
 		decimoTerceiro.setSalarioParcelaDois(
 				CalculaDecimoTerceiro.calcularParcelaDois(salarioCalculo, decimoTerceiro.getDescontoInss(), decimoTerceiro.getDescontoIrpf()));
+		decimoTerceiro.setAdicionalPericulosidade(adicionalPericulosidade);
 
 		if (parametro.isSalarioReduzido()) {
 			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);			

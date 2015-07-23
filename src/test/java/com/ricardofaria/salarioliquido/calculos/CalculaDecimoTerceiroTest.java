@@ -74,6 +74,21 @@ public class CalculaDecimoTerceiroTest {
 	}
 	
 	@Test
+	public void testCalcularDecimoTerceiroCompletoSalarioMinimoComAdicionalDePericulosidade() {
+		float salarioBruto = VALOR_SALARIO_MINIMO;
+		
+		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
+		parametros.setAdicionalDePericulosidade(true);
+		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		
+		assertEquals(createMonetaryBigDecimal(81.95f), decimoTerceiro.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(512.20f), decimoTerceiro.getSalarioParcelaUm());
+		assertEquals(createMonetaryBigDecimal(430.25f), decimoTerceiro.getSalarioParcelaDois());
+		assertEquals(createMonetaryBigDecimal(236.40f), decimoTerceiro.getAdicionalPericulosidade());
+	}
+	
+	@Test
 	public void testCalcularDecimoTerceiroCompletoSalario1500() {
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(1500);
 		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 

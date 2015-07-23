@@ -37,6 +37,19 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
+	public void testCalcularSalarioMinimoComAdicionalDePericulosidade() {
+		ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
+		parametro.setAdicionalDePericulosidade(true);
+		
+		Salario salario = calcular.calcularSalario(parametro); 
+		
+		assertEquals(createMonetaryBigDecimal(81.95f), salario.getDescontoInss());
+		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(942.45f), salario.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(236.40f), salario.getAdicionalPericulosidade());
+	}
+	
+	@Test
 	public void testCalcularSalario1500() {
 		ParametrosSalario parametro = new ParametrosSalario(1500f);
 		
@@ -124,9 +137,21 @@ public class CalcularSalarioTest {
 		assertEquals(createMonetaryBigDecimal(4113.55f), salario.getValorLiquido());
 	}
 	
+	@Test
+	public void testCalcularSalario5000ComAdicionalDePericulosidade() {
+		ParametrosSalario parametro = new ParametrosSalario(5000f);
+		parametro.setAdicionalDePericulosidade(true);
+		Salario salario = calcular.calcularSalario(parametro); 
+		
+		assertEquals(createMonetaryBigDecimal(513.01f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(777.06f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(5209.93f), salario.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(1500.00f), salario.getAdicionalPericulosidade());
+	}
+	
 	
 	@Test
-	public void testcalcularSalarioMinimo() {
+	public void testCalcularSalarioParcialSalarioMinimo() {
 		ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -138,7 +163,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario1500() {
+	public void testCalcularSalarioParcialSalario1500() {
 		ParametrosSalario parametro = new ParametrosSalario(1500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -150,7 +175,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario2000() {
+	public void testCalcularSalarioParcialSalario2000() {
 		ParametrosSalario parametro = new ParametrosSalario(2000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -162,7 +187,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario2500() {
+	public void testCalcularSalarioParcialSalario2500() {
 		ParametrosSalario parametro = new ParametrosSalario(2500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -174,7 +199,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario3000() {
+	public void testCalcularSalarioParcialSalario3000() {
 		ParametrosSalario parametro = new ParametrosSalario(3000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -186,7 +211,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario3500() {
+	public void testCalcularSalarioParcialSalario3500() {
 		ParametrosSalario parametro = new ParametrosSalario(3500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -198,7 +223,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario4000() {
+	public void testCalcularSalarioParcialSalario4000() {
 		ParametrosSalario parametro = new ParametrosSalario(4000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -210,7 +235,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario4500() {
+	public void testCalcularSalarioParcialSalario4500() {
 		ParametrosSalario parametro = new ParametrosSalario(4500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
@@ -222,7 +247,7 @@ public class CalcularSalarioTest {
 	}
 	
 	@Test
-	public void testcalcularSalario5000() {
+	public void testCalcularSalarioParcialSalario5000() {
 		ParametrosSalario parametro = new ParametrosSalario(5000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		

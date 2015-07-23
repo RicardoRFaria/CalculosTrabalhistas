@@ -16,6 +16,7 @@ import com.ricardofaria.salarioliquido.model.input.ParametrosDecimoTerceiro;
  */
 public class ReduzSalarioPorData {
 
+	private static final int METADE_DO_MES_FINANCEIRO = 15;
 	private static final int QUANTIDADE_MESES_ANO = 12;
 
 	/**
@@ -31,11 +32,13 @@ public class ReduzSalarioPorData {
 	 * @return salário reduzido com base no tempo de trabalho
 	 */
 	public static BigDecimal reduzirDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
-		int quantidadeMeses = 12 - parametro.getMesDeInicioFuncionario();
-		if (parametro.getDiaDeInicioFuncionar() <= 15) {
+		int quantidadeMeses = QUANTIDADE_MESES_ANO - parametro.getMesDeInicioFuncionario();
+		if (parametro.getDiaDeInicioFuncionar() <= METADE_DO_MES_FINANCEIRO) {
 			quantidadeMeses++;
 		}
-		BigDecimal salarioParaCalculo = parametro.getSalarioBruto().divide(new BigDecimal(QUANTIDADE_MESES_ANO)).multiply(new BigDecimal(quantidadeMeses));
+		BigDecimal salarioParaCalculo = parametro.getSalarioBruto()
+				.divide(new BigDecimal(QUANTIDADE_MESES_ANO), 4, RoundingMode.HALF_EVEN)
+				.multiply(new BigDecimal(quantidadeMeses));
 		return salarioParaCalculo;
 	}
 
