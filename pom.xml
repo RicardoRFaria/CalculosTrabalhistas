@@ -5,6 +5,10 @@
 	<artifactId>calculostrabalhistas</artifactId>
 	<version>1.2.0</version>	<name>Cálculos Trabalhistas</name>
 	<description>Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários.</description>
+	<properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  	</properties>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
