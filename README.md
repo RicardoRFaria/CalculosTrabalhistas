@@ -6,6 +6,7 @@ Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários
 - Cálculo de 13º (Completo e parcial por data de início)
 - Cálculo de horas semanais
 - Cálculo de horas extras
+- Inclusão de adicional de periculosidade
 
 #Uso
 O fluxo de uso dos calculadores disponibilizados por esta lib é simples:
@@ -15,12 +16,12 @@ Objeto com parâmetros de entrada -> Chamada a classe de cálculo -> Objeto cont
 ```Java
 CalculaSalario calcular = new CalculaSalario();
 ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
-		
+
 Salario salario = calcular.calcularSalario(parametro);
 
 // Imprime o valor do salário líquido resultante do cálculo
 System.out.println(salario.getValorLiquido());
-// Imprime o valor de desconto do INSS que incide sobre este cálculo 
+// Imprime o valor de desconto do INSS que incide sobre este cálculo
 System.out.println(salario.getDescontoInss());
 ```
 
