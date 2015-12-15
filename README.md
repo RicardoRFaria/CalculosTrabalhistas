@@ -25,6 +25,16 @@ System.out.println(salario.getValorLiquido());
 System.out.println(salario.getDescontoInss());
 ```
 
+#Maven
+Apenas defina a dependência do projeto
+```xml
+<dependency>
+	<groupId>com.ricardofaria</groupId>
+	<artifactId>calculostrabalhistas</artifactId>
+	<version>1.3.0</version>
+</dependency>
+```
+
 #Sobre o uso de Float ou BigDecimal
 Internamente toda a api trabalha com BigDecimal, este é um detalhe de implementação mas revelo para justificar a escolha das entradas e saídas disponibilizadas por ela.
 A escolha do BigDecimal da-se pela possibilidade de controlar os arredondamentos e manter precisão, algo que é necessário neste cenário de caso de uso.
