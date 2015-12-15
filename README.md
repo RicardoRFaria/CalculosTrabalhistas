@@ -35,6 +35,26 @@ Apenas defina a dependência do projeto
 </dependency>
 ```
 
+#Gradle
+Você pode obter a dependência com as seguintes configurações
+
+- Adicionar o Jitpack como repositório maven
+```xml
+allprojects {
+	repositories {
+		...
+		maven { url "https://jitpack.io" }
+	}
+}
+```
+
+- Adicionar a dependência
+```xml
+dependencies {
+	compile 'com.github.RicardoRFaria:CalculosTrabalhistas:v1.3.0'
+}
+```
+
 #Sobre o uso de Float ou BigDecimal
 Internamente toda a api trabalha com BigDecimal, este é um detalhe de implementação mas revelo para justificar a escolha das entradas e saídas disponibilizadas por ela.
 A escolha do BigDecimal da-se pela possibilidade de controlar os arredondamentos e manter precisão, algo que é necessário neste cenário de caso de uso.
