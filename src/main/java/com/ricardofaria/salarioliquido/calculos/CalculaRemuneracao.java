@@ -12,12 +12,12 @@ public abstract class CalculaRemuneracao {
 	private static final BigDecimal PORCENTAGEM_ADICIONAL_PERICULOSIDADE = new BigDecimal("0.3");
 
 	/**
-	 * Calcula a remuneração base e atribue os valores para o objeto Remuneracao
-	 * 
+	 * Calcula a remuneraï¿½ï¿½o base e atribue os valores para o objeto Remuneracao
+	 *
 	 * @param remuneracao
-	 *            Instancia de objeto que será preenchido
+	 *            Instancia de objeto que serï¿½ preenchido
 	 * @param parametro
-	 *            para o cálculo
+	 *            para o cï¿½lculo
 	 * @param salarioCalculo
 	 *            com modificador aplicados
 	 */
@@ -49,5 +49,7 @@ public abstract class CalculaRemuneracao {
 	public BigDecimal calcularAdicionalDePericulosidade(BigDecimal salario) {
 		return salario.multiply(PORCENTAGEM_ADICIONAL_PERICULOSIDADE);
 	}
+
+	public abstract Remuneracao calcular(ParametrosBase parametros);
 
 }

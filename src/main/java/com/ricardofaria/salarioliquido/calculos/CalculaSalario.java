@@ -2,22 +2,24 @@ package com.ricardofaria.salarioliquido.calculos;
 
 import java.math.BigDecimal;
 
+import com.ricardofaria.salarioliquido.model.input.ParametrosBase;
 import com.ricardofaria.salarioliquido.model.input.ParametrosSalario;
 import com.ricardofaria.salarioliquido.model.resultado.HoraExtra;
+import com.ricardofaria.salarioliquido.model.resultado.Remuneracao;
 import com.ricardofaria.salarioliquido.model.resultado.Salario;
 import com.ricardofaria.salarioliquido.util.ReduzSalarioPorData;
 
 public class CalculaSalario extends CalculaRemuneracao {
-	
-	
-	public Salario calcularSalario(ParametrosSalario parametro) {
+
+
+	public Salario calcular(ParametrosSalario parametro) {
 		if (parametro.getDataInicioColaborador() != null && parametro.getParametroHoraExtra() != null) {
-			throw new UnsupportedOperationException("O cálculo de hora extra com mês de trabalho parcial ainda não foi implementado.");
+			throw new UnsupportedOperationException("O cï¿½lculo de hora extra com mï¿½s de trabalho parcial ainda nï¿½o foi implementado.");
 		}
-		
+
 		BigDecimal salarioCalculo = parametro.getSalarioBruto();
 		HoraExtra horaExtra = null;
-		
+
 		if (parametro.getDataInicioColaborador() != null) {
 			salarioCalculo = ReduzSalarioPorData.reduzirSalarioPorDataDeInicio(parametro.getSalarioBruto(), parametro.getDataInicioColaborador());
 		}
@@ -30,13 +32,22 @@ public class CalculaSalario extends CalculaRemuneracao {
 			horaExtra = CalculaHorasExtras.calcularTotalHorasExtras(parametro.getParametroHoraExtra());
 			salarioCalculo = salarioCalculo.add(horaExtra.getValorTotal());
 		}
-		
+
 		Salario salario = new Salario(parametro.getSalarioBruto());
 		calcularRemuneracao(salario, parametro, salarioCalculo.floatValue());
 		salario.setAdicionalPericulosidade(adicionalPericulosidade);
 		salario.setHoraExtra(horaExtra);
-		
+
 		return salario;
+	}
+
+	@Override
+	public Remuneracao calcular(ParametrosBase parametros) {
+		if (parametros instanceof ParametrosSalario) {
+			return calcular((ParametrosSalario) parametros);
+		} else {
+			throw new IllegalArgumentException("Para calcular o salÃ¡rio a instÃ¢ncia de parÃ¢metros deve ser " + ParametrosSalario.class.getName());
+		}
 	}
 
 }

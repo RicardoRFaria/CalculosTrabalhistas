@@ -29,7 +29,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalarioMinimo() {
 		ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(63.04f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -41,7 +41,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
 		parametro.setAdicionalDePericulosidade(true);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(81.95f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -53,7 +53,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario1500() {
 		ParametrosSalario parametro = new ParametrosSalario(1500f);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(135.00f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -64,7 +64,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario2000() {
 		ParametrosSalario parametro = new ParametrosSalario(2000f);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(180.00f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -75,7 +75,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario2500() {
 		ParametrosSalario parametro = new ParametrosSalario(2500f);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(275.00f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(24.08f), salario.getDescontoIrpf());
@@ -86,7 +86,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario3000() {
 		ParametrosSalario parametro = new ParametrosSalario(3000f);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(330.00f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(57.45f), salario.getDescontoIrpf());
@@ -97,7 +97,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario3500() {
 		ParametrosSalario parametro = new ParametrosSalario(3500f);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(385.00f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(112.45f), salario.getDescontoIrpf());
@@ -108,7 +108,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario4000() {
 		ParametrosSalario parametro = new ParametrosSalario(4000);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(440.00f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(179.20f), salario.getDescontoIrpf());
@@ -119,7 +119,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario4500() {
 		ParametrosSalario parametro = new ParametrosSalario(4500);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(495.00f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(265.00f), salario.getDescontoIrpf());
@@ -130,7 +130,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario5000() {
 		ParametrosSalario parametro = new ParametrosSalario(5000f);
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(513.01f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(373.44f), salario.getDescontoIrpf());
@@ -141,7 +141,7 @@ public class CalcularSalarioTest {
 	public void testCalcularSalario5000ComAdicionalDePericulosidade() {
 		ParametrosSalario parametro = new ParametrosSalario(5000f);
 		parametro.setAdicionalDePericulosidade(true);
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(513.01f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(777.06f), salario.getDescontoIrpf());
@@ -155,7 +155,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(42.78f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -167,7 +167,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(1500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro); 
+		Salario salario = calcular.calcular(parametro); 
 		
 		assertEquals(createMonetaryBigDecimal(81.43f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -179,7 +179,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(2000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro);
+		Salario salario = calcular.calcular(parametro);
 		
 		assertEquals(createMonetaryBigDecimal(108.57f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -191,7 +191,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(2500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro);
+		Salario salario = calcular.calcular(parametro);
 		
 		assertEquals(createMonetaryBigDecimal(152.68f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -203,7 +203,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(3000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro);
+		Salario salario = calcular.calcular(parametro);
 		
 		assertEquals(createMonetaryBigDecimal(183.21f), salario.getDescontoInss());
 		assertEquals(BIG_DECIMAL_0, salario.getDescontoIrpf());
@@ -215,7 +215,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(3500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro);
+		Salario salario = calcular.calcular(parametro);
 		
 		assertEquals(createMonetaryBigDecimal(261.25f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(15.73f), salario.getDescontoIrpf());
@@ -227,7 +227,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(4000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro);
+		Salario salario = calcular.calcular(parametro);
 		
 		assertEquals(createMonetaryBigDecimal(298.57f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(38.38f), salario.getDescontoIrpf());
@@ -239,7 +239,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(4500f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro);
+		Salario salario = calcular.calcular(parametro);
 		
 		assertEquals(createMonetaryBigDecimal(335.89f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(61.03f), salario.getDescontoIrpf());
@@ -251,7 +251,7 @@ public class CalcularSalarioTest {
 		ParametrosSalario parametro = new ParametrosSalario(5000f);
 		parametro.setDataInicioColaborador(getDataInicioFuncionario());
 		
-		Salario salario = calcular.calcularSalario(parametro);
+		Salario salario = calcular.calcular(parametro);
 		
 		assertEquals(createMonetaryBigDecimal(373.21f), salario.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(98.15f), salario.getDescontoIrpf());

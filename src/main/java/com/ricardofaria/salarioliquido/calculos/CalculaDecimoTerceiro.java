@@ -4,9 +4,11 @@ import static com.ricardofaria.salarioliquido.util.PrecisionUtil.changeToMonetar
 
 import java.math.BigDecimal;
 
+import com.ricardofaria.salarioliquido.model.input.ParametrosBase;
 import com.ricardofaria.salarioliquido.model.input.ParametrosDecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro;
 import com.ricardofaria.salarioliquido.model.resultado.DecimoTerceiro.TIPO_DECIMO_TERCEIRO;
+import com.ricardofaria.salarioliquido.model.resultado.Remuneracao;
 import com.ricardofaria.salarioliquido.util.ReduzSalarioPorData;
 
 public class CalculaDecimoTerceiro extends CalculaRemuneracao {
@@ -27,31 +29,31 @@ public class CalculaDecimoTerceiro extends CalculaRemuneracao {
 				.subtract(descontoInss).subtract(descontoImpostoDeRenda);
 		return changeToMonetaryBidecimal(parcelaDois);
 	}
-	
+
 	/**
-	 * Efetua o cálculo de décimo terceiro completo do funcionário (Situação
-	 * normal, o funcionário iníciou o trabalho antes do ano começar)
-	 * 
+	 * Efetua o cï¿½lculo de dï¿½cimo terceiro completo do funcionï¿½rio (Situaï¿½ï¿½o
+	 * normal, o funcionï¿½rio inï¿½ciou o trabalho antes do ano comeï¿½ar)
+	 *
 	 * @param salarioBruto
 	 * @param numeroDependentes
 	 * @return
 	 */
-	public DecimoTerceiro calcularDecimoTerceiro(ParametrosDecimoTerceiro parametro) {
+	public DecimoTerceiro calcular(ParametrosDecimoTerceiro parametro) {
 		BigDecimal salarioCalculo;
 		if (parametro.isSalarioReduzido()) {
 			salarioCalculo = ReduzSalarioPorData.reduzirDecimoTerceiro(parametro);
 		} else {
 			salarioCalculo = parametro.getSalarioBruto();
 		}
-		
+
 		BigDecimal adicionalPericulosidade = new BigDecimal("0");
 		if (parametro.isAdicionalDePericulosidade()) {
 			adicionalPericulosidade = calcularAdicionalDePericulosidade(salarioCalculo);
 			salarioCalculo = calcularSalarioBrutoComAdicionalDePericulosidade(salarioCalculo);
 		}
-		
+
 		DecimoTerceiro decimoTerceiro = new DecimoTerceiro(parametro.getSalarioBruto());
-		
+
 		calcularRemuneracao(decimoTerceiro, parametro, salarioCalculo.floatValue());
 		decimoTerceiro.setSalarioParcelaUm(CalculaDecimoTerceiro.calcularParcelaUm(salarioCalculo));
 		decimoTerceiro.setSalarioParcelaDois(
@@ -59,12 +61,21 @@ public class CalculaDecimoTerceiro extends CalculaRemuneracao {
 		decimoTerceiro.setAdicionalPericulosidade(adicionalPericulosidade);
 
 		if (parametro.isSalarioReduzido()) {
-			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);			
+			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.PARCIAL);
 		} else {
-			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.COMPLETO);			
+			decimoTerceiro.setTipo(TIPO_DECIMO_TERCEIRO.COMPLETO);
 		}
 
 		return decimoTerceiro;
+	}
+
+	@Override
+	public Remuneracao calcular(ParametrosBase parametros) {
+		if (parametros instanceof ParametrosDecimoTerceiro) {
+			return calcular((ParametrosDecimoTerceiro) parametros);
+		} else {
+			throw new IllegalArgumentException("Para calcular o DÃ©cimo Terceiro a instÃ¢ncia de parÃ¢metros deve ser " + ParametrosDecimoTerceiro.class.getName());
+		}
 	}
 
 }

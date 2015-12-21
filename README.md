@@ -14,10 +14,10 @@ Objeto com parâmetros de entrada -> Chamada a classe de cálculo -> Objeto cont
 
 #Exemplo
 ```Java
-CalculaSalario calcular = new CalculaSalario();
+CalculaSalario calculadoraSalario = new CalculaSalario();
 ParametrosSalario parametro = new ParametrosSalario(VALOR_SALARIO_MINIMO);
 
-Salario salario = calcular.calcularSalario(parametro);
+Salario salario = calculadoraSalario.calcular(parametro);
 
 // Imprime o valor do salário líquido resultante do cálculo
 System.out.println(salario.getValorLiquido());

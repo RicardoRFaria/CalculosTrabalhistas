@@ -65,7 +65,7 @@ public class CalculaDecimoTerceiroTest {
 		float salarioBruto = VALOR_SALARIO_MINIMO;
 		
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(63.04f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
@@ -79,7 +79,7 @@ public class CalculaDecimoTerceiroTest {
 		
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
 		parametros.setAdicionalDePericulosidade(true);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(81.95f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
@@ -91,7 +91,7 @@ public class CalculaDecimoTerceiroTest {
 	@Test
 	public void testCalcularDecimoTerceiroCompletoSalario1500() {
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(1500);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(135.00f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
@@ -103,7 +103,7 @@ public class CalculaDecimoTerceiroTest {
 	public void testCalcularDecimoTerceiroCompletoSalario2000() {
 		float salarioBruto = 2000.00f;
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(180.00f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(0.0f), decimoTerceiro.getDescontoIrpf());
@@ -115,7 +115,7 @@ public class CalculaDecimoTerceiroTest {
 	public void testCalcularDecimoTerceiroCompletoSalario2500() {
 		float salarioBruto = 2500.00f;
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(275.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(24.08f), decimoTerceiro.getDescontoIrpf());
@@ -127,7 +127,7 @@ public class CalculaDecimoTerceiroTest {
 	public void testCalcularDecimoTerceiroCompletoSalario3000() {
 		float salarioBruto = 3000.00f;
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(330.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(57.45f), decimoTerceiro.getDescontoIrpf());
@@ -139,7 +139,7 @@ public class CalculaDecimoTerceiroTest {
 	public void testCalcularDecimoTerceiroCompletoSalario3500() {
 		float salarioBruto = 3500.00f;
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(385.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(112.45f), decimoTerceiro.getDescontoIrpf());
@@ -151,7 +151,7 @@ public class CalculaDecimoTerceiroTest {
 	public void testCalcularDecimoTerceiroCompletoSalario4000() {
 		float salarioBruto = 4000.00f;
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(440.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(179.20f), decimoTerceiro.getDescontoIrpf());
@@ -163,7 +163,7 @@ public class CalculaDecimoTerceiroTest {
 	public void testCalcularDecimoTerceiroCompletoSalario4500() {
 		float salarioBruto = 4500.00f;
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(495.0f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(265.0f), decimoTerceiro.getDescontoIrpf());
@@ -175,7 +175,7 @@ public class CalculaDecimoTerceiroTest {
 	public void testCalcularDecimoTerceiroCompletoSalario5000() {
 		float salarioBruto = 5000.00f;
 		ParametrosDecimoTerceiro parametros = new ParametrosDecimoTerceiro(salarioBruto);
-		DecimoTerceiro decimoTerceiro = calcular.calcularDecimoTerceiro(parametros); 
+		DecimoTerceiro decimoTerceiro = calcular.calcular(parametros); 
 		
 		assertEquals(createMonetaryBigDecimal(513.01f), decimoTerceiro.getDescontoInss());
 		assertEquals(createMonetaryBigDecimal(373.44f), decimoTerceiro.getDescontoIrpf());
