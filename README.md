@@ -26,12 +26,24 @@ System.out.println(salario.getDescontoInss());
 ```
 
 #Maven
-Apenas defina a dependência do projeto
+Você pode obter a dependência com as seguintes configurações
+
+- Adicionar o Jitpack como repositório maven
+```xml
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+```
+
+- Adicionar a dependência
 ```xml
 <dependency>
-	<groupId>com.ricardofaria</groupId>
-	<artifactId>calculostrabalhistas</artifactId>
-	<version>1.3.0</version>
+    <groupId>com.github.RicardoRFaria</groupId>
+    <artifactId>CalculosTrabalhistas</artifactId>
+    <version>v1.4.0</version>
 </dependency>
 ```
 
@@ -51,7 +63,7 @@ allprojects {
 - Adicionar a dependência
 ```xml
 dependencies {
-	compile 'com.github.RicardoRFaria:CalculosTrabalhistas:v1.3.0'
+	compile 'com.github.RicardoRFaria:CalculosTrabalhistas:v1.4.0'
 }
 ```
 
