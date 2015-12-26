@@ -43,7 +43,7 @@ Você pode obter a dependência com as seguintes configurações
 <dependency>
     <groupId>com.github.RicardoRFaria</groupId>
     <artifactId>CalculosTrabalhistas</artifactId>
-    <version>v1.4.0</version>
+    <version>v1.5.0</version>
 </dependency>
 ```
 
@@ -63,7 +63,7 @@ allprojects {
 - Adicionar a dependência
 ```xml
 dependencies {
-	compile 'com.github.RicardoRFaria:CalculosTrabalhistas:v1.4.0'
+	compile 'com.github.RicardoRFaria:CalculosTrabalhistas:v1.5.0'
 }
 ```
 
