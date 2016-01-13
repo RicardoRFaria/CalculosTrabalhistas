@@ -14,7 +14,7 @@ public class CalculaSalario extends CalculaRemuneracao {
 
 	public Salario calcular(ParametrosSalario parametro) {
 		if (parametro.getDataInicioColaborador() != null && parametro.getParametroHoraExtra() != null) {
-			throw new UnsupportedOperationException("O c�lculo de hora extra com m�s de trabalho parcial ainda n�o foi implementado.");
+			throw new UnsupportedOperationException("O calculo de hora extra com mes de trabalho parcial ainda nao foi implementado.");
 		}
 
 		BigDecimal salarioCalculo = parametro.getSalarioBruto();
