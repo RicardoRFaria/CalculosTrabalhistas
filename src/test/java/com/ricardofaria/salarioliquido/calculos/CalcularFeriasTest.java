@@ -1,7 +1,7 @@
 package com.ricardofaria.salarioliquido.calculos;
 
+import static com.ricardofaria.salarioliquido.calculos.ConstantesDeValores.VALOR_SALARIO_MINIMO;
 import static com.ricardofaria.salarioliquido.util.PrecisionUtil.createMonetaryBigDecimal;
-import static com.ricardofaria.salarioliquido.calculos.ConstantesDeValores.*;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ricardofaria.salarioliquido.model.constantes.TipoFerias;
 import com.ricardofaria.salarioliquido.model.input.ParametrosFerias;
 import com.ricardofaria.salarioliquido.model.resultado.Ferias;
-import com.ricardofaria.salarioliquido.model.resultado.Ferias.TIPO_FERIAS;
 
 public class CalcularFeriasTest {
 
@@ -137,7 +137,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFeriasSalarioMinimo() {
 		ParametrosFerias parametro = new ParametrosFerias(VALOR_SALARIO_MINIMO);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 
@@ -151,7 +151,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias1500() {
 		ParametrosFerias parametro = new ParametrosFerias(1500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(333.33f), ferias.getValorFerias());
@@ -164,7 +164,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias2000() {
 		ParametrosFerias parametro = new ParametrosFerias(2000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(444.44f), ferias.getValorFerias());
@@ -177,7 +177,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias2500() {
 		ParametrosFerias parametro = new ParametrosFerias(2500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(555.56f), ferias.getValorFerias());
@@ -190,7 +190,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias3000() {
 		ParametrosFerias parametro = new ParametrosFerias(3000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(666.67f), ferias.getValorFerias());
@@ -203,7 +203,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias3500() {
 		ParametrosFerias parametro = new ParametrosFerias(3500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(777.78f), ferias.getValorFerias());
@@ -216,7 +216,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias4000() {
 		ParametrosFerias parametro = new ParametrosFerias(4000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(888.89f), ferias.getValorFerias());
@@ -229,7 +229,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias4500() {
 		ParametrosFerias parametro = new ParametrosFerias(4500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(1000.00f), ferias.getValorFerias());
@@ -242,7 +242,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular20DiasDeFerias5000() {
 		ParametrosFerias parametro = new ParametrosFerias(5000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_20);
+		parametro.setTipoFerias(TipoFerias.DIAS_20);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(1111.11f), ferias.getValorFerias());
@@ -255,7 +255,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFeriasSalarioMinimo() {
 		ParametrosFerias parametro = new ParametrosFerias(VALOR_SALARIO_MINIMO);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 
@@ -268,7 +268,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias1500() {
 		ParametrosFerias parametro = new ParametrosFerias(1500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(250.00f), ferias.getValorFerias());
@@ -280,7 +280,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias2000() {
 		ParametrosFerias parametro = new ParametrosFerias(2000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(333.33f), ferias.getValorFerias());
@@ -292,7 +292,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias2500() {
 		ParametrosFerias parametro = new ParametrosFerias(2500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(416.67f), ferias.getValorFerias());
@@ -304,7 +304,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias3000() {
 		ParametrosFerias parametro = new ParametrosFerias(3000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(500.00f), ferias.getValorFerias());
@@ -316,7 +316,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias3500() {
 		ParametrosFerias parametro = new ParametrosFerias(3500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(583.33f), ferias.getValorFerias());
@@ -328,7 +328,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias4000() {
 		ParametrosFerias parametro = new ParametrosFerias(4000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(666.67f), ferias.getValorFerias());
@@ -340,7 +340,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias4500() {
 		ParametrosFerias parametro = new ParametrosFerias(4500);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(750.00f), ferias.getValorFerias());
@@ -352,7 +352,7 @@ public class CalcularFeriasTest {
 	@Test
 	public void testCalcular15DiasDeFerias5000() {
 		ParametrosFerias parametro = new ParametrosFerias(5000);
-		parametro.setTipo(TIPO_FERIAS.DIAS_15);
+		parametro.setTipoFerias(TipoFerias.DIAS_15);
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(833.33f), ferias.getValorFerias());

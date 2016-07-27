@@ -5,6 +5,7 @@ import static com.ricardofaria.salarioliquido.util.PrecisionUtil.changeToMonetar
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.ricardofaria.salarioliquido.model.constantes.TipoFerias;
 import com.ricardofaria.salarioliquido.model.input.ParametrosBase;
 import com.ricardofaria.salarioliquido.model.input.ParametrosFerias;
 import com.ricardofaria.salarioliquido.model.resultado.Ferias;
@@ -20,28 +21,44 @@ public class CalculaFerias extends CalculaRemuneracao {
 	private static final BigDecimal UM_TERCO = new BigDecimal("0.333333");
 
 	/**
-	 * Modifica o sal�rio bruto informado com base na modalidade de f�rias do
-	 * funcion�rio
+	 * Modifica o salario bruto informado com base na modalidade de ferias do
+	 * funcionario
 	 *
 	 * @param salarioBruto
-	 *            definido para o funcion�rio
+	 *            definido para o funcionario
 	 * @param tipo
-	 *            de f�rias a ser aplicado
+	 *            instancia de {@link TipoFerias} para verificar qual calculo
+	 *            sera efetuado
 	 * @return
 	 */
-	public static BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto, TIPO_FERIAS tipo) {
-		if (tipo == TIPO_FERIAS.COMPLETA) {
+	public static BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto, TipoFerias tipo) {
+		if (tipo == TipoFerias.COMPLETA) {
 			return salarioBruto;
 		}
 		BigDecimal feriasParcial = obterUmDia(salarioBruto);
-		if (tipo == TIPO_FERIAS.DIAS_20) {
+		if (tipo == TipoFerias.DIAS_20) {
 			feriasParcial = feriasParcial.multiply(DIAS_20);
 			return changeToMonetaryBidecimal(feriasParcial);
-		} else if (tipo == TIPO_FERIAS.DIAS_15) {
+		} else if (tipo == TipoFerias.DIAS_15) {
 			feriasParcial = feriasParcial.multiply(DIAS_15);
 			return changeToMonetaryBidecimal(feriasParcial);
 		}
 		throw new IllegalArgumentException("Tipo de f�rias n�o implementado. Tipo atual: " + tipo.toString());
+	}
+
+	/**
+	 * Modifica o salario bruto informado com base na modalidade de ferias do
+	 * funcionario
+	 *
+	 * @param salarioBruto
+	 *            definido para o funcionario
+	 * @param tipo
+	 *            de ferias a ser aplicado
+	 * @return
+	 */
+	@Deprecated
+	public static BigDecimal aplicarModificarDeFeriasParcial(BigDecimal salarioBruto, TIPO_FERIAS tipo) {
+		return aplicarModificarDeFeriasParcial(salarioBruto, TipoFerias.valueOf(tipo.name()));
 	}
 
 	private static BigDecimal obterUmDia(BigDecimal salarioBruto) {
@@ -49,11 +66,12 @@ public class CalculaFerias extends CalculaRemuneracao {
 	}
 
 	/**
-	 * Efetua o c�lculo do abono pecuni�rio em rela��o ao sal�rio do funcion�rio
-	 * (Abono pecuni�rio s� existe na modalidade de F�rias 20 dias)
+	 * Efetua o calculo do abono pecuniario em relacao ao salario bruto
+	 * informado (Abono pecuniario so existe na modalidade de 20 dias -
+	 * {@link TipoFerias#DIAS_20))
 	 *
 	 * @param salarioBrutoOriginal
-	 *            o mesmo inserido no in�cio do c�lculo para o funcion�rio
+	 *            o mesmo inserido no inicio do calculo para o funcionario
 	 * @return
 	 */
 	public static BigDecimal calcularAbonoPecuniario(BigDecimal salarioBruto) {
@@ -85,14 +103,15 @@ public class CalculaFerias extends CalculaRemuneracao {
 		calcularRemuneracao(feriasObject, parametro, salarioCalculo.floatValue());
 		feriasObject.setAdicionalPericulosidade(adicionalPericulosidade);
 
-		if (parametro.getTipo() == TIPO_FERIAS.DIAS_20 && parametro.isAdicionarAbonoPecuniario()) {
+		if (parametro.getTipoFerias() == TipoFerias.DIAS_20 && parametro.isAdicionarAbonoPecuniario()) {
 			BigDecimal abonoPecuniario = CalculaFerias.calcularAbonoPecuniario(parametro.getSalarioBruto());
 			feriasObject.setAbonoPecuniario(abonoPecuniario);
 			feriasObject.setValorLiquido(feriasObject.getValorLiquido().add(abonoPecuniario));
 		}
 
 		if (parametro.isAdiantarDecimoTerceiro()) {
-			BigDecimal primeiraParcelaDecimoTerceiro = parametro.getSalarioBruto().divide(new BigDecimal(2), 4, RoundingMode.HALF_EVEN);
+			BigDecimal primeiraParcelaDecimoTerceiro = parametro.getSalarioBruto().divide(new BigDecimal(2), 4,
+					RoundingMode.HALF_EVEN);
 			feriasObject.setAdiantamentoDecimoTerceiro(primeiraParcelaDecimoTerceiro);
 			feriasObject.setValorLiquido(feriasObject.getValorLiquido().add(primeiraParcelaDecimoTerceiro));
 		}
@@ -105,7 +124,8 @@ public class CalculaFerias extends CalculaRemuneracao {
 		if (parametros instanceof ParametrosFerias) {
 			return calcular((ParametrosFerias) parametros);
 		} else {
-			throw new IllegalArgumentException("Para calcular as Férias a instância de parâmetros deve ser " + ParametrosFerias.class.getName());
+			throw new IllegalArgumentException(
+					"Para calcular as Férias a instância de parâmetros deve ser " + ParametrosFerias.class.getName());
 		}
 	}
 
