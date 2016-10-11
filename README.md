@@ -1,4 +1,4 @@
-# Cálculos Trabalhistas ![Coverage Status](https://coveralls.io/repos/RicardoRFaria/CalculosTrabalhistas/badge.svg?branch=master&service=github) ![Build Status](https://travis-ci.org/RicardoRFaria/CalculosTrabalhistas.svg?branch=master)
+# Cálculos Trabalhistas ![Coverage Status](https://coveralls.io/repos/RicardoRFaria/CalculosTrabalhistas/badge.svg?branch=master&service=github) ![Build Status](https://travis-ci.org/RicardoRFaria/CalculosTrabalhistas.svg?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c485aa1741546cbab83227f5502b539)](https://www.codacy.com/app/ricardo-faria/CalculosTrabalhistas?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RicardoRFaria/CalculosTrabalhistas&amp;utm_campaign=Badge_Grade)
 Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários (atualizada com valores 2016).
 
 - Cálculo de salário líquido (Completo, parcial a partir da data de início, com horas extras)
