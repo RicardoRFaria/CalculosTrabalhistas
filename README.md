@@ -63,7 +63,7 @@ allprojects {
 - Adicionar a dependência
 ```xml
 dependencies {
-	compile 'com.github.RicardoRFaria:CalculosTrabalhistas:v2.0.0'
+	compile 'com.github.RicardoRFaria:CalculosTrabalhistas:v3.0.0'
 }
 ```
 
