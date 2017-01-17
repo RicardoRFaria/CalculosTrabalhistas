@@ -1,5 +1,5 @@
 # Cálculos Trabalhistas ![Coverage Status](https://coveralls.io/repos/RicardoRFaria/CalculosTrabalhistas/badge.svg?branch=master&service=github) ![Build Status](https://travis-ci.org/RicardoRFaria/CalculosTrabalhistas.svg?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c485aa1741546cbab83227f5502b539)](https://www.codacy.com/app/ricardo-faria/CalculosTrabalhistas?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RicardoRFaria/CalculosTrabalhistas&amp;utm_campaign=Badge_Grade)
-Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários (atualizada com valores 2016).
+Api que efetua os cálculos trabalhistas existentes nas folhas dos funcionários (atualizada com valores 2017 de INSS, IRPF não foi atualizado).
 
 - Cálculo de salário líquido (Completo, parcial a partir da data de início, com horas extras)
 - Cálculo de férias (Completa, 15 ou 20 dias)
@@ -43,7 +43,7 @@ Você pode obter a dependência com as seguintes configurações
 <dependency>
     <groupId>com.github.RicardoRFaria</groupId>
     <artifactId>CalculosTrabalhistas</artifactId>
-    <version>v2.0.0</version>
+    <version>v3.0.0</version>
 </dependency>
 ```
 

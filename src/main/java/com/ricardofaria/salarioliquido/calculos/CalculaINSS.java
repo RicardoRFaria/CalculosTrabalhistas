@@ -15,14 +15,14 @@ import com.ricardofaria.salarioliquido.util.PrecisionUtil;
  */
 public class CalculaINSS {
 
-	public static final float VALOR_LIMITE_FAIXA1 = 1556.94f;
-    public static final float VALOR_LIMITE_FAIXA2 = 2594.92f;
-    public static final float VALOR_LIMITE_FAIXA3 = 5189.82f;
+	public static final float VALOR_LIMITE_FAIXA1 = 1659.38f;
+    public static final float VALOR_LIMITE_FAIXA2 = 2765.66f;
+    public static final float VALOR_LIMITE_FAIXA3 = 5531.31f;
 
     public static final BigDecimal MULTIPLICADOR_FAIXA1 = new BigDecimal("0.08");
     public static final BigDecimal MULTIPLICADOR_FAIXA2 = new BigDecimal("0.09");
     public static final BigDecimal MULTIPLICADOR_FAIXA3 = new BigDecimal("0.11");
-    public static final BigDecimal TETO_INSS = new BigDecimal("570.88");
+    public static final BigDecimal TETO_INSS = new BigDecimal("608.44");
 
 	public static float calcular(Float salarioBruto) {
 

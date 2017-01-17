@@ -143,9 +143,9 @@ public class CalcularSalarioTest {
 		parametro.setAdicionalDePericulosidade(true);
 		Salario salario = calcular.calcular(parametro);
 
-		assertEquals(createMonetaryBigDecimal(570.88f), salario.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(761.15f), salario.getDescontoIrpf());
-		assertEquals(createMonetaryBigDecimal(5167.97f), salario.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(608.44f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(750.82f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(5140.74f), salario.getValorLiquido());
 		assertEquals(createMonetaryBigDecimal(1500.00f), salario.getAdicionalPericulosidade());
 	}
 
@@ -229,9 +229,9 @@ public class CalcularSalarioTest {
 
 		Salario salario = calcular.calcular(parametro);
 
-		assertEquals(createMonetaryBigDecimal(298.57f), salario.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(38.38f), salario.getDescontoIrpf());
-		assertEquals(createMonetaryBigDecimal(2377.34f), salario.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(244.29f), salario.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(42.45f), salario.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2427.55f), salario.getValorLiquido());
 	}
 
 	@Test

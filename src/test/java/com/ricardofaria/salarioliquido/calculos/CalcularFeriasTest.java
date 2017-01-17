@@ -56,10 +56,10 @@ public class CalcularFeriasTest {
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(666.67f), ferias.getValorFerias());
-		assertEquals(createMonetaryBigDecimal(293.33f), ferias.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(35.20f), ferias.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(240.00f), ferias.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(39.20f), ferias.getDescontoIrpf());
 		assertEquals(BIG_DECIMAL_0, ferias.getAbonoPecuniario());
-		assertEquals(createMonetaryBigDecimal(2338.13f), ferias.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(2387.47f), ferias.getValorLiquido());
 	}
 
 	@Test
@@ -104,10 +104,10 @@ public class CalcularFeriasTest {
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(1333.33f), ferias.getValorFerias());
-		assertEquals(createMonetaryBigDecimal(570.88f), ferias.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(440.31f), ferias.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(586.67f), ferias.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(435.97f), ferias.getDescontoIrpf());
 		assertEquals(BIG_DECIMAL_0, ferias.getAbonoPecuniario());
-		assertEquals(createMonetaryBigDecimal(4322.14f), ferias.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(4310.69f), ferias.getValorLiquido());
 	}
 
 	@Test
@@ -116,10 +116,10 @@ public class CalcularFeriasTest {
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(1500.00f), ferias.getValorFerias());
-		assertEquals(createMonetaryBigDecimal(570.88f), ferias.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(623.65f), ferias.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(608.44f), ferias.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(613.32f), ferias.getDescontoIrpf());
 		assertEquals(BIG_DECIMAL_0, ferias.getAbonoPecuniario());
-		assertEquals(createMonetaryBigDecimal(4805.47f), ferias.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(4778.24f), ferias.getValorLiquido());
 	}
 
 	@Test
@@ -128,10 +128,10 @@ public class CalcularFeriasTest {
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(1666.66f), ferias.getValorFerias());
-		assertEquals(createMonetaryBigDecimal(570.88f), ferias.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(806.98f), ferias.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(608.44f), ferias.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(796.65f), ferias.getDescontoIrpf());
 		assertEquals(BIG_DECIMAL_0, ferias.getAbonoPecuniario());
-		assertEquals(createMonetaryBigDecimal(5288.80f), ferias.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(5261.57f), ferias.getValorLiquido());
 	}
 
 	@Test
@@ -194,10 +194,10 @@ public class CalcularFeriasTest {
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(666.67f), ferias.getValorFerias());
-		assertEquals(createMonetaryBigDecimal(293.33f), ferias.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(35.20f), ferias.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(240.00f), ferias.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(39.20f), ferias.getDescontoIrpf());
 		assertEquals(createMonetaryBigDecimal(1333.33f), ferias.getAbonoPecuniario());
-		assertEquals(createMonetaryBigDecimal(3671.46f), ferias.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(3720.80f), ferias.getValorLiquido());
 	}
 
 	@Test
@@ -332,9 +332,9 @@ public class CalcularFeriasTest {
 		Ferias ferias = calcular.calcular(parametro);
 
 		assertEquals(createMonetaryBigDecimal(666.67f), ferias.getValorFerias());
-		assertEquals(createMonetaryBigDecimal(293.33f), ferias.getDescontoInss());
-		assertEquals(createMonetaryBigDecimal(35.20f), ferias.getDescontoIrpf());
-		assertEquals(createMonetaryBigDecimal(2338.13f), ferias.getValorLiquido());
+		assertEquals(createMonetaryBigDecimal(240.00f), ferias.getDescontoInss());
+		assertEquals(createMonetaryBigDecimal(39.20f), ferias.getDescontoIrpf());
+		assertEquals(createMonetaryBigDecimal(2387.47f), ferias.getValorLiquido());
 	}
 
 	@Test

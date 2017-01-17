@@ -71,7 +71,7 @@ public class CalculaINSSTest {
 	@Test
 	public void testDescontoInssSalarioTeto() {
 		float salarioBruto = 10000f;
-		float resultadoEsperado = 570.88f;
+		float resultadoEsperado = 608.44f;
 
 		float resultado = calcular(salarioBruto);
 
